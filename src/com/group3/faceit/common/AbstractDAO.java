@@ -22,6 +22,7 @@ public abstract class AbstractDAO {
 	protected Connection getConnection() {		
 		try {
 			Class.forName(driver);
+			System.out.println("ssssssssssssssssssssss");
             connection = DriverManager.getConnection(url, userName, password);			
 		} catch (SQLException e) {
 			System.out.println("Unable to establish database connection: " + e);
