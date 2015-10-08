@@ -1,5 +1,4 @@
 <%@ include file="includes/header.jsp" %>
-<body>
 	<div class="main">
 		<div class="header" >
 			<h1>Welcome to FaceIT!</h1>
