@@ -4,9 +4,9 @@
     </ul>
    	<ul class="nav hidden-xs" id="lg-menu">
     	<li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> News Feed</a></li>
-		<li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Account Settings</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-refresh"></i> Logout</a></li>
+		<li><a href="#stories"><i class="glyphicon glyphicon-user"></i> Friends</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
     </ul>
     <ul class="list-unstyled hidden-xs" id="sidebar-footer">
     	<li><a href="http://www.bootply.com"><h3>Bootstrap</h3> <i class="glyphicon glyphicon-heart-empty"></i> Bootply</a></li>
@@ -14,8 +14,8 @@
     <!-- tiny only nav-->
     <ul class="nav visible-xs" id="xs-menu">
     	<li><a href="#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
-    	<li><a href="#stories" class="text-center"><i class="glyphicon glyphicon-list"></i></a></li>
-        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-paperclip"></i></a></li>
-        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-refresh"></i></a></li>
+    	<li><a href="#stories" class="text-center"><i class="glyphicon glyphicon-user"></i></a></li>
+        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-cog"></i></a></li>
+        <li><a href="#" class="text-center"><i class="glyphicon glyphicon-off"></i></a></li>
 	</ul>
 </div>

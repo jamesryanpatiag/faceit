@@ -1,6 +1,6 @@
 <div class="navbar navbar-blue navbar-static-top">  
       <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle</span>
           <span class="icon-bar"></span>
 			<span class="icon-bar"></span>
