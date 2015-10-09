@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.group3.faceit.common.AbstractDAO;
-import com.group3.faceit.dao.login.LoginDAO;
+import com.group3.faceit.dao.LoginDAO;
 import com.group3.faceit.model.login.LoginModel;
 
 public class LoginServices extends AbstractDAO{

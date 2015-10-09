@@ -1,4 +1,4 @@
-package com.group3.faceit.validations.login;
+package com.group3.faceit.services.validations;
 
 import com.group3.faceit.model.login.LoginErrModel;
 import com.group3.faceit.model.login.LoginModel;

@@ -1,4 +1,4 @@
-package com.group3.faceit.servelet.login;
+package com.group3.faceit.servelet;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.group3.faceit.model.login.LoginErrModel;
 import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.services.login.LoginServices;
-import com.group3.faceit.validations.login.LoginValidations;
+import com.group3.faceit.services.validations.LoginValidations;
 
 @WebServlet({"/Login"})
 public class LoginServlet extends HttpServlet {
@@ -24,25 +24,24 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		
 		LoginModel regData = new LoginModel();
-		regData.setEmail(email);
-		regData.setPassword(password);
+		regData.setEmail(req.getParameter("email"));
+		regData.setPassword(req.getParameter("password"));
 		
 		LoginErrModel err = LoginValidations.validateAccess(regData);
-		
-		System.out.println(LoginValidations.failedValidation);
-		System.out.println(err.getUsernameErr());
+		System.out.println(req.getParameter("email").concat(" " + req.getParameter("password")));
 		if(LoginValidations.failedValidation){
+			System.out.println(err.getUsernameErr());
 			req.setAttribute("emailerr", err.getUsernameErr());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
 			LoginServices regServ = new LoginServices();
-			if(regServ.loginAccount(regData)){
+			if(regServ.loginAccount(regData))
+			{
+				System.out.println("err");
 				req.getRequestDispatcher("/Redirect.jsp").forward(req, resp);
 			}else{
+				System.out.println("err2");
 				req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 			}
 		}

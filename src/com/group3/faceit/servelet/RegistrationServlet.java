@@ -1,4 +1,4 @@
-package com.group3.faceit.servelet.registration;
+package com.group3.faceit.servelet;
 import com.group3.faceit.services.*;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.group3.faceit.dao.regisration.RegistrationDAO;
+import com.group3.faceit.dao.RegistrationDAO;
 import com.group3.faceit.model.registration.RegistrationModel;
 import com.group3.faceit.services.registration.RegistrationServices;
 

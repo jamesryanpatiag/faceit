@@ -1,4 +1,4 @@
-package com.group3.faceit.dao.regisration;
+package com.group3.faceit.dao;
 import java.sql.*;
 
 import javax.naming.ldap.StartTlsRequest;
@@ -46,8 +46,6 @@ public class RegistrationDAO{
 			
 		}catch(SQLException ex){
 			System.out.println(ex.getMessage());
-		}finally{
-			con.close();
 		}
 		return isValid;
 	}

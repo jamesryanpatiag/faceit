@@ -1,5 +1,6 @@
-package com.group3.faceit.dao.login;
+package com.group3.faceit.dao;
 
+import java.nio.file.attribute.DosFileAttributes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +28,6 @@ public class LoginDAO {
 			}		
 		}catch(SQLException ex){
 			System.out.println(ex.getMessage());
-		}finally{
-			con.close();
 		}
 		return isValid;
 	}
@@ -49,10 +48,8 @@ public class LoginDAO {
 			
 		}catch(SQLException ex){
 			System.out.println(ex.getMessage());
-		}finally{
-			con.close();
 		}
-		
+		System.out.println("does exist? - " + doesExist);
 		return doesExist;
 	}
 }

@@ -15,10 +15,10 @@
 	<div class="column col-sm-12 col-xs-12" id="main">
 	<%@ include file="includes/header_login.jsp" %>
 	
-	<div class="column col-sm-7 col-xs-7">
+	<div class="column col-sm-8 col-xs-8">
 		
 	</div>
-	<div class="column col-sm-5 col-xs-5" style="padding-right:50px">
+	<div class="column col-sm-4 col-xs-4" style="padding-right:50px">
 		<div style="height:90px"></div>
 		<div class="panel panel-default">
 		  <div class="panel-heading">
