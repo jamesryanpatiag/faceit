@@ -3,9 +3,9 @@
     	<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
     </ul>
    	<ul class="nav hidden-xs" id="lg-menu">
-    	<li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> News Feed</a></li>
+    	<li class="active"><a href="NewsFeed.jsp"><i class="glyphicon glyphicon-list-alt"></i> News Feed</a></li>
 		<li><a href="#stories"><i class="glyphicon glyphicon-user"></i> Friends</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+        <li><a href="AccountSettings.jsp" ><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
     </ul>
     <ul class="list-unstyled hidden-xs" id="sidebar-footer">

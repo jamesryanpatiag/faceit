@@ -19,6 +19,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
+		req.setAttribute("Title", "Login");
 		req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 	}
 	@Override
@@ -38,10 +39,9 @@ public class LoginServlet extends HttpServlet {
 			LoginServices regServ = new LoginServices();
 			if(regServ.loginAccount(regData))
 			{
-				System.out.println("err");
-				req.getRequestDispatcher("/Redirect.jsp").forward(req, resp);
+				req.setAttribute("Title", "News Feed");
+				req.getRequestDispatcher("/NewsFeed.jsp").forward(req, resp);
 			}else{
-				System.out.println("err2");
 				req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 			}
 		}

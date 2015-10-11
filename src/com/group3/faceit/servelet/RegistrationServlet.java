@@ -24,25 +24,14 @@ public class RegistrationServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		String fname = req.getParameter("firstname");
-		String mname = req.getParameter("middlename");
-		String lname = req.getParameter("lastname");
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		String confirmpassword = req.getParameter("confirmpassword");
-		String month = req.getParameter("month");
-		String day = req.getParameter("day");
-		String year = req.getParameter("year");
-		String gender = req.getParameter("gender");
-		
 		RegistrationModel regData = new RegistrationModel();
-		regData.setFirstname(fname);
-		regData.setMiddlename(mname);
-		regData.setLastname(lname);
-		regData.setUsername(email);
-		regData.setPassword(password);
-		regData.setBirthdate(month + "/" + day + "/" + year);
-		regData.setGender(gender);
+		regData.setFirstname(req.getParameter("firstname").toString());
+		regData.setMiddlename(req.getParameter("middlename").toString());
+		regData.setLastname(req.getParameter("lastname").toString());
+		regData.setUsername(req.getParameter("email").toString());
+		regData.setPassword(req.getParameter("password").toString());
+		regData.setBirthdate(req.getParameter("month") + "/" + req.getParameter("day") + "/" + req.getParameter("year"));
+		regData.setGender(req.getParameter("gender"));
 		
 		RegistrationServices regServ = new RegistrationServices();
 		regServ.registerAccount(regData);
