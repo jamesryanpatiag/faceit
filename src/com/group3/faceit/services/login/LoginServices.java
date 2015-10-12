@@ -43,4 +43,17 @@ public class LoginServices extends AbstractDAO{
 		return isValid;
 	}
 
+	public Boolean doAuthentication(String email, String password){
+		Boolean isValid = false;
+		try {
+			Connection con = getConnection();
+			isValid = reg.doAuthentication(email, password, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return isValid;
+	}
 }

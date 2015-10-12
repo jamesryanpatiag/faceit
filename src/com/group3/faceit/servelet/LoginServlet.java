@@ -32,9 +32,11 @@ public class LoginServlet extends HttpServlet {
 		
 		LoginErrModel err = LoginValidations.validateAccess(regData);
 		System.out.println(req.getParameter("email").concat(" " + req.getParameter("password")));
+		
 		if(LoginValidations.failedValidation){
 			System.out.println(err.getUsernameErr());
 			req.setAttribute("emailerr", err.getUsernameErr());
+			req.setAttribute("passerr", err.getPasswordErr());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
 			LoginServices regServ = new LoginServices();

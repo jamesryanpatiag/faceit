@@ -52,4 +52,26 @@ public class LoginDAO {
 		System.out.println("does exist? - " + doesExist);
 		return doesExist;
 	}
+	
+	public Boolean doAuthentication(String email, String password, Connection con) throws SQLException{
+		  Boolean doesMatch = false;
+		  
+		  try{
+		   strQry = "SELECT * FROM users WHERE username = ? AND password = SHA1(?)";
+		   PreparedStatement stmt = con.prepareStatement(strQry);
+		   stmt.setString(1, email);;
+		   stmt.setString(2,  password);
+		   
+		   ResultSet rs = stmt.executeQuery();
+		   
+		   if(rs.next())
+		   {
+		    doesMatch = true;
+		   }
+		  }catch(SQLException ex){
+		   System.out.println(ex.getMessage());
+		  }
+		  System.out.println("does match? - " + doesMatch);
+		  return doesMatch;
+	}
 }
