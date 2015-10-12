@@ -3,6 +3,7 @@ package com.group3.faceit.model.registration;
 public class RegistrationErrModel {
 	
 	private String fnameerror;
+	private String mnameerror;
 	private String lnameerror;
 	private String usernameerror;
 	private String passworderror;
@@ -14,6 +15,12 @@ public class RegistrationErrModel {
 	}
 	public void setFnameerror(String fnameerror) {
 		this.fnameerror = fnameerror;
+	}
+	public String getMnameerror() {
+		return mnameerror;
+	}
+	public void setMnameerror(String mnameerror) {
+		this.mnameerror = mnameerror;
 	}
 	public String getLnameerror() {
 		return lnameerror;

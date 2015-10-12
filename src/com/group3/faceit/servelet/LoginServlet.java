@@ -26,11 +26,11 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		LoginModel regData = new LoginModel();
-		regData.setEmail(req.getParameter("email"));
-		regData.setPassword(req.getParameter("password"));
+		LoginModel logData = new LoginModel();
+		logData.setEmail(req.getParameter("email"));
+		logData.setPassword(req.getParameter("password"));
 		
-		LoginErrModel err = LoginValidations.validateAccess(regData);
+		LoginErrModel err = LoginValidations.validateAccess(logData);
 		System.out.println(req.getParameter("email").concat(" " + req.getParameter("password")));
 		
 		if(LoginValidations.failedValidation){
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
 			LoginServices regServ = new LoginServices();
-			if(regServ.loginAccount(regData))
+			if(regServ.loginAccount(logData))
 			{
 				resp.sendRedirect("Newsfeed");
 			}else{

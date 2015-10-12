@@ -1,17 +1,26 @@
 package com.group3.faceit.services.validations;
 
+import com.group3.faceit.model.registration.*;
+import com.group3.faceit.services.registration.*;
+
+
 public class RegistrationValidations {
 	
-	public Boolean validateRegistration(String fname, String lname, String username, String password, String confirmpassword, String birthdate){
+	public static boolean failedValidation;
+	
+	public static RegistrationErrModel validadateRegistration(RegistrationModel register)
+	{
+		failedValidation = false;
 		
-		boolean reg = false;
-		if(fname == null || fname.length() == 0)
-		{
-			reg = true;
-			System.out.println("First Name is Required");
+		RegistrationErrModel err = new RegistrationErrModel();
+		RegistrationServices serv = new RegistrationServices();
+		
+		try{
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		return reg;
 		
+		return err;
 	}
-
 }

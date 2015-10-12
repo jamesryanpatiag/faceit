@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.group3.faceit.dao.RegistrationDAO;
+import com.group3.faceit.model.registration.RegistrationErrModel;
 import com.group3.faceit.model.registration.RegistrationModel;
 import com.group3.faceit.services.registration.RegistrationServices;
+import com.group3.faceit.services.validations.RegistrationValidations;
 
 @WebServlet({"/Registration"})
 public class RegistrationServlet extends HttpServlet{
@@ -33,11 +35,27 @@ public class RegistrationServlet extends HttpServlet{
 		regData.setBirthdate(req.getParameter("month") + "/" + req.getParameter("day") + "/" + req.getParameter("year"));
 		regData.setGender(req.getParameter("gender"));
 		
-		RegistrationServices regServ = new RegistrationServices();
-		regServ.registerAccount(regData);
-		req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+		RegistrationErrModel err = RegistrationValidations.validadateRegistration(regData);
+				
+		if(RegistrationValidations.failedValidation)
+		{
+			req.setAttribute("fnameerr", err.getFnameerror());
+			req.setAttribute("mnameerr", err.getMnameerror());
+			req.setAttribute("lnameerr", err.getLnameerror());
+			req.setAttribute("emailerr", err.getUsernameerror());
+			req.setAttribute("passerr", err.getPassworderror());
+			req.setAttribute("birtherr", err.getBirthdateerror());
+			req.setAttribute("generr", err.getGendererror());
+		}else{
+			RegistrationServices regServ = new RegistrationServices();
+			if(regServ.registerAccount(regData))
+			{
+				resp.sendRedirect("Redirect");
+			}else{
+				resp.sendRedirect("Registration");
+			}
 		
-		
+		}
 		
 	}
 }
