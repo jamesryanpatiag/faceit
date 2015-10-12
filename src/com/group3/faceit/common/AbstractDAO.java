@@ -11,11 +11,11 @@ public abstract class AbstractDAO {
 	private String driver = "com.mysql.jdbc.Driver";
 	private String protocol = "jdbc:mysql://";
 	private String charSet = "?useUnicode=true&amp;characterEncoding=utf-8";
-	private String server = "127.0.0.1";
+	private String server = "localhost";
 	private String schema = "faceit";
 	private int port = 3306;
 	private String userName = "root";
-	private String password = "root";
+	private String password = "";
 	
 	String url = protocol + server + ":" + port + "/" + schema + charSet;
 	

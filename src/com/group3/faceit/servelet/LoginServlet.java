@@ -12,6 +12,7 @@ import com.group3.faceit.model.login.LoginErrModel;
 import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.services.login.LoginServices;
 import com.group3.faceit.services.validations.LoginValidations;
+import com.mysql.fabric.Response;
 
 @WebServlet({"/Login"})
 public class LoginServlet extends HttpServlet {
@@ -39,10 +40,9 @@ public class LoginServlet extends HttpServlet {
 			LoginServices regServ = new LoginServices();
 			if(regServ.loginAccount(regData))
 			{
-				req.setAttribute("Title", "News Feed");
-				req.getRequestDispatcher("/NewsFeed.jsp").forward(req, resp);
+				resp.sendRedirect("Newsfeed");
 			}else{
-				req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+				resp.sendRedirect("Login");
 			}
 		}
 	}
