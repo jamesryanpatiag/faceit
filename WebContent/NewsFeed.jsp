@@ -46,7 +46,7 @@
 											<input type="text" name="comment" placeholder="" class="" value=""/>
 											<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 											<input type="hidden" name="hidden" value="hcomment"/>
-											<input type="submit" class="btn btn-success" value="Comment"/>
+											<input type="submit" class="btn btn-success" style="display:none" value="Comment"/>
 										</form><br><br>     
 									</div>  
 				                </td>
