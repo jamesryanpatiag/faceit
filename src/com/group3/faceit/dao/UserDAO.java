@@ -110,5 +110,4 @@ public class UserDAO {
 		  System.out.println("does match? - " + doesMatch);
 		  return doesMatch;
 	}
-
 }

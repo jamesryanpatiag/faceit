@@ -28,14 +28,13 @@ public class RegistrationServlet extends HttpServlet{
 		regData.setLastname(req.getParameter("lastname").toString());
 		regData.setUsername(req.getParameter("email").toString());
 		regData.setPassword(req.getParameter("password").toString());
-		regData.setBirthdate(req.getParameter("month") + "/" + req.getParameter("day") + "/" + req.getParameter("year"));
+		regData.setBirthdate(req.getParameter("birthdate"));
 		regData.setGender(req.getParameter("gender"));
 		
 		RegistrationErrModel err = RegistrationValidations.validadateRegistration(regData);
 				
 		if(RegistrationValidations.failedValidation)
 		{
-			
 			req.setAttribute("fnameerr", err.getFnameerror());
 			req.setAttribute("mnameerr", err.getMnameerror());
 			req.setAttribute("lnameerr", err.getLnameerror());

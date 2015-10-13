@@ -13,7 +13,7 @@ public class RegistrationValidations {
 	public static RegistrationErrModel validadateRegistration(RegistrationModel register)
 	{
 		failedValidation = false;
-
+		
 		RegistrationErrModel err = new RegistrationErrModel();
 		UserServices serv = new UserServices();
 		

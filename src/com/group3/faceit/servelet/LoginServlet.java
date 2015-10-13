@@ -24,17 +24,17 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		LoginModel logData = new LoginModel();
-		logData.setEmail(req.getParameter("email"));
-		logData.setPassword(req.getParameter("password"));
+		logData.setEmail(req.getParameter("lgnEmail"));
+		logData.setPassword(req.getParameter("lgnPassword"));
 		
 		LoginErrModel err = LoginValidations.validateAccess(logData);
-		System.out.println(req.getParameter("email").concat(" " + req.getParameter("password")));
+		System.out.println(req.getParameter("lgnEmail").concat(" " + req.getParameter("lgnPassword")));
 		
 		if(LoginValidations.failedValidation){
 			System.out.println(err.getUsernameErr());
 			System.out.println(err.getPasswordErr());
-			req.setAttribute("emailerr", err.getUsernameErr());
-			req.setAttribute("passerr", err.getPasswordErr());
+			req.setAttribute("lgnEmailerr", err.getUsernameErr());
+			req.setAttribute("lgnPasserr", err.getPasswordErr());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
 			UserServices regServ = new UserServices();

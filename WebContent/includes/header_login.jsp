@@ -11,8 +11,8 @@
     	<nav class="collapse navbar-collapse" role="navigation">
 	<form method="POST" action="Login" id="login" class="navbar-form navbar-right">
 	    <ul class="nav navbar-nav">
-	    	<li><input type="text" class="form-control" id="email" name="email" placeholder="Email"/>
-	    	<li> <input type="password" class="form-control" id="password" name="password" placeholder="Password"/></li>
+	    	<li><input type="text" class="form-control" id="lgnEmail" name="lgnEmail" placeholder="Email"/>
+	    	<li> <input type="password" class="form-control" id="lgnPassword" name="lgnPassword" placeholder="Password"/></li>
 	    	<li><input type="submit" class="btn btn-success" name="btnLogin" value="Login" ></li>
 	    </ul>
     </form>

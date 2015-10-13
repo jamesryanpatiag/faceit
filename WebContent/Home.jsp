@@ -30,23 +30,29 @@
 		    		<div class="row">
 		    			<div class="column col-sm-5 col-xs-5">
 		    				<input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control input-lg"/>
+		    				<label class="control-label" for="inputError1" id="error1"><c:out value="${fnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-2 col-xs-2">
 		    				<input type="text" id="middlename" name="middlename" placeholder="M" maxlength="1"  class="form-control input-lg"/>
+		    				<label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-5 col-xs-5">
 		    				<input type="text" id="lastname" name="lastname" placeholder="Last Name"  class="form-control input-lg"/>
+		    				<label class="control-label" for="inputError1" id="error3"><c:out value="${lnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
 		    				<input type="text" id="email" name="email" placeholder="Email" class="form-control input-lg" />
+		    				<label class="control-label" for="inputError1" id="error4"><c:out value="${emailerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
 		    				<input type="password" id="password" name="password" placeholder="Password"  class="form-control input-lg" />
+		    				<label class="control-label" for="inputError1" id="error5"><c:out value="${passerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
 		    				<div class="form-group">
-		    					<input class="form-control input-lg" type="text" readonly="" id="birthdate" placeholder="Click to choose birthdate.">
+		    					<input class="form-control input-lg" type="text" readonly="" id="birthdate" name="birthdate" placeholder="Click to choose birthdate.">
 		    				</div>
+		    				<label class="control-label" for="inputError1" id="error5"><c:out value="${birtherr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-3 col-xs-3" >
 		    				<select aria-label="Gender" name="gender" id="gender"  class="form-control input-sm">
@@ -54,6 +60,7 @@
 								<option value="1">Male</option>
 								<option value="2">Female</option>
 							</select>
+							<label class="control-label" for="inputError1" id="error6"><c:out value="${generr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12" >
 		    				<input type="submit" value="Create Account" name="btnSubmit" id="btnSubmit" class="btn btn-success">
@@ -69,12 +76,28 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		ShowErrorMessages();
+		
 		$("#birthdate").datepicker({
 			changeMonth: true,
       		changeYear: true,
       		yearRange: "-100:+0",
 		});
 	})
+	
+	function ShowErrorMessages(){
+		for(i = 1; i <= 6; i++){
+			var err = $("#error" + i);
+			err.css("display","none");
+			err.parent("div").removeClass("has-error");
+			if(err.text() != ""){
+				err.css("display","inline");
+				err.parent("div").addClass("has-error");
+			}
+			
+		}
+	}
 </script>
 
 <script type="text/javascript" src="js/jquery-ui.js"></script>
