@@ -6,15 +6,11 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.group3.faceit.dao.RegistrationDAO;
-import com.group3.faceit.model.registration.RegistrationErrModel;
-import com.group3.faceit.model.registration.RegistrationModel;
-import com.group3.faceit.services.registration.RegistrationServices;
-import com.group3.faceit.services.validations.RegistrationValidations;
+import javax.servlet.http.*;
+import com.group3.faceit.dao.*;
+import com.group3.faceit.model.registration.*;
+import com.group3.faceit.services.user.*;
+import com.group3.faceit.services.validations.*;
 
 @WebServlet({"/Registration"})
 public class RegistrationServlet extends HttpServlet{
@@ -39,6 +35,7 @@ public class RegistrationServlet extends HttpServlet{
 				
 		if(RegistrationValidations.failedValidation)
 		{
+			
 			req.setAttribute("fnameerr", err.getFnameerror());
 			req.setAttribute("mnameerr", err.getMnameerror());
 			req.setAttribute("lnameerr", err.getLnameerror());
@@ -46,8 +43,18 @@ public class RegistrationServlet extends HttpServlet{
 			req.setAttribute("passerr", err.getPassworderror());
 			req.setAttribute("birtherr", err.getBirthdateerror());
 			req.setAttribute("generr", err.getGendererror());
+			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+			
+			System.out.println(err.getFnameerror());
+			System.out.println(err.getMnameerror());
+			System.out.println(err.getLnameerror());
+			System.out.println(err.getUsernameerror());
+			System.out.println(err.getPassworderror());
+			System.out.println(err.getBirthdateerror());
+			System.out.println(err.getGendererror());
+			
 		}else{
-			RegistrationServices regServ = new RegistrationServices();
+			UserServices regServ = new UserServices();
 			if(regServ.registerAccount(regData))
 			{
 				resp.sendRedirect("Redirect");

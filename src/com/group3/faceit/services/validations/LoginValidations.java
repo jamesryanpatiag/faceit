@@ -1,8 +1,7 @@
 package com.group3.faceit.services.validations;
 
-import com.group3.faceit.model.login.LoginErrModel;
-import com.group3.faceit.model.login.LoginModel;
-import com.group3.faceit.services.login.LoginServices;
+import com.group3.faceit.model.login.*;
+import com.group3.faceit.services.user.*;
 
 public class LoginValidations {
 	
@@ -13,7 +12,7 @@ public class LoginValidations {
 		failedValidation = false;
 		
 		LoginErrModel err = new LoginErrModel();
-		LoginServices serv = new LoginServices();
+		UserServices serv = new UserServices();
 		
 		try{			
 			if(access.getEmail().length() == 0 && access.getPassword().length() == 0){

@@ -67,12 +67,15 @@
 		    			<div class="column col-sm-4 col-xs-3">
 		    				<select aria-label="Day" name="day" id="day"  class="form-control input-sm" >
 								<option value="">Day</option>
+								<c:forEach var="x" begin="1" end="31">
+									<option value='<c:out value="${x}"/>'><c:out value="${x}" /></option>
+								</c:forEach>	
 							</select>
 		    			</div>
 		    			<div class="column col-sm-4 col-xs-3">
 							<select aria-label="Year" name="year" id="year" class="form-control input-sm" >
 								<option value="">Year</option>
-								<c:forEach var="x" begin="1907" end="1997">
+								<c:forEach var="x" begin="1900" end="2015">
 									<option value='<c:out value="${x}"/>'><c:out value="${x}" /></option>
 								</c:forEach>	
 							</select> 

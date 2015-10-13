@@ -4,14 +4,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-import com.group3.faceit.model.login.LoginErrModel;
-import com.group3.faceit.model.login.LoginModel;
-import com.group3.faceit.services.login.LoginServices;
-import com.group3.faceit.services.validations.LoginValidations;
+import com.group3.faceit.model.login.*;
+import com.group3.faceit.services.user.*;
+import com.group3.faceit.services.validations.*;
 import com.mysql.fabric.Response;
 
 @WebServlet({"/Login"})
@@ -40,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 			req.setAttribute("passerr", err.getPasswordErr());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
-			LoginServices regServ = new LoginServices();
+			UserServices regServ = new UserServices();
 			if(regServ.loginAccount(logData))
 			{
 				resp.sendRedirect("Newsfeed");
