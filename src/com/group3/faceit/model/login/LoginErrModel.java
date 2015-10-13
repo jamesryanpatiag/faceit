@@ -16,8 +16,5 @@ public class LoginErrModel {
 	}
 	public void setPasswordErr(String passwordErr) {
 		this.passwordErr = passwordErr;
-	}
-	
-	
-	
+	}	
 }
