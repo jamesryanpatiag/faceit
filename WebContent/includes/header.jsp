@@ -14,5 +14,9 @@
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/datetimepicker-bootstrap.css" rel="stylesheet">
+		
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 <body>
