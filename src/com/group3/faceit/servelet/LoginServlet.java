@@ -11,6 +11,7 @@ import com.group3.faceit.services.user.*;
 import com.group3.faceit.services.validations.*;
 import com.mysql.fabric.Response;
 
+
 @WebServlet({"/Login"})
 public class LoginServlet extends HttpServlet {
 	
@@ -40,7 +41,9 @@ public class LoginServlet extends HttpServlet {
 			UserServices regServ = new UserServices();
 			if(regServ.loginAccount(logData))
 			{
+		
 				resp.sendRedirect("Newsfeed");
+				
 			}else{
 				resp.sendRedirect("Login");
 			}

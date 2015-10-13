@@ -22,6 +22,7 @@ public class CommentModel {
 	}
 	public void setDatecreated(String datecreated) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formats = new SimpleDateFormat("MMMM dd, yyyy");
 		Date past = null;
 		try {
 			past = format.parse(datecreated);
@@ -43,7 +44,7 @@ public class CommentModel {
 			ago = TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime()) + " days ago";
 		}
 		else{
-			ago = format.format(past);
+			ago = formats.format(past);
 		}
 		
 		this.datecreated = ago;

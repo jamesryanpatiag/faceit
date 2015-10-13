@@ -18,16 +18,15 @@ public class NewsfeedDAO {
 	public static String query = "";
 	public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private static final JDialog dialog = new JDialog();
-	private static int user_id = 1;	//MUST BE SESSION.USERID
 	
 	
-	//POSTS
-	public void savePost(String description, Connection conn){
+//SAVE AND GET POSTS
+	public void savePost(String description, int sessionUserId, Connection conn){
 		query = "INSERT INTO posts (user_id_to, description, status) VALUES (?, ?, ?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1, user_id);
+			pst.setInt(1, sessionUserId);
 			pst.setString(2, description);
 			pst.setString(3, "ACTIVE");
 			pst.executeUpdate();
@@ -38,13 +37,29 @@ public class NewsfeedDAO {
 		
 	}
 	
-	public List<PostModel> getPosts(int user_id, Connection conn){
+	
+	public void deletePost(int postId, Connection conn){
+		query = "UPDATE posts SET status = 'INACTIVE' WHERE id = ?";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1, postId);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public List<PostModel> getPosts(int sessionUserId, Connection conn){
 		List<PostModel> posts = new ArrayList<PostModel>();
 		
-		query = "{CALL newsfeedPosts}"; //SHOULD HAVE PARAMETER SESSION.USERID
+		query = "{CALL newsfeedPosts(?)}"; //SHOULD HAVE PARAMETER SESSION.USERID
 		
 		try {
 			cst = conn.prepareCall(query);
+			cst.setInt(1, sessionUserId);
 			rs = cst.executeQuery();
 			while (rs.next()){
 				PostModel modelpost = new PostModel();
@@ -62,34 +77,34 @@ public class NewsfeedDAO {
 	}
 	
 	
-	//LIKES
-	public void likePost(int postId, Connection conn){
-		if (checkLike(postId, user_id, conn) == 0){
-			query = "INSERT INTO likes (post_id, user_id, status) VALUES (?, ?, ?)";
+//LIKE A POST
+	public void saveLikePost(int postId, int sessionUserId, Connection conn){
+		if (checkLikePost(postId, sessionUserId, conn) == 0){
+			query = "INSERT INTO likes_posts (post_id, user_id, status) VALUES (?, ?, ?)";
 			
 			try {
 				pst = conn.prepareStatement(query);
 				pst.setInt(1, postId);
-				pst.setInt(2, user_id);
+				pst.setInt(2, sessionUserId);
 				pst.setString(3, "ACTIVE");
 				pst.executeUpdate();
 				
-				createHistory("{ message:liked, user_id:" + user_id + ", post_id:" + postId + " }", conn);
+				createHistory("{ message:liked, user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		else{
-			int id = getLikeId(postId, user_id, conn);
-			updateLike(id, conn);	//to active
+			int id = getLikePostId(postId, sessionUserId, conn);
+			updateLikePostStatus(id, conn);	//to active
 		}
 	}
 	
 	
-	public int getLikeId(int postId, int userId, Connection conn){
+	public int getLikePostId(int postId, int userId, Connection conn){
 		int id = 0;	
-		query = "SELECT id FROM likes WHERE post_id = ? AND user_id = ?";
+		query = "SELECT id FROM likes_posts WHERE post_id = ? AND user_id = ?";
 		
 		try {
 			pst = conn.prepareCall(query);
@@ -107,8 +122,8 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public void updateLike(int likeId, Connection conn){ 
-		query = "UPDATE likes SET status = 'INACTIVE' WHERE id = ?";
+	public void updateLikePostStatus(int likeId, Connection conn){ 
+		query = "UPDATE likes_posts SET status = 'INACTIVE' WHERE id = ?";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -121,9 +136,9 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public int checkLike(int postId, int userId, Connection conn){
+	public int checkLikePost(int postId, int userId, Connection conn){
 		int count = 0;	
-		query = "SELECT COUNT(*) FROM likes WHERE post_id = ? AND user_id = ? AND status='ACTIVE'";
+		query = "SELECT COUNT(*) FROM likes_posts WHERE post_id = ? AND user_id = ? AND status='ACTIVE'";
 		
 		try {
 			pst = conn.prepareCall(query);
@@ -141,9 +156,9 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public String getLikeStatus(int likeId, Connection conn){
+	public String getLikePostStatus(int likeId, Connection conn){
 		String status = "";
-		query = "SELECT status FROM likes WHERE id = ?";
+		query = "SELECT status FROM likes_posts WHERE id = ?";
 		
 		try {
 			pst = conn.prepareCall(query);
@@ -162,10 +177,10 @@ public class NewsfeedDAO {
 	
 	
 	
-	public int countLikes(int postId, Connection conn){
+	public int countLikePost(int postId, Connection conn){
 		int count = 0;
 		
-		query = "SELECT COUNT(*) FROM likes WHERE post_id = ? AND status='ACTIVE'";
+		query = "SELECT COUNT(*) FROM likes_posts WHERE post_id = ? AND status='ACTIVE'";
 		
 		
 		try {
@@ -182,16 +197,17 @@ public class NewsfeedDAO {
 		return count;
 	}
 	
+
 	
-	//COMMENTS
-	public List<CommentModel> getComments(int post_id, Connection conn){
+//SAVE AND GET COMMENTS
+	public List<CommentModel> getComments(int postId, Connection conn){
 		List<CommentModel> comments = new ArrayList<CommentModel>();
 		
 		query = "{CALL getComments(?)}"; //SHOULD HAVE PARAMETER SESSION.USERID
 		
 		try {
 			cst = conn.prepareCall(query);
-			cst.setInt(1, post_id);
+			cst.setInt(1, postId);
 			rs = cst.executeQuery();
 			while (rs.next()){
 				CommentModel modelcomment = new CommentModel();
@@ -208,35 +224,178 @@ public class NewsfeedDAO {
 		return comments;
 	}
 	
-	public void commentPost(int postId, String description, Connection conn){
+	public void saveComment(int postId, int sessionUserId, String description, Connection conn){
 			query = "INSERT INTO comments (post_id, user_id, description, status) VALUES (?, ?, ?, ?)";
 			
 			try {
 				pst = conn.prepareStatement(query);
 				pst.setInt(1, postId);
-				pst.setInt(2, user_id);
+				pst.setInt(2, sessionUserId);
 				pst.setString(3, description);
 				pst.setString(4, "ACTIVE");
 				pst.executeUpdate();
 				
-				createHistory("{ message:commented, user_id:" + user_id + ", post_id:" + postId + " }", conn);
+				createHistory("{ message:commented, user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
+
+
+//LIKE A COMMENT
+		public void saveLikeComment(int commentId, int sessionUserId, Connection conn){
+			if (checkLikePost(commentId, sessionUserId, conn) == 0){
+				query = "INSERT INTO likes_comments (comment_id, user_id, status) VALUES (?, ?, ?)";
+				
+				try {
+					pst = conn.prepareStatement(query);
+					pst.setInt(1, commentId);
+					pst.setInt(2, sessionUserId);
+					pst.setString(3, "ACTIVE");
+					pst.executeUpdate();
+					
+					createHistory("{ message:liked, user_id:" + sessionUserId + ", comment_id:" + commentId + " }", sessionUserId, conn);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else{
+				int id = getLikePostId(commentId, sessionUserId, conn);
+				updateLikePostStatus(id, conn);	//to active
+			}
+		}
+		
+		
+		public int getLikeCommentId(int commentId, int userId, Connection conn){
+			int id = 0;	
+			query = "SELECT id FROM likes_comments WHERE comment_id = ? AND user_id = ?";
+			
+			try {
+				pst = conn.prepareCall(query);
+				pst.setInt(1, commentId);
+				pst.setInt(2, userId);
+				rs = pst.executeQuery();
+				while (rs.next()){
+					id = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return id;
+		}
+		
+		public int countComments(int postId, Connection conn){
+			int count = 0;
+			
+			query = "SELECT COUNT(*) FROM comments WHERE post_id = ? AND status='ACTIVE'";
+			
+			
+			try {
+				pst = conn.prepareCall(query);
+				pst.setInt(1, postId);
+				rs = pst.executeQuery();
+				while (rs.next()){
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return count;
+		}
+		
+		
+		public void updateLikeCommentStatus(int likeId, Connection conn){ 
+			query = "UPDATE likes_comments SET status = 'INACTIVE' WHERE id = ?";
+			
+			try {
+				pst = conn.prepareStatement(query);
+				pst.setInt(1, likeId);
+				pst.executeUpdate();			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		public int checkLikeComment(int commentId, int userId, Connection conn){
+			int count = 0;	
+			query = "SELECT COUNT(*) FROM likes_comments WHERE comment_id = ? AND user_id = ? AND status='ACTIVE'";
+			
+			try {
+				pst = conn.prepareCall(query);
+				pst.setInt(1, commentId);
+				pst.setInt(2, userId);
+				rs = pst.executeQuery();
+				while (rs.next()){
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return count;
+		}
+		
+		
+		public String getLikeCommentStatus(int likeId, Connection conn){
+			String status = "";
+			query = "SELECT status FROM likes_comments WHERE id = ?";
+			
+			try {
+				pst = conn.prepareCall(query);
+				pst.setInt(1, likeId);
+				rs = pst.executeQuery();
+				while (rs.next()){
+					status = rs.getString(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(status);
+			return status;
+		}
+		
+		
+		
+		public int countLikeComment(int commentId, Connection conn){
+			int count = 0;
+			
+			query = "SELECT COUNT(*) FROM likes_comments WHERE comment_id = ? AND status='ACTIVE'";
+			
+			
+			try {
+				pst = conn.prepareCall(query);
+				pst.setInt(1, commentId);
+				rs = pst.executeQuery();
+				while (rs.next()){
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return count;
+		}
 	
 	
-	//HISTORY
-	public void createHistory(String message, Connection conn){
+	
+	
+//HISTORY
+	public void createHistory(String message, int userId, Connection conn){
 		query = "INSERT INTO history (user_id, message, modifiedby) VALUES (?, ?, ?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1, user_id);
+			pst.setInt(1, userId);
 			pst.setString(2, message);
-			pst.setInt(3, user_id);
+			pst.setInt(3, userId);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {

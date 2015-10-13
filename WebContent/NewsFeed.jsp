@@ -21,22 +21,57 @@
 				        <c:forEach items="${posts}" var="p">
 				            <tr>
 				                <td>
-				                	<b><c:out value="${p.getFullname()}"/></b><br>
-				                	<c:out value="${p.description}"/><br>
-				                	<font size=2 color="grey"><c:out value="${p.datecreated}"/></font><br>
+				                	<b><c:out value="${p.getFullname()}"/></b>
+				                	<div class="btn-group">
+									  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									  <font size=1><span class="caret"></span></font>
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li>
+									    	<form action="Newsfeed" method="POST">
+												<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
+												<input type="hidden" name="hidden" value="heditPost"/>
+												<input type="submit" class="btn btn-link" value="Edit"/>
+											</form>
+									    </li>
+									    <li>
+									    	<form action="Newsfeed" method="POST">
+												<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
+												<input type="hidden" name="hidden" value="hdeletePost"/>
+												<input type="submit" class="btn btn-link" value="Delete"/>
+											</form>
+									    </li>
+									    <li role="separator" class="divider"></li>
+									    <li><font size=2><a href="#">Edit privacy</a></font></li>
+									  </ul>
+									</div>
+				                	<br>
+				                	<font size=1 color="grey"><c:out value="${p.datecreated}"/></font><br>
+				                	<c:out value="${p.description}"/><br>  	
 				                	<form action="Newsfeed" method="POST">
 										<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
-										<input type="hidden" name="hidden" value="hlike"/>
+										<input type="hidden" name="hidden" value="hlikePost"/>
 										<input type="submit" class="btn btn-success" value="Like"/>
-									</form><font size=2><c:out value="${postdao.countLikes(p.postid)}"/> like this</font>
-				                	<div style="padding-left:1em">
+										<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikes(p.postid)}"/></a>
+										<a href="#" class="glyphicon glyphicon-comment"><c:out value="${postdao.countComments(p.postid)}"/></a></font>
+									</form>
+				                	<div style="padding-left:1em;padding-top:5px;">
 					                	<table>
 										    <tbody>
 										        <c:forEach items="${postdao.getComments(p.postid)}" var="c">
 										            <tr>
 										                <td>
-										                	<b><c:out value="${c.getFullname()}"/></b> <c:out value="${c.description}"/><br>
-										                	<font size=2 color="grey"><c:out value="${c.datecreated}"/></font><br>       
+										                	<b><c:out value="${c.getFullname()}"/></b> 
+											                	<c:out value="${c.description}"/>&nbsp;&nbsp;
+											                	<font size=1><a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+											                	<a href="#"><span class="glyphicon glyphicon-trash"></span></a></font><br>
+										                	<form action="Newsfeed" method="POST">
+																<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
+																<input type="hidden" name="hidden" value="hlikeComment"/>
+																<input type="submit" class="btn btn-link" value="Like"/>
+																<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikes(p.postid)}"/></a></font>
+																	&nbsp;<font size=1 color="grey"><c:out value="${c.datecreated}"/></font><br>
+															</form>  	       
 										                </td>
 										            </tr>
 										        </c:forEach>

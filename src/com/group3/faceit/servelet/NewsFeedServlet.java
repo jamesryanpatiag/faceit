@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
+import java.awt.*;
 
 import com.group3.faceit.model.newsfeed.*;
 import com.group3.faceit.services.newsfeed.*;
@@ -18,8 +22,10 @@ import com.group3.faceit.services.newsfeed.*;
 @WebServlet("/Newsfeed")
 public class NewsFeedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final JDialog dialog = new JDialog();
 	RequestDispatcher rd = null;
 	NewsfeedServices newsfeedservice;	
+	public int sessionUserId = 1; //SESSION USER ID
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,14 +59,35 @@ public class NewsFeedServlet extends HttpServlet {
 		
 		if (action.equals("hcomment")){
 			String comment = request.getParameter("comment");
-			newsfeedservice.commentPost(Integer.parseInt(postid), comment);
+			if (comment.equals("")){
+				
+			} else{
+				newsfeedservice.saveComment(Integer.parseInt(postid), sessionUserId, comment);
+			}			
 		}
-		else if (action.equals("hlike")){
-			newsfeedservice.likePost(Integer.parseInt(postid));
+		else if (action.equals("hlikePost")){
+			newsfeedservice.saveLikePost(Integer.parseInt(postid), sessionUserId);
+		}
+		else if (action.equals("hlikeComment")){
+			String commentid = request.getParameter("commentId");
+			newsfeedservice.saveLikeComment(Integer.parseInt(commentid), sessionUserId);
+		}
+		else if (action.equals("hdeletePost")){
+			dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete post?");
+			switch(confirm){
+				case 0:
+					newsfeedservice.deletePost(Integer.parseInt(postid));
+					break;
+			}
 		}
 		else{
 			String post = request.getParameter("post");
-			newsfeedservice.savePost(post);
+			if (post.equals("")){
+				
+			} else{
+				newsfeedservice.savePost(post, sessionUserId);
+			}
 		}
 		response.sendRedirect("Newsfeed");
 	}

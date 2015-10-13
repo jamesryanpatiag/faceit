@@ -18,10 +18,21 @@ public class NewsfeedServices extends AbstractDAO {
 		newsfeed = new NewsfeedDAO();
 	}
 	
-	public void savePost(String description) {
+	public void savePost(String description, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			newsfeed.savePost(description, con);
+			newsfeed.savePost(description, sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deletePost(int postId) {
+		try {
+			Connection con = getConnection();
+			newsfeed.deletePost(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -30,11 +41,11 @@ public class NewsfeedServices extends AbstractDAO {
 	}
 
 	
-	public List<PostModel> getPosts(int user_id) {
+	public List<PostModel> getPosts(int sessionUserId) {
 		List<PostModel> posts = new ArrayList<PostModel>();
 		try {
 			Connection con = getConnection();
-			posts = newsfeed.getPosts(user_id, con);
+			posts = newsfeed.getPosts(sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,10 +55,10 @@ public class NewsfeedServices extends AbstractDAO {
 	}
 	
 	
-	public void likePost(int postId) {
+	public void saveLikePost(int postId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			newsfeed.likePost(postId, con);
+			newsfeed.saveLikePost(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -56,11 +67,11 @@ public class NewsfeedServices extends AbstractDAO {
 	}
 	
 	
-	public int getLikeId(int postId, int userId) {
+	public int getLikePostId(int postId, int sessionUserId) {
 		int id = 0;
 		try {
 			Connection con = getConnection();
-			id = newsfeed.getLikeId(postId, userId, con);
+			id = newsfeed.getLikePostId(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,10 +80,10 @@ public class NewsfeedServices extends AbstractDAO {
 		return id;
 	}
 	
-	public void updateLike(int likeId) {
+	public void updateLikePostStatus(int likeId) {
 		try {
 			Connection con = getConnection();
-			newsfeed.updateLike(likeId, con);
+			newsfeed.updateLikePostStatus(likeId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,37 +91,13 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
-	public int checkLike(int postId, int userId) {
-		int count = 0;
-		try {
-			Connection con = getConnection();
-			count = newsfeed.checkLike(postId, userId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return count;
-	}
 	
-	public String getLikeStatus(int postId) {
-		String status = "";
-		try {
-			Connection con = getConnection();
-			status = newsfeed.getLikeStatus(postId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return status;
-	}
 	
 	public int countLikes(int postId) {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = newsfeed.countLikes(postId, con);
+			count = newsfeed.countLikePost(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,13 +107,12 @@ public class NewsfeedServices extends AbstractDAO {
 	}
 	
 	
-	
 	//COMMENTS
-	public List<CommentModel> getComments(int post_id) {
+	public List<CommentModel> getComments(int postId) {
 		List<CommentModel> comments = new ArrayList<CommentModel>();
 		try {
 			Connection con = getConnection();
-			comments = newsfeed.getComments(post_id, con);
+			comments = newsfeed.getComments(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -136,10 +122,10 @@ public class NewsfeedServices extends AbstractDAO {
 	}
 	
 	
-	public void commentPost(int postId, String description) {
+	public void saveComment(int postId, int sessionUserId, String description) {
 		try {
 			Connection con = getConnection();
-			newsfeed.commentPost(postId, description, con);
+			newsfeed.saveComment(postId, sessionUserId, description, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -147,16 +133,72 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
-	public void createHistory(String message, Connection conn) {
+	
+	public int countComments(int postId) {
+		int count = 0;
 		try {
 			Connection con = getConnection();
-			newsfeed.createHistory(message, con);
+			count = newsfeed.countComments(postId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	
+	public void saveLikeComment(int commentId, int sessionUserId) {
+		try {
+			Connection con = getConnection();
+			newsfeed.saveLikeComment(commentId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public int getLikeCommentId(int commentId, int sessionUserId) {
+		int id = 0;
+		try {
+			Connection con = getConnection();
+			id = newsfeed.getLikeCommentId(commentId, sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	public void updateLikeCommentStatus(int likeId) {
+		try {
+			Connection con = getConnection();
+			newsfeed.updateLikeCommentStatus(likeId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public int countLikeComment(int commentId) {
+		int count = 0;
+		try {
+			Connection con = getConnection();
+			count = newsfeed.countLikeComment(commentId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 
 
 }
