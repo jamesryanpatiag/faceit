@@ -9,7 +9,7 @@
 				
 				
 				<form action="Newsfeed" method="POST">
-					<textarea name="post" placeholder="What's on your mind?" class="" value=""></textarea>
+					<textarea name="post" placeholder="What's on your mind?" class="form-control" value=""></textarea>
 					<input type="hidden" name="hidden" value="hpost"/>
 					<br>
 					<input type="submit" class="btn btn-success" value="Post"/>
@@ -52,7 +52,7 @@
 										<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 										<input type="hidden" name="hidden" value="hlikePost"/>
 										<input type="submit" class="btn btn-success" value="Like"/>
-										<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikes(p.postid)}"/></a>
+										<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikePost(p.postid)}"/></a>
 										<a href="#" class="glyphicon glyphicon-comment"><c:out value="${postdao.countComments(p.postid)}"/></a></font>
 									</form>
 				                	<div style="padding-left:1em;padding-top:5px;">
@@ -62,14 +62,14 @@
 										            <tr>
 										                <td>
 										                	<b><c:out value="${c.getFullname()}"/></b> 
-											                	<c:out value="${c.description}"/>&nbsp;&nbsp;
-											                	<font size=1><a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+											                	<input id="p<c:out value="${p.postid}"/>c<c:out value="${c.commentid}"/>" class="comment-input" value="<c:out value="${c.description}"/>" readonly/>
+											                	<font size=1><a  href="#" onclick="enableCommentInput(document.getElementById('p<c:out value="${p.postid}"/>c<c:out value="${c.commentid}"/>').id);return false;"><span class="glyphicon glyphicon-pencil"></span></a>
 											                	<a href="#"><span class="glyphicon glyphicon-trash"></span></a></font><br>
 										                	<form action="Newsfeed" method="POST">
 																<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 																<input type="hidden" name="hidden" value="hlikeComment"/>
 																<input type="submit" class="btn btn-link" value="Like"/>
-																<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikes(p.postid)}"/></a></font>
+																<font size=2><a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikeComment(c.commentid)}"/></a></font>
 																	&nbsp;<font size=1 color="grey"><c:out value="${c.datecreated}"/></font><br>
 															</form>  	       
 										                </td>
@@ -78,7 +78,7 @@
 										    </tbody>
 										</table>
 										<form action="Newsfeed" method="POST">
-											<input type="text" name="comment" placeholder="" class="" value=""/>
+											<input type="text" name="comment" placeholder="Add comment"/>
 											<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 											<input type="hidden" name="hidden" value="hcomment"/>
 											<input type="submit" class="btn btn-success" style="display:none" value="Comment"/>

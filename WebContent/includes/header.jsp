@@ -12,9 +12,11 @@
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+		<link href="css/newsfeed.css" rel="stylesheet">
 		<script src="<c:url value="js/jquery.js"/>"></script>
 		<script src="<c:url value="js/bootstrap.min.js"/>"></script>		
 		<script src="<c:url value="js/scripts.js"/>"></script>
+		<script src="<c:url value="js/newsfeed.js"/>"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/styles.css" rel="stylesheet">
 		<link href="css/datetimepicker-bootstrap.css" rel="stylesheet">

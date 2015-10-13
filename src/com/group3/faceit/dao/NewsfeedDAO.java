@@ -246,7 +246,7 @@ public class NewsfeedDAO {
 
 //LIKE A COMMENT
 		public void saveLikeComment(int commentId, int sessionUserId, Connection conn){
-			if (checkLikePost(commentId, sessionUserId, conn) == 0){
+			if (checkLikeComment(commentId, sessionUserId, conn) == 0){
 				query = "INSERT INTO likes_comments (comment_id, user_id, status) VALUES (?, ?, ?)";
 				
 				try {
@@ -263,8 +263,8 @@ public class NewsfeedDAO {
 				}
 			}
 			else{
-				int id = getLikePostId(commentId, sessionUserId, conn);
-				updateLikePostStatus(id, conn);	//to active
+				int id = getLikeCommentId(commentId, sessionUserId, conn);
+				updateLikeCommentStatus(id, conn);	//to active
 			}
 		}
 		

@@ -93,7 +93,7 @@ public class NewsfeedServices extends AbstractDAO {
 	
 	
 	
-	public int countLikes(int postId) {
+	public int countLikePost(int postId) {
 		int count = 0;
 		try {
 			Connection con = getConnection();
