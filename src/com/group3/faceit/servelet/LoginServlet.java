@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if(LoginValidations.failedValidation){
 			System.out.println(err.getUsernameErr());
+			System.out.println(err.getPasswordErr());
 			req.setAttribute("emailerr", err.getUsernameErr());
 			req.setAttribute("passerr", err.getPasswordErr());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
