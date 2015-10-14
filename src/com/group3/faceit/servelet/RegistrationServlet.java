@@ -56,7 +56,7 @@ public class RegistrationServlet extends HttpServlet{
 			UserServices regServ = new UserServices();
 			if(regServ.registerAccount(regData))
 			{
-				resp.sendRedirect("Redirect");
+				req.getRequestDispatcher("/Redirect.jsp").forward(req, resp);
 			}else{
 				resp.sendRedirect("Registration");
 			}

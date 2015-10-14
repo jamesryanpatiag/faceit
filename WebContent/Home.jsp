@@ -56,7 +56,7 @@
 		    				<div class="form-group">
 		    					<input class="form-control input-lg" type="text" readonly="" id="birthdate" name="birthdate" placeholder="Click to choose birthdate.">
 		    				</div>
-		    				<label class="control-label" for="inputError1" id="error5"><c:out value="${birtherr}"></c:out></label>
+		    				<label class="control-label" for="inputError1" id="error6"><c:out value="${birtherr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-3 col-xs-3" >
 		    				<select aria-label="Gender" name="gender" id="gender"  class="form-control input-sm">
@@ -64,7 +64,7 @@
 								<option value="1">Male</option>
 								<option value="2">Female</option>
 							</select>
-							<label class="control-label" for="inputError1" id="error6"><c:out value="${generr}"></c:out></label>
+							<label class="control-label" for="inputError1" id="error7"><c:out value="${generr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12" >
 		    				<input type="submit" value="Create Account" name="btnSubmit" id="btnSubmit" class="btn btn-success">
