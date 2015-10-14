@@ -24,6 +24,9 @@ public class RegistrationValidations {
 				if(register.getFirstname().trim().isEmpty()){
 					err.setFnameerror("First Name is required.");
 					failedValidation = true;
+				}else if(register.getFirstname().matches("[^a-zA-Z0-9 ]*")){
+					err.setFnameerror("Invalid Input");
+					failedValidation = true;
 				}
 			}
 			
