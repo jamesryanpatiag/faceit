@@ -56,20 +56,35 @@ public class NewsFeedServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("hidden");
 		String postid = request.getParameter("postId");
+		String commentid = request.getParameter("commentId");
+		String post = request.getParameter("post");
+		String comment = request.getParameter("comment");
 		
 		if (action.equals("hcomment")){
-			String comment = request.getParameter("comment");
 			if (comment.equals("")){
 				
 			} else{
 				newsfeedservice.saveComment(Integer.parseInt(postid), sessionUserId, comment);
 			}			
 		}
+		else if (action.equals("hupdateComment")){
+			if (comment.equals("")){
+				
+			} else{
+				newsfeedservice.updateComment(Integer.parseInt(commentid), sessionUserId, comment);
+			}			
+		}
+		else if (action.equals("hupdatePost")){
+			if (post.equals("")){
+				
+			} else{
+				newsfeedservice.updatePost(Integer.parseInt(postid), sessionUserId, post);
+			}			
+		}
 		else if (action.equals("hlikePost")){
 			newsfeedservice.saveLikePost(Integer.parseInt(postid), sessionUserId);
 		}
 		else if (action.equals("hlikeComment")){
-			String commentid = request.getParameter("commentId");
 			newsfeedservice.saveLikeComment(Integer.parseInt(commentid), sessionUserId);
 		}
 		else if (action.equals("hdeletePost")){
@@ -81,8 +96,16 @@ public class NewsFeedServlet extends HttpServlet {
 					break;
 			}
 		}
+		else if (action.equals("hdeleteComment")){
+			dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete comment?");
+			switch(confirm){
+				case 0:
+					newsfeedservice.deleteComment(Integer.parseInt(commentid), sessionUserId);
+					break;
+			}
+		}
 		else{
-			String post = request.getParameter("post");
 			if (post.equals("")){
 				
 			} else{

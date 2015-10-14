@@ -20,7 +20,7 @@ public class NewsfeedDAO {
 	private static final JDialog dialog = new JDialog();
 	
 	
-//SAVE AND GET POSTS
+//POSTS DATA MANIPULATION
 	public void savePost(String description, int sessionUserId, Connection conn){
 		query = "INSERT INTO posts (user_id_to, description, status) VALUES (?, ?, ?)";
 		
@@ -30,6 +30,31 @@ public class NewsfeedDAO {
 			pst.setString(2, description);
 			pst.setString(3, "ACTIVE");
 			pst.executeUpdate();
+			
+			rs = pst.getGeneratedKeys();
+			int newid = 0;
+			if (rs.next())
+				newid = rs.getInt(1);
+			
+			createHistory("{ message:posted, user_id:" + sessionUserId + ", post_id:" + newid + " }", sessionUserId, conn);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void updatePost(int postId, int sessionUserId, String description, Connection conn){
+		query = "UPDATE posts SET description = ? WHERE id = ?";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setString(1, description);
+			pst.setInt(2, postId);
+			pst.executeUpdate();
+			
+			createHistory("{ message:update post: " + description + ", user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +102,6 @@ public class NewsfeedDAO {
 	}
 	
 	
-//LIKE A POST
 	public void saveLikePost(int postId, int sessionUserId, Connection conn){
 		if (checkLikePost(postId, sessionUserId, conn) == 0){
 			query = "INSERT INTO likes_posts (post_id, user_id, status) VALUES (?, ?, ?)";
@@ -199,7 +223,7 @@ public class NewsfeedDAO {
 	
 
 	
-//SAVE AND GET COMMENTS
+//COMMENT DATA MANIPULATION
 	public List<CommentModel> getComments(int postId, Connection conn){
 		List<CommentModel> comments = new ArrayList<CommentModel>();
 		
@@ -242,9 +266,41 @@ public class NewsfeedDAO {
 				e.printStackTrace();
 			}
 	}
+	
+	
+	public void updateComment(int commentId, int sessionUserId, String description, Connection conn){
+		query = "UPDATE comments SET description = ? WHERE id = ?";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setString(1, description);
+			pst.setInt(2, commentId);
+			pst.executeUpdate();
+			
+			createHistory("{ message:update comment: " + description + ", user_id:" + sessionUserId + ", comment_id:" + commentId + " }", sessionUserId, conn);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void deleteComment(int commentId, int sessionUserId, Connection conn){
+		query = "UPDATE comments SET status = 'INACTIVE' WHERE id = ?";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1, commentId);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 
-//LIKE A COMMENT
 		public void saveLikeComment(int commentId, int sessionUserId, Connection conn){
 			if (checkLikeComment(commentId, sessionUserId, conn) == 0){
 				query = "INSERT INTO likes_comments (comment_id, user_id, status) VALUES (?, ?, ?)";

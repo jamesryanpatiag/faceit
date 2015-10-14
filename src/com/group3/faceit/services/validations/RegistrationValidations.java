@@ -69,7 +69,7 @@ public class RegistrationValidations {
 				}else if(register.getPassword().length() < 8 || register.getPassword().length() > 20){
 					err.setPassworderror("Password must be 8-20 characters ");
 					failedValidation = true;
-				}else if(register.getPassword().matches("^([a-zA-Z+]+[0-9+]+[&@!#+]+)$")){
+				}else if(!register.getPassword().matches("^.*(?=.*[0-9])(?=.*[@#$%^&+=]).*$")){
 					err.setPassworderror("Password must consists of alphanumeric and special character.");
 					failedValidation = true;
 				}
@@ -84,7 +84,6 @@ public class RegistrationValidations {
 					err.setBirthdateerror("User should be in legal age.");
 					failedValidation = true;	
 				}
-					
 			}
 			
 			/**Gender Validations*/
