@@ -7,6 +7,7 @@ import com.group3.faceit.common.AbstractDAO;
 import com.group3.faceit.dao.UserDAO;
 import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.model.registration.RegistrationModel;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class UserServices extends AbstractDAO {
 	
@@ -84,5 +85,29 @@ public class UserServices extends AbstractDAO {
 			return false;
 		}
 		return isValid;
+	}
+	
+	public LoginModel getUserByUserId(int userid){
+		LoginModel loginModel = new LoginModel();
+		try {
+			Connection con = getConnection();
+			loginModel = reg.getUserByUserId(userid, con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();			
+		}
+		return loginModel;
+	}
+	
+	public RegistrationModel getUserProfileByUserId(int userid){
+		RegistrationModel regModel = new RegistrationModel();
+		try{
+			Connection con = getConnection();
+			regModel = reg.getUserProfileByUserId(userid, con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return regModel;
 	}
 }

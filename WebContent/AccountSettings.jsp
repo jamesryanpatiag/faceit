@@ -22,19 +22,19 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">Firstname:</label>
 							    <div class="col-sm-7">
-							      <input type="email" class="form-control input-sm" id="inputEmail3" placeholder="Firstname">
+							      <input type="email" class="form-control input-sm" id="inputEmail3" placeholder="Firstname" value="<c:out value="${firstname}"></c:out>" />
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Middlename</label>
 							    <div class="col-sm-2 col-md-1"">
-							      <input type="text" class="form-control input-sm" id="inputPassword3" placeholder="M" maxlength="1">
+							      <input type="text" class="form-control input-sm" id="inputPassword3" placeholder="M" maxlength="1" value="<c:out value="${middlename}"></c:out>" />
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Lastname</label>
 							    <div class="col-sm-7">
-							      <input type="text" class="form-control input-sm" id="inputPassword3" placeholder="Lastname">
+							      <input type="text" class="form-control input-sm" id="inputPassword3" placeholder="Lastname" value="<c:out value="${lastname}"></c:out>" />
 							    </div>
 							  </div>
 							</form>
@@ -52,13 +52,13 @@
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">Email:</label>
 						    <div class="col-sm-7">
-						      <input type="email" class="form-control input-sm" id="inputEmail3" placeholder="Email">
+						      <label><c:out value="${username}"></c:out></label>
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Password:</label>
 						    <div class="col-sm-7">
-						      <input type="text" class="form-control input-sm" id="inputPassword3" placeholder="Password">
+						      <input type="password" class="form-control input-sm" id="inputPassword3" placeholder="Password" value="<c:out value="${password}"></c:out>">
 						    </div>
 						  </div>
 						</form>

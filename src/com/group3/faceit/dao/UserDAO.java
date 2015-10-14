@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.group3.faceit.model.login.LoginModel;
+import com.group3.faceit.model.newsfeed.PostModel;
 import com.group3.faceit.model.registration.RegistrationModel;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
@@ -121,4 +122,48 @@ public class UserDAO {
 		
 		return legalAge;
 	}
+	
+	public LoginModel getUserByUserId(int userid, Connection con){
+		LoginModel loginModel = new LoginModel();
+		try{
+			strQry = "SELECT username, password FROM users WHERE id = ?";
+			
+			PreparedStatement stmt = con.prepareStatement(strQry);
+			stmt.setInt(1, userid);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()){
+				loginModel.setEmail(rs.getString("username"));
+				loginModel.setPassword(rs.getString("password"));
+			}
+			
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		return loginModel;
+	}
+	
+	public RegistrationModel getUserProfileByUserId(int userid, Connection con){
+		RegistrationModel regModel = new RegistrationModel();
+		try{
+			strQry = "SELECT firstname, middlename, lastname, address, mobile FROM users_profile WHERE user_id = ?";
+			
+			PreparedStatement stmt = con.prepareStatement(strQry);
+			stmt.setInt(1, userid);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()){
+				regModel.setFirstname(rs.getString("firstname"));
+				regModel.setMiddlename(rs.getString("middlename"));
+				regModel.setLastname(rs.getString("lastname"));
+				regModel.setAddress(rs.getString("address"));
+				regModel.setMobile(rs.getString("mobile"));
+			}
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		return regModel;
+		
+	} 
+
 }

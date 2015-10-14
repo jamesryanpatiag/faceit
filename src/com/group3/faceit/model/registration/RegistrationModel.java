@@ -8,6 +8,8 @@ public class RegistrationModel {
 	private String password;
 	private String birthdate;
 	private String gender;
+	private String address;
+	private String mobile;
 	
 	public String getFirstname() {
 		return firstname;
@@ -50,5 +52,17 @@ public class RegistrationModel {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}	
 }
