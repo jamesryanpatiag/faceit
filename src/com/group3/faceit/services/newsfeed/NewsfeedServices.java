@@ -40,10 +40,10 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
-	public void deletePost(int postId) {
+	public void deletePost(int postId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			newsfeed.deletePost(postId, con);
+			newsfeed.deletePost(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,31 +70,6 @@ public class NewsfeedServices extends AbstractDAO {
 		try {
 			Connection con = getConnection();
 			newsfeed.saveLikePost(postId, sessionUserId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	public int getLikePostId(int postId, int sessionUserId) {
-		int id = 0;
-		try {
-			Connection con = getConnection();
-			id = newsfeed.getLikePostId(postId, sessionUserId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
-	}
-	
-	public void updateLikePostStatus(int likeId) {
-		try {
-			Connection con = getConnection();
-			newsfeed.updateLikePostStatus(likeId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -191,30 +166,6 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
-	
-	public int getLikeCommentId(int commentId, int sessionUserId) {
-		int id = 0;
-		try {
-			Connection con = getConnection();
-			id = newsfeed.getLikeCommentId(commentId, sessionUserId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
-	}
-	
-	public void updateLikeCommentStatus(int likeId) {
-		try {
-			Connection con = getConnection();
-			newsfeed.updateLikeCommentStatus(likeId, con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	
 	

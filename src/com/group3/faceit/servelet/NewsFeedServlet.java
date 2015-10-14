@@ -92,7 +92,7 @@ public class NewsFeedServlet extends HttpServlet {
 			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete post?");
 			switch(confirm){
 				case 0:
-					newsfeedservice.deletePost(Integer.parseInt(postid));
+					newsfeedservice.deletePost(Integer.parseInt(postid), sessionUserId);
 					break;
 			}
 		}
