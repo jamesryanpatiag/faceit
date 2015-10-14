@@ -6,7 +6,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand logo">FACEIT</a>
+        <a href="/" class="navbar-brand logo">FaceIT</a>
     	</div>
     	<nav class="collapse navbar-collapse" role="navigation">
 	<form method="POST" action="Login" id="login" class="navbar-form navbar-right">

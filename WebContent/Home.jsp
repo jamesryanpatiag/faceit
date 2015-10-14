@@ -49,8 +49,8 @@
 						      <input type="password" id="password" name="password" placeholder="Password" class="form-control input-lg" />
 						      <input type="text" id="tmpPassword" name="tmpPassword" placeholder="Password" class="form-control input-lg" style="display:none"/>
 						      <div class="input-group-addon"><a href="#" id="viewPass" ><i class="glyphicon glyphicon-eye-open"></i></a></div>
-						      <label class="control-label" for="inputError1" id="error5"><c:out value="${passerr}"></c:out></label>
 						    </div>	
+						    <label class="control-label" for="inputError1" id="error5"><c:out value="${passerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
 		    				<div class="form-group">
