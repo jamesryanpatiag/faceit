@@ -358,7 +358,7 @@ public class NewsfeedDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(status);
+			System.out.println(status); 
 			return status;
 		}
 		
