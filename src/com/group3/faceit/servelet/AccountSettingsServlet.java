@@ -25,6 +25,7 @@ public class AccountSettingsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		req.setAttribute("Title", "Account Settings");
 		req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 	}

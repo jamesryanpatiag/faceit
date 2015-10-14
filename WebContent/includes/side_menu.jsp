@@ -5,12 +5,9 @@
    	<ul class="nav hidden-xs" id="lg-menu">
     	<li class="active"><a href="Newsfeed"><i class="glyphicon glyphicon-list-alt"></i> News Feed</a></li>
 		<li><a href="Friends"><i class="glyphicon glyphicon-user"></i> Friends</a></li>
-        <li><a href="AccountSettings" ><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+        <li><a href="AccountSettings" ><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
     </ul>
-    <ul class="list-unstyled hidden-xs" id="sidebar-footer">
-    	<li><a href="http://www.bootply.com"><h3>Bootstrap</h3> <i class="glyphicon glyphicon-heart-empty"></i> Bootply</a></li>
-	</ul>
     <!-- tiny only nav-->
     <ul class="nav visible-xs" id="xs-menu">
     	<li><a href="#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>

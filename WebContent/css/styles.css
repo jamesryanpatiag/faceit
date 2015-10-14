@@ -73,7 +73,7 @@ hr {
 
 .navbar-blue {
     border-width:0;
-	background-color:#3B5999;
+	background-color:#428BCA;
     color:#ffffff;
     font-family:arial,sans-serif;
     top:0;
@@ -123,7 +123,7 @@ hr {
   display:block;
   padding:3px;
   background-color:#fff;
-  color:#3B5999;
+  color:#428BCA;
   height:28px;
   width: 100px;
   margin:9px;
@@ -161,7 +161,7 @@ h1,h2,h3 {
 }
 
 .btn-primary,.label-primary,.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus  {
-	background-color:#3B5999;
+	background-color:#428BCA;
     color:#fffffe;
 }
 .btn-default {
@@ -178,11 +178,11 @@ h1,h2,h3 {
 }
   
 .badge{
-   color:#3B5999;
+   color:#428BCA;
    background-color:#fff;
 }
 .badge:hover, .badge-inverse{
-   background-color:#3B5999;
+   background-color:#428BCA;
    color:#fff;
 }
     
@@ -248,7 +248,7 @@ small.text-muted {
   }
 
   .navbar-blue {
-	background-color:#3B5999;
+	background-color:#428BCA;
     top:0;
     width:100%;
     position:relative;
