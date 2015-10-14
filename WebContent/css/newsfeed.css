@@ -9,5 +9,7 @@
 	
 	.post-input{
 		border:none;
-		display:table-cell;
+		outline: none;
+		width: 100%;
+		overflow: hidden;
 	}

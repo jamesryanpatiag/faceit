@@ -30,13 +30,9 @@ public class NewsfeedDAO {
 			pst.setString(2, description);
 			pst.setString(3, "ACTIVE");
 			pst.executeUpdate();
+			int newid = Statement.RETURN_GENERATED_KEYS;
 			
-			rs = pst.getGeneratedKeys();
-			int newid = 0;
-			if (rs.next())
-				newid = rs.getInt(1);
-			
-			createHistory("{ message:posted, user_id:" + sessionUserId + ", post_id:" + newid + " }", sessionUserId, conn);
+			createHistory("{ message:'posted', user_id:" + sessionUserId + ", reference_id:" + newid + " }", sessionUserId, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +50,7 @@ public class NewsfeedDAO {
 			pst.setInt(2, postId);
 			pst.executeUpdate();
 			
-			createHistory("{ message:update post: " + description + ", user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
+			createHistory("{ message:'updated post: " + description + "', user_id:" + sessionUserId + ", reference_id:" + postId + " }", sessionUserId, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,13 +59,15 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public void deletePost(int postId, Connection conn){
+	public void deletePost(int postId, int sessionUserId, Connection conn){
 		query = "UPDATE posts SET status = 'INACTIVE' WHERE id = ?";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1, postId);
 			pst.executeUpdate();
+			
+			createHistory("{ message:'deleted post', user_id:" + sessionUserId + ", reference_id:" + postId + " }", sessionUserId, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,7 +111,7 @@ public class NewsfeedDAO {
 				pst.setString(3, "ACTIVE");
 				pst.executeUpdate();
 				
-				createHistory("{ message:liked, user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
+				createHistory("{ message:liked post, user_id:" + sessionUserId + ", reference_id:" + postId + " }", sessionUserId, conn);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -122,11 +120,12 @@ public class NewsfeedDAO {
 		else{
 			int id = getLikePostId(postId, sessionUserId, conn);
 			updateLikePostStatus(id, conn);	//to active
+			createHistory("{ message:unliked post, user_id:" + sessionUserId + ", reference_id:" + postId + " }", sessionUserId, conn);
 		}
 	}
 	
 	
-	public int getLikePostId(int postId, int userId, Connection conn){
+	private int getLikePostId(int postId, int userId, Connection conn){
 		int id = 0;	
 		query = "SELECT id FROM likes_posts WHERE post_id = ? AND user_id = ?";
 		
@@ -146,7 +145,7 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public void updateLikePostStatus(int likeId, Connection conn){ 
+	private void updateLikePostStatus(int likeId, Connection conn){ 
 		query = "UPDATE likes_posts SET status = 'INACTIVE' WHERE id = ?";
 		
 		try {
@@ -160,7 +159,7 @@ public class NewsfeedDAO {
 	}
 	
 	
-	public int checkLikePost(int postId, int userId, Connection conn){
+	private int checkLikePost(int postId, int userId, Connection conn){
 		int count = 0;	
 		query = "SELECT COUNT(*) FROM likes_posts WHERE post_id = ? AND user_id = ? AND status='ACTIVE'";
 		
@@ -177,27 +176,7 @@ public class NewsfeedDAO {
 			e.printStackTrace();
 		}
 		return count;
-	}
-	
-	
-	public String getLikePostStatus(int likeId, Connection conn){
-		String status = "";
-		query = "SELECT status FROM likes_posts WHERE id = ?";
-		
-		try {
-			pst = conn.prepareCall(query);
-			pst.setInt(1, likeId);
-			rs = pst.executeQuery();
-			while (rs.next()){
-				status = rs.getString(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(status);
-		return status;
-	}
+	}	
 	
 	
 	
@@ -259,7 +238,12 @@ public class NewsfeedDAO {
 				pst.setString(4, "ACTIVE");
 				pst.executeUpdate();
 				
-				createHistory("{ message:commented, user_id:" + sessionUserId + ", post_id:" + postId + " }", sessionUserId, conn);
+				rs = pst.getGeneratedKeys();
+				int newid = 0;
+				if (rs.next())
+					newid = rs.getInt(1);
+				
+				createHistory("{ message:'commented', user_id:" + sessionUserId + ", reference_id:" + newid + " }", sessionUserId, conn);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -277,7 +261,7 @@ public class NewsfeedDAO {
 			pst.setInt(2, commentId);
 			pst.executeUpdate();
 			
-			createHistory("{ message:update comment: " + description + ", user_id:" + sessionUserId + ", comment_id:" + commentId + " }", sessionUserId, conn);
+			createHistory("{ message:'updated comment: " + description + "', user_id:" + sessionUserId + ", reference_id:" + commentId + " }", sessionUserId, conn);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -293,6 +277,8 @@ public class NewsfeedDAO {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1, commentId);
 			pst.executeUpdate();
+			
+			createHistory("{ message:'deleted comment', user_id:" + sessionUserId + ", reference_id:" + commentId + " }", sessionUserId, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -312,7 +298,7 @@ public class NewsfeedDAO {
 					pst.setString(3, "ACTIVE");
 					pst.executeUpdate();
 					
-					createHistory("{ message:liked, user_id:" + sessionUserId + ", comment_id:" + commentId + " }", sessionUserId, conn);
+					createHistory("{ message:'liked comment', user_id:" + sessionUserId + ", reference_id:" + commentId + " }", sessionUserId, conn);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -321,11 +307,12 @@ public class NewsfeedDAO {
 			else{
 				int id = getLikeCommentId(commentId, sessionUserId, conn);
 				updateLikeCommentStatus(id, conn);	//to active
+				createHistory("{ message:'unliked comment', user_id:" + sessionUserId + ", reference_id:" + commentId + " }", sessionUserId, conn);
 			}
 		}
 		
 		
-		public int getLikeCommentId(int commentId, int userId, Connection conn){
+		private int getLikeCommentId(int commentId, int userId, Connection conn){
 			int id = 0;	
 			query = "SELECT id FROM likes_comments WHERE comment_id = ? AND user_id = ?";
 			
@@ -365,7 +352,7 @@ public class NewsfeedDAO {
 		}
 		
 		
-		public void updateLikeCommentStatus(int likeId, Connection conn){ 
+		private void updateLikeCommentStatus(int likeId, Connection conn){ 
 			query = "UPDATE likes_comments SET status = 'INACTIVE' WHERE id = ?";
 			
 			try {
@@ -379,7 +366,7 @@ public class NewsfeedDAO {
 		}
 		
 		
-		public int checkLikeComment(int commentId, int userId, Connection conn){
+		private int checkLikeComment(int commentId, int userId, Connection conn){
 			int count = 0;	
 			query = "SELECT COUNT(*) FROM likes_comments WHERE comment_id = ? AND user_id = ? AND status='ACTIVE'";
 			
@@ -397,27 +384,6 @@ public class NewsfeedDAO {
 			}
 			return count;
 		}
-		
-		
-		public String getLikeCommentStatus(int likeId, Connection conn){
-			String status = "";
-			query = "SELECT status FROM likes_comments WHERE id = ?";
-			
-			try {
-				pst = conn.prepareCall(query);
-				pst.setInt(1, likeId);
-				rs = pst.executeQuery();
-				while (rs.next()){
-					status = rs.getString(1);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(status); 
-			return status;
-		}
-		
 		
 		
 		public int countLikeComment(int commentId, Connection conn){

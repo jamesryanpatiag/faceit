@@ -2,17 +2,16 @@
  * 
  */
 $( document ).ready(function() {
-//	document.body.addEventListener('mouseup', function(){
-//		if ($("#" + window.postId).is(':focus')) {
-//			
-//		}
-//		else{
-//			console.log(this.postId)
-//			document.getElementById(window.postId).readOnly = false;
-//			document.getElementById(window.postId).focus();
-//			document.getElementById(window.postId + "btn").style.display = "none";
-//		}
-//	});
+	var posts = document.getElementsByClassName('.post-input');
+	console.log(posts);
+	$('.post-input').each(function () {
+		textAreaAdjust(this.id);
+		console.log(this.id);
+	});
+	$('.comment-input').each(function () {
+		textAreaAdjust(this.id);
+		console.log(this.id);
+	});
 });
 
 function enableCommentInput(textBoxId){
@@ -24,4 +23,9 @@ function enablePostInput(textBoxId){
 	window.postId = textBoxId;
 	document.getElementById(textBoxId).readOnly = false;
 	document.getElementById(textBoxId).focus();
+}
+
+function textAreaAdjust(o) {
+    o.style.height = "1px";
+    o.style.height = (25+o.scrollHeight)+"px";
 }
