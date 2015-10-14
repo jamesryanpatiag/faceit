@@ -71,4 +71,18 @@ public class UserServices extends AbstractDAO {
 		}
 		return isValid;
 	}
+	
+	public Boolean doAgeValidation(String date){
+		Boolean isValid = false;
+		try {
+			Connection con = getConnection();
+			isValid = reg.checkUserExist(date,con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return isValid;
+	}
 }

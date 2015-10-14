@@ -1,13 +1,18 @@
 package com.group3.faceit.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.model.registration.RegistrationModel;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class UserDAO {
 	
@@ -67,6 +72,28 @@ public class UserDAO {
 		}
 		return isValid;
 	}
+
+	public Boolean doAuthentication(String email, String password, Connection con) throws SQLException{
+		  Boolean doesMatch = false;
+		  
+		  try{
+		   strQry = "SELECT * FROM users WHERE username = ? AND password = SHA1(?)";
+		   PreparedStatement stmt = con.prepareStatement(strQry);
+		   stmt.setString(1, email);;
+		   stmt.setString(2,  password);
+		   
+		   ResultSet rs = stmt.executeQuery();
+		   
+		   if(rs.next())
+		   {
+		    doesMatch = true;
+		   }
+		  }catch(SQLException ex){
+		   System.out.println(ex.getMessage());
+		  }
+		  System.out.println("does match? - " + doesMatch);
+		  return doesMatch;
+	}
 	
 	public Boolean checkUserExist(String email, Connection con) throws SQLException{
 		Boolean doesExist = false;
@@ -89,25 +116,9 @@ public class UserDAO {
 		return doesExist;
 	}
 	
-	public Boolean doAuthentication(String email, String password, Connection con) throws SQLException{
-		  Boolean doesMatch = false;
-		  
-		  try{
-		   strQry = "SELECT * FROM users WHERE username = ? AND password = SHA1(?)";
-		   PreparedStatement stmt = con.prepareStatement(strQry);
-		   stmt.setString(1, email);;
-		   stmt.setString(2,  password);
-		   
-		   ResultSet rs = stmt.executeQuery();
-		   
-		   if(rs.next())
-		   {
-		    doesMatch = true;
-		   }
-		  }catch(SQLException ex){
-		   System.out.println(ex.getMessage());
-		  }
-		  System.out.println("does match? - " + doesMatch);
-		  return doesMatch;
+	public Boolean doAgeValidation(String date, Connection con) {
+		boolean legalAge = false;
+		
+		return legalAge;
 	}
 }
