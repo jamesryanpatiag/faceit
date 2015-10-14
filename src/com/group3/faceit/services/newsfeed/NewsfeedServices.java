@@ -29,6 +29,17 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
+	public void updatePost(int postId, int sessionUserId, String description) {
+		try {
+			Connection con = getConnection();
+			newsfeed.updatePost(postId, sessionUserId, description, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void deletePost(int postId) {
 		try {
 			Connection con = getConnection();
@@ -133,6 +144,27 @@ public class NewsfeedServices extends AbstractDAO {
 		}
 	}
 	
+	public void updateComment(int commentId, int sessionUserId, String description) {
+		try {
+			Connection con = getConnection();
+			newsfeed.updateComment(commentId, sessionUserId, description, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteComment(int commentId, int sessionUserId) {
+		try {
+			Connection con = getConnection();
+			newsfeed.deleteComment(commentId, sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public int countComments(int postId) {
 		int count = 0;

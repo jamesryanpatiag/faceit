@@ -4,4 +4,10 @@
  /*NEWSFEED CSS*/ 
   	.comment-input{
 		border:none;
+		display:table-cell;
+	}
+	
+	.post-input{
+		border:none;
+		display:table-cell;
 	}
