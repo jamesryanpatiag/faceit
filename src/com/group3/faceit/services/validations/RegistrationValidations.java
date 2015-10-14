@@ -84,7 +84,6 @@ public class RegistrationValidations {
 					err.setBirthdateerror("User should be in legal age.");
 					failedValidation = true;	
 				}
-					
 			}
 			
 			/**Gender Validations*/
