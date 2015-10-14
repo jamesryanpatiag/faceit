@@ -24,21 +24,27 @@ public class RegistrationValidations {
 				if(register.getFirstname().trim().isEmpty()){
 					err.setFnameerror("First Name is required.");
 					failedValidation = true;
-				}else if(register.getFirstname().matches("[^a-zA-Z0-9 ]*")){
+				}else if(!register.getFirstname().matches("^[a-zA-Z]*")){
 					err.setFnameerror("Invalid Input");
 					failedValidation = true;
 				}
 			}
 			
 			/**Middle Name Validations*/
+			if(!register.getMiddlename().matches("^[a-zA-Z+]*")){
+				err.setMnameerror("Invalid Input");
+				failedValidation = true;
+			}
 			
 			/**Last Name Validations*/
 			if(register.getLastname() != null){
 				if(register.getLastname().trim().isEmpty()){
 					err.setLnameerror("Last Name is required.");
 					failedValidation = true;
+				}else if(!register.getLastname().matches("^[a-zA-Z]*")){
+					err.setLnameerror("Invalid Input");
+					failedValidation = true;
 				}
-
 			}
 			
 			/**Email Validations*/
@@ -63,8 +69,8 @@ public class RegistrationValidations {
 				}else if(register.getPassword().length() < 8 || register.getPassword().length() > 20){
 					err.setPassworderror("Password must be 8-20 characters ");
 					failedValidation = true;
-				}else if(!register.getPassword().matches("[^a-zA-Z0-9 ]*") && !register.getPassword().matches("\\d")){
-					err.setPassworderror("Password must consists of alphanumberic and special character");
+				}else if(!register.getPassword().matches("^([a-zA-Z+]+[0-9+]+[&@!#+]+)$")){
+					err.setPassworderror("Password must consists of alphanumeric and special character.");
 					failedValidation = true;
 				}
 			}
