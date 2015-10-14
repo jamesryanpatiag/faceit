@@ -35,7 +35,7 @@ public class UserDAO {
 					userId = result.getInt(1);
 			}
 			
-			strQry = "INSERT INTO users_profile (id, firstname, middlename, lastname, email, birthdate, gender)"
+			strQry = "INSERT INTO users_profile (user_id, firstname, middlename, lastname, email, birthdate, gender)"
 					+ " VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), ?)";
 			PreparedStatement stmt2 = con.prepareStatement(strQry);
 			stmt2.setInt(1, userId);
@@ -55,23 +55,22 @@ public class UserDAO {
 		return isValid;
 	}
 	
-	public Boolean loginAccount(LoginModel regData, Connection con) throws SQLException{
+	public int loginAccount(LoginModel regData, Connection con) throws SQLException{
 		
-		Boolean isValid = false;
-		
+		int userid = 0;
 		try{
-			strQry = "SELECT password = sha1(?)  FROM users WHERE username= ?";
+			strQry = "SELECT id FROM users WHERE username= ? AND password = sha1(?)";
 			PreparedStatement stmt = con.prepareStatement(strQry);
-			stmt.setString(1, regData.getPassword());
-			stmt.setString(2, regData.getEmail());
+			stmt.setString(1, regData.getEmail());
+			stmt.setString(2, regData.getPassword());
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
-				isValid = rs.getBoolean(1);
-			}		
+				userid = rs.getInt(1);
+			}
 		}catch(SQLException ex){
 			System.out.println(ex.getMessage());
 		}
-		return isValid;
+		return userid;
 	}
 
 	public Boolean doAuthentication(String email, String password, Connection con) throws SQLException{

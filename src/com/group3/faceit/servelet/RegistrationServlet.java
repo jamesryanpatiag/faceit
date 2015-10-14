@@ -35,6 +35,15 @@ public class RegistrationServlet extends HttpServlet{
 				
 		if(RegistrationValidations.failedValidation)
 		{
+			//RETURN VAL
+			req.setAttribute("firstname", req.getParameter("firstname").toString());
+			req.setAttribute("middlename", req.getParameter("middlename").toString());
+			req.setAttribute("lastname", req.getParameter("lastname").toString());
+			req.setAttribute("email", req.getParameter("email").toString());
+			req.setAttribute("birthdate", req.getParameter("birthdate").toString());
+			req.setAttribute("gender", req.getParameter("gender").toString());
+			
+			//ERROR MESSAGES
 			req.setAttribute("fnameerr", err.getFnameerror());
 			req.setAttribute("mnameerr", err.getMnameerror());
 			req.setAttribute("lnameerr", err.getLnameerror());
@@ -44,21 +53,13 @@ public class RegistrationServlet extends HttpServlet{
 			req.setAttribute("generr", err.getGendererror());
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 			
-			System.out.println(err.getFnameerror());
-			System.out.println(err.getMnameerror());
-			System.out.println(err.getLnameerror());
-			System.out.println(err.getUsernameerror());
-			System.out.println(err.getPassworderror());
-			System.out.println(err.getBirthdateerror());
-			System.out.println(err.getGendererror());
-			
 		}else{
 			UserServices regServ = new UserServices();
 			if(regServ.registerAccount(regData))
 			{
 				req.getRequestDispatcher("/Redirect.jsp").forward(req, resp);
 			}else{
-				resp.sendRedirect("Registration");
+				req.getRequestDispatcher("/Register.jsp").forward(req, resp);
 			}
 		
 		}

@@ -12,14 +12,21 @@ import com.group3.faceit.services.validations.*;
 import com.mysql.fabric.Response;
 
 
-@WebServlet({"/Login"})
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
-		req.setAttribute("Title", "Login");
-		req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+		System.out.println("hello");
+		HttpSession session = req.getSession();
+		if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null){
+			resp.sendRedirect("Newsfeed");
+		}else{
+			req.setAttribute("Title", "Login");
+			resp.sendRedirect("Login");
+		}
+		
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -39,13 +46,14 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 		}else{
 			UserServices regServ = new UserServices();
-			if(regServ.loginAccount(logData))
+			if(regServ.loginAccount(logData) != 0)
 			{
-		
+				HttpSession session = req.getSession(true);
+				session.setAttribute("userid", regServ.loginAccount(logData));
 				resp.sendRedirect("Newsfeed");
 				
 			}else{
-				resp.sendRedirect("Login");
+				req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 			}
 		}
 	}

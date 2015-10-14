@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.model.registration.RegistrationModel;
@@ -18,7 +19,7 @@ import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 @WebServlet("/AccountSettings")
 public class AccountSettingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private int sessionUserId = 0;    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,29 +32,34 @@ public class AccountSettingsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserServices userServ = new UserServices();
-		LoginModel loginModel = userServ.getUserByUserId(1);
-		RegistrationModel regModel = userServ.getUserProfileByUserId(1);
 		
-		req.setAttribute("Title", "Account Settings");
-		req.setAttribute("firstname", regModel.getFirstname());
-		req.setAttribute("middlename", regModel.getMiddlename());
-		req.setAttribute("lastname", regModel.getLastname());
-		req.setAttribute("address", regModel.getAddress());
-		req.setAttribute("mobile", regModel.getMobile());
+		HttpSession session = req.getSession();
+		if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null){
+			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
+			UserServices userServ = new UserServices();
+			LoginModel loginModel = userServ.getUserByUserId(sessionUserId);
+			RegistrationModel regModel = userServ.getUserProfileByUserId(sessionUserId);
+			
+			req.setAttribute("Title", "Account Settings");
+			req.setAttribute("firstname", regModel.getFirstname());
+			req.setAttribute("middlename", regModel.getMiddlename());
+			req.setAttribute("lastname", regModel.getLastname());
+			req.setAttribute("address", regModel.getAddress());
+			req.setAttribute("mobile", regModel.getMobile());
+			req.setAttribute("username", loginModel.getEmail());
+			req.setAttribute("password", loginModel.getPassword());
+			req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
+		}else{
+			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+		}
 		
-		req.setAttribute("username", loginModel.getEmail());
-		req.setAttribute("password", loginModel.getPassword());
-		
-		req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getAttribute("txtFirstname")
 	}
 
 }

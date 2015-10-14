@@ -11,31 +11,31 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class UserServices extends AbstractDAO {
 	
-	private UserDAO reg = null;
+	private UserDAO userDao = null;
 	
 	public UserServices() {
-		reg = new UserDAO();
+		userDao = new UserDAO();
 	}
 
-	public Boolean loginAccount(LoginModel regData){
-		Boolean isValid = false;
+	public int loginAccount(LoginModel regData){
+		int userid = 0;
 		try {
 			Connection con = getConnection();
-			isValid = reg.loginAccount(regData,con);
+			userid = userDao.loginAccount(regData,con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return 0;
 		}
-		return isValid;
+		return userid;
 	}
 	
 	public Boolean checkUserExist(String email){
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
-			isValid = reg.checkUserExist(email,con);
+			isValid = userDao.checkUserExist(email,con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,7 +49,7 @@ public class UserServices extends AbstractDAO {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
-			isValid = reg.doAuthentication(email, password, con);
+			isValid = userDao.doAuthentication(email, password, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -63,7 +63,7 @@ public class UserServices extends AbstractDAO {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
-			isValid = reg.registerAccount(regData, con);
+			isValid = userDao.registerAccount(regData, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +77,7 @@ public class UserServices extends AbstractDAO {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
-			isValid = reg.checkUserExist(date,con);
+			isValid = userDao.checkUserExist(date,con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -91,7 +91,7 @@ public class UserServices extends AbstractDAO {
 		LoginModel loginModel = new LoginModel();
 		try {
 			Connection con = getConnection();
-			loginModel = reg.getUserByUserId(userid, con);
+			loginModel = userDao.getUserByUserId(userid, con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();			
@@ -103,7 +103,7 @@ public class UserServices extends AbstractDAO {
 		RegistrationModel regModel = new RegistrationModel();
 		try{
 			Connection con = getConnection();
-			regModel = reg.getUserProfileByUserId(userid, con);
+			regModel = userDao.getUserProfileByUserId(userid, con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();

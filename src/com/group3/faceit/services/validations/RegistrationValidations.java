@@ -69,7 +69,7 @@ public class RegistrationValidations {
 				}else if(register.getPassword().length() < 8 || register.getPassword().length() > 20){
 					err.setPassworderror("Password must be 8-20 characters ");
 					failedValidation = true;
-				}else if(!register.getPassword().matches("^.*(?=.*[0-9])(?=.*[@#$%^&+=]).*$")){
+				}else if(!register.getPassword().matches("^.*(?=.*[0-9])(?=.*[!@#$%^&+=]).*$")){
 					err.setPassworderror("Password must consists of alphanumeric and special character.");
 					failedValidation = true;
 				}
