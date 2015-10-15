@@ -29,6 +29,7 @@ public class ProfilePageServlett extends HttpServlet {
      */
     public ProfilePageServlett() {
         super();
+        ProfilePageService = new ProfilePageServices();
         // TODO Auto-generated constructor stub
     }
 

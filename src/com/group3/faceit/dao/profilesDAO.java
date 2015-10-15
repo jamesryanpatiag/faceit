@@ -21,7 +21,7 @@ public class profilesDAO {
 	public List<PostModel> getPosts(int sessionUserId, Connection conn){
 		List<PostModel> posts = new ArrayList<PostModel>();
 		
-		query = "{CALL newsfeedPosts(?)}"; //SHOULD HAVE PARAMETER SESSION.USERID
+		query = "{select * from posts where user_id_to=2}"; //SHOULD HAVE PARAMETER SESSION.USERID
 		
 		try {
 			cst = conn.prepareCall(query);
