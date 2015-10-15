@@ -45,6 +45,7 @@ public class AccountSettingsServlet extends HttpServlet {
 			req.setAttribute("lastname", regModel.getLastname());
 			req.setAttribute("address", regModel.getAddress());
 			req.setAttribute("birthdate", regModel.getBirthdate());
+			req.setAttribute("gender", regModel.getGender());
 			req.setAttribute("mobile", regModel.getMobile());
 			req.setAttribute("username", loginModel.getUsername());
 			req.setAttribute("password", loginModel.getPassword());

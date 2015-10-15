@@ -138,7 +138,7 @@ public class UserDAO {
 	public UserModel getUserProfileByUserId(int userid, Connection con){
 		UserModel regModel = new UserModel();
 		try{
-			strQry = "SELECT firstname, middlename, lastname, birthdate, address, mobile FROM users_profile WHERE user_id = ?";
+			strQry = "SELECT firstname, middlename, lastname, birthdate, gender, address, mobile FROM users_profile WHERE user_id = ?";
 			
 			PreparedStatement stmt = con.prepareStatement(strQry);
 			stmt.setInt(1, userid);
@@ -149,6 +149,7 @@ public class UserDAO {
 				regModel.setMiddlename(rs.getString("middlename"));
 				regModel.setLastname(rs.getString("lastname"));
 				regModel.setBirthdate(rs.getString("birthdate"));
+				regModel.setGender(rs.getString("gender"));
 				regModel.setAddress(rs.getString("address"));
 				regModel.setMobile(rs.getString("mobile"));
 			}

@@ -45,6 +45,16 @@
 							      <input class="form-control input-sm" value="<c:out value="${birthdate}"></c:out>" type="text" readonly="" id="txtBirthdate" name="txtBirthdate" placeholder="Click to choose birthdate.">
 							    </div>
 							  </div>
+							   <div class="form-group">
+							    <label for="txtGender" class="col-sm-2 control-label">Gender</label>
+							    <div class="col-sm-7">
+							      <select aria-label="Gender" name="txtGender" id="txtGender"  class="form-control input-sm" value="<c:out value="${gender}"></c:out>">
+								<option value="" >Gender</option>
+								<option value="1" <c:if test="${gender == 1}">selected="selected"</c:if> >Male</option>
+								<option value="2" <c:if test="${gender == 2}">selected="selected"</c:if>>Female</option>
+							</select>
+							    </div>
+							  </div>
 						  </div>
 						</div>
 					</div>
@@ -63,7 +73,7 @@
 							  </div>
 							  <div class="form-group">
 							    <label for="txtMobile" class="col-sm-2 control-label">Mobile</label>
-							    <div class="col-sm-5 col-md-5"">
+							    <div class="col-sm-7"">
 							      <input type="text" class="form-control input-sm" id="txtMobile" name="txtMobile" placeholder="Mobile" value="<c:out value="${mobile}"></c:out>" />
 							    </div>
 							  </div>
@@ -85,9 +95,21 @@
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Password:</label>
+						    <label for="txtCurrentPassword" class="col-sm-2 control-label">Current Password:</label>
 						    <div class="col-sm-7">
-						      <input type="password" class="form-control input-sm" id="txtPassword" name="txtPassword" placeholder="Password" value="<c:out value="${password}"></c:out>">
+						      <input type="password" class="form-control input-sm" id="txtCurrentPassword" name="txtCurrentPassword" placeholder="Current Password">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="txtNewPassword" class="col-sm-2 control-label">New Password:</label>
+						    <div class="col-sm-7">
+						      <input type="password" class="form-control input-sm" id="txtNewPassword" name="txtNewPassword" placeholder="New Password">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="txtConfirmPassword" class="col-sm-2 control-label">Confirm Password:</label>
+						    <div class="col-sm-7">
+						      <input type="password" class="form-control input-sm" id="txtConfirmPassword" name="txtConfirmPassword" placeholder="Confirm Password">
 						    </div>
 						  </div>
 					  </div>
@@ -109,12 +131,27 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
+		ShowErrorMessages();
+		
 		$("#txtBirthdate").datepicker({
 			changeMonth: true,
       		changeYear: true,
       		yearRange: "-100:+0",
 		});
 	})
+	
+	function ShowErrorMessages(){
+		for(i = 1; i <= 7; i++){
+			var err = $("#error" + i);
+			err.css("display","none");
+			err.parent("div").removeClass("has-error");
+			if(err.text() != ""){
+				err.css("display","inline");
+				err.parent("div").addClass("has-error");
+			}
+			
+		}
+	}
 </script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <%@ include file="includes/footer.jsp" %>
