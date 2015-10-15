@@ -22,7 +22,7 @@
         <a href="Newsfeed"><i class="glyphicon glyphicon-home"></i> Home</a>
       </li>
       <li>
-        <a href="ProfilePage" role="button"><i class="glyphicon glyphicon-user"></i> ${userfullname}</a>
+        <a href="Profile?profile=${userid}" role="button"><i class="glyphicon glyphicon-user"></i> ${userfullname}</a>
       </li>
       <!--  <li>
         <a href="#"><span class="badge">badge</span></a>

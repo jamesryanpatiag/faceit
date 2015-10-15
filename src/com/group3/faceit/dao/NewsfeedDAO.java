@@ -17,7 +17,6 @@ public class NewsfeedDAO {
 	public static ResultSet rs;
 	public static String query = "";
 	public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	private static final JDialog dialog = new JDialog();
 	
 	
 //POSTS DATA MANIPULATION
