@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.group3.faceit.model.login.LoginModel;
-import com.group3.faceit.model.registration.RegistrationModel;
+import com.group3.faceit.model.user.*;
 import com.group3.faceit.services.*;
 import com.group3.faceit.services.user.UserServices;
+import com.group3.faceit.services.validations.*;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 /**
  * Servlet implementation class AccountSettings
@@ -37,8 +37,8 @@ public class AccountSettingsServlet extends HttpServlet {
 		if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null){
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			UserServices userServ = new UserServices();
-			LoginModel loginModel = userServ.getUserByUserId(sessionUserId);
-			RegistrationModel regModel = userServ.getUserProfileByUserId(sessionUserId);
+			UserModel loginModel = userServ.getUserByUserId(sessionUserId);
+			UserModel regModel = userServ.getUserProfileByUserId(sessionUserId);
 			
 			req.setAttribute("Title", "Account Settings");
 			req.setAttribute("firstname", regModel.getFirstname());
@@ -46,7 +46,7 @@ public class AccountSettingsServlet extends HttpServlet {
 			req.setAttribute("lastname", regModel.getLastname());
 			req.setAttribute("address", regModel.getAddress());
 			req.setAttribute("mobile", regModel.getMobile());
-			req.setAttribute("username", loginModel.getEmail());
+			req.setAttribute("username", loginModel.getUsername());
 			req.setAttribute("password", loginModel.getPassword());
 			req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 		}else{
@@ -59,7 +59,30 @@ public class AccountSettingsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getAttribute("txtFirstname");
+		UserModel regData = new UserModel();
+		regData.setFirstname(req.getParameter("firstname").toString());
+		regData.setMiddlename(req.getParameter("middlename").toString());
+		regData.setLastname(req.getParameter("lastname").toString());
+		regData.setAddress(req.getParameter("address").toString());
+		regData.setBirthdate(req.getParameter("birthdate".toString()));
+		regData.setGender(req.getParameter("gender").toString());
+		regData.setMobile(req.getParameter("mobile").toString());
+		regData.setPassword(req.getParameter("password").toString());
+		
+		UserErrModel err = RegistrationValidations.validadateRegistration(regData);
+		
+		if(RegistrationValidations.failedValidation)
+		{
+			req.setAttribute("firstname", regData.getFirstname());
+			req.setAttribute("middlename", regData.getMiddlename());
+			req.setAttribute("lastname", regData.getLastname());
+			req.setAttribute("address", regData.getAddress());
+			req.setAttribute("birthdate", regData.getBirthdate());
+			req.setAttribute("gender", regData.getGender());
+			req.setAttribute("mobile", regData.getMobile());
+			req.setAttribute("password", regData.getPassword());
+			
+		}
 	}
 
 }
