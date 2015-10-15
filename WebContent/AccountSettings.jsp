@@ -22,25 +22,53 @@
 						  <div class="panel-body">
 						  	
 							  <div class="form-group">
-							    <label for="inputEmail3" class="col-sm-2 control-label">Firstname:</label>
+							    <label for="txtFirstname" class="col-sm-2 control-label">Firstname:</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtFirstname" name="txtFirstname"  placeholder="Firstname" value="<c:out value="${firstname}"></c:out>" />
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-2 control-label">Middlename</label>
+							    <label for="txtMiddlename" class="col-sm-2 control-label">Middlename</label>
 							    <div class="col-sm-2 col-md-1"">
 							      <input type="text" class="form-control input-sm" id="txtMiddlename" name="txtMiddlename" placeholder="M" maxlength="1" value="<c:out value="${middlename}"></c:out>" />
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-2 control-label">Lastname</label>
+							    <label for="txtLastname" class="col-sm-2 control-label">Lastname</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtLastname" name="txtLastname" placeholder="Lastname" value="<c:out value="${lastname}"></c:out>" />
 							    </div>
 							  </div>
+							  <div class="form-group">
+							    <label for="txtBirthdate" class="col-sm-2 control-label">Birthdate</label>
+							    <div class="col-sm-7">
+							      <input class="form-control input-sm" value="<c:out value="${birthdate}"></c:out>" type="text" readonly="" id="txtBirthdate" name="txtBirthdate" placeholder="Click to choose birthdate.">
+							    </div>
+							  </div>
 						  </div>
 						</div>
+					</div>
+					
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="panel panel-primary">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Contact Information</h3>
+					  </div>
+					  <div class="panel-body">
+						   <div class="form-group">
+							    <label for="txtAddress" class="col-sm-2 control-label">Address:</label>
+							    <div class="col-sm-7">
+							      <input type="text" class="form-control input-sm" id="txtAddress" name="txtAddress"  placeholder="Address" value="<c:out value="${address}"></c:out>" />
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="txtMobile" class="col-sm-2 control-label">Mobile</label>
+							    <div class="col-sm-5 col-md-5"">
+							      <input type="text" class="form-control input-sm" id="txtMobile" name="txtMobile" placeholder="Mobile" value="<c:out value="${mobile}"></c:out>" />
+							    </div>
+							  </div>
+					  </div>
+					</div>
 					</div>
 					
 					<div class="col-md-12 col-sm-12 col-xs-12">
@@ -77,4 +105,16 @@
         </div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("#txtBirthdate").datepicker({
+			changeMonth: true,
+      		changeYear: true,
+      		yearRange: "-100:+0",
+		});
+	})
+</script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
 <%@ include file="includes/footer.jsp" %>
