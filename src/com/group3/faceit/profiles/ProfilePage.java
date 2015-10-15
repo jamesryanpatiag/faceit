@@ -1,4 +1,4 @@
-package com.group3.faceit.servelet;
+package com.group3.faceit.profiles;
 
 import java.io.IOException;
 
