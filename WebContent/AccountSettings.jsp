@@ -25,34 +25,39 @@
 							    <label for="txtFirstname" class="col-sm-2 control-label">Firstname:</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtFirstname" name="txtFirstname"  placeholder="Firstname" value="<c:out value="${firstname}"></c:out>" />
+							      <label class="control-label" for="inputError1" id="error1"><c:out value="${fnameerr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="txtMiddlename" class="col-sm-2 control-label">Middlename</label>
 							    <div class="col-sm-2 col-md-1"">
 							      <input type="text" class="form-control input-sm" id="txtMiddlename" name="txtMiddlename" placeholder="M" maxlength="1" value="<c:out value="${middlename}"></c:out>" />
+							      <label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="txtLastname" class="col-sm-2 control-label">Lastname</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtLastname" name="txtLastname" placeholder="Lastname" value="<c:out value="${lastname}"></c:out>" />
+							      <label class="control-label" for="inputError1" id="error3"><c:out value="${lnameerr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="txtBirthdate" class="col-sm-2 control-label">Birthdate</label>
 							    <div class="col-sm-7">
 							      <input class="form-control input-sm" value="<c:out value="${birthdate}"></c:out>" type="text" readonly="" id="txtBirthdate" name="txtBirthdate" placeholder="Click to choose birthdate.">
+							      <label class="control-label" for="inputError1" id="error4"><c:out value="${birtherr}"></c:out></label>
 							    </div>
 							  </div>
 							   <div class="form-group">
 							    <label for="txtGender" class="col-sm-2 control-label">Gender</label>
 							    <div class="col-sm-7">
 							      <select aria-label="Gender" name="txtGender" id="txtGender"  class="form-control input-sm" value="<c:out value="${gender}"></c:out>">
-								<option value="" >Gender</option>
-								<option value="1" <c:if test="${gender == 1}">selected="selected"</c:if> >Male</option>
-								<option value="2" <c:if test="${gender == 2}">selected="selected"</c:if>>Female</option>
-							</select>
+									<option value="" >Gender</option>
+									<option value="1" <c:if test="${gender == 1}">selected="selected"</c:if> >Male</option>
+									<option value="2" <c:if test="${gender == 2}">selected="selected"</c:if>>Female</option>
+								  </select>
+								  <label class="control-label" for="inputError1" id="error5"><c:out value="${generr}"></c:out></label>
 							    </div>
 							  </div>
 						  </div>
@@ -69,12 +74,14 @@
 							    <label for="txtAddress" class="col-sm-2 control-label">Address:</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtAddress" name="txtAddress"  placeholder="Address" value="<c:out value="${address}"></c:out>" />
+							      <label class="control-label" for="inputError1" id="error6"><c:out value="${adderr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="txtMobile" class="col-sm-2 control-label">Mobile</label>
 							    <div class="col-sm-7"">
 							      <input type="text" class="form-control input-sm" id="txtMobile" name="txtMobile" placeholder="Mobile" value="<c:out value="${mobile}"></c:out>" />
+							      <label class="control-label" for="inputError1" id="error7"><c:out value="${moberr}"></c:out></label>
 							    </div>
 							  </div>
 					  </div>
@@ -98,18 +105,21 @@
 						    <label for="txtCurrentPassword" class="col-sm-2 control-label">Current Password:</label>
 						    <div class="col-sm-7">
 						      <input type="password" class="form-control input-sm" id="txtCurrentPassword" name="txtCurrentPassword" placeholder="Current Password">
+						      <label class="control-label" for="inputError1" id="error8"><c:out value="${passerr}"></c:out></label>
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="txtNewPassword" class="col-sm-2 control-label">New Password:</label>
 						    <div class="col-sm-7">
 						      <input type="password" class="form-control input-sm" id="txtNewPassword" name="txtNewPassword" placeholder="New Password">
+						      <label class="control-label" for="inputError1" id="error9"><c:out value="${passerr}"></c:out></label>
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="txtConfirmPassword" class="col-sm-2 control-label">Confirm Password:</label>
 						    <div class="col-sm-7">
 						      <input type="password" class="form-control input-sm" id="txtConfirmPassword" name="txtConfirmPassword" placeholder="Confirm Password">
+						      <label class="control-label" for="inputError1" id="error10"><c:out value="${passerr}"></c:out></label>
 						    </div>
 						  </div>
 					  </div>
@@ -141,7 +151,7 @@
 	})
 	
 	function ShowErrorMessages(){
-		for(i = 1; i <= 7; i++){
+		for(i = 1; i <= 10; i++){
 			var err = $("#error" + i);
 			err.css("display","none");
 			err.parent("div").removeClass("has-error");

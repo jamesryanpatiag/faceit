@@ -157,7 +157,35 @@ public class UserDAO {
 			System.out.println(ex.getMessage());
 		}
 		return regModel;
-		
 	} 
-
+	
+	public Boolean validateAgeByBirthdate(String password, Connection con) throws SQLException{
+		  Boolean isValid = false;
+		  
+		  try{
+		   strQry = "SELECT TIMESTAMPDIFF(YEAR, '1988-10-19', NOW()) >= 18;";
+		   PreparedStatement stmt = con.prepareStatement(strQry);
+		   stmt.setString(1,  password);
+		   
+		   ResultSet rs = stmt.executeQuery();
+		   
+		   if(rs.next())
+		   {
+			   isValid = true;
+		   }
+		  }catch(SQLException ex){
+		   System.out.println(ex.getMessage());
+		  }
+		  System.out.println("is valid? - " + isValid);
+		  return isValid;
+	}
+	
+	
+	public Boolean updateUserInformation(UserModel updateData, Connection con) throws SQLException{
+		
+		Boolean isValid = false;
+		
+		return isValid;
+		
+	}
 }

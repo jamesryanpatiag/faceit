@@ -95,4 +95,30 @@ public class UserServices extends AbstractDAO {
 		}
 		return regModel;
 	}
+	
+	public Boolean validateAgeByBirthdate(String password){
+		Boolean isValid = false;
+		try{
+			Connection con = getConnection();
+			isValid = userDao.validateAgeByBirthdate(password, con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return isValid;
+	}
+	
+	public Boolean updateUserInformation(UserModel updateData){
+		Boolean isValid = false;
+		try {
+			Connection con = getConnection();
+			isValid = userDao.updateUserInformation(updateData, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return isValid;
+	}
 }

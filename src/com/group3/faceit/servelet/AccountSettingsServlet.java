@@ -59,29 +59,38 @@ public class AccountSettingsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel regData = new UserModel();
-		regData.setFirstname(req.getParameter("firstname").toString());
-		regData.setMiddlename(req.getParameter("middlename").toString());
-		regData.setLastname(req.getParameter("lastname").toString());
-		regData.setAddress(req.getParameter("address").toString());
-		regData.setBirthdate(req.getParameter("birthdate".toString()));
-		regData.setGender(req.getParameter("gender").toString());
-		regData.setMobile(req.getParameter("mobile").toString());
-		regData.setPassword(req.getParameter("password").toString());
+		UserModel upData = new UserModel();
+		upData.setFirstname(req.getParameter("firstname").toString());
+		upData.setMiddlename(req.getParameter("middlename").toString());
+		upData.setLastname(req.getParameter("lastname").toString());
+		upData.setAddress(req.getParameter("address").toString());
+		upData.setBirthdate(req.getParameter("birthdate".toString()));
+		upData.setGender(req.getParameter("gender").toString());
+		upData.setMobile(req.getParameter("mobile").toString());
+		upData.setPassword(req.getParameter("password").toString());
 		
-		UserErrModel err = RegistrationValidations.validadateRegistration(regData);
+		UserErrModel err = RegistrationValidations.validadateRegistration(upData);
 		
 		if(RegistrationValidations.failedValidation)
 		{
-			req.setAttribute("firstname", regData.getFirstname());
-			req.setAttribute("middlename", regData.getMiddlename());
-			req.setAttribute("lastname", regData.getLastname());
-			req.setAttribute("address", regData.getAddress());
-			req.setAttribute("birthdate", regData.getBirthdate());
-			req.setAttribute("gender", regData.getGender());
-			req.setAttribute("mobile", regData.getMobile());
-			req.setAttribute("password", regData.getPassword());
+			req.setAttribute("firstname", err.getFnameerr());
+			req.setAttribute("middlename", err.getLnameerr());
+			req.setAttribute("lastname", err.getLnameerr());
+			req.setAttribute("address", err.getAddresserr());
+			req.setAttribute("birthdate", err.getBdateerr());
+			req.setAttribute("gender", err.getGendererr());
+			req.setAttribute("mobile", err.getGendererr());
+			req.setAttribute("password", err.getPassworderr());
 			
+		}else{
+			UserServices regServ = new UserServices();
+			
+			if(regServ.updateUserInformation(upData))
+			{
+				req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
+			}else{
+				req.getRequestDispatcher("/NewsFeed.jsp").forward(req, resp);
+			}
 		}
 	}
 

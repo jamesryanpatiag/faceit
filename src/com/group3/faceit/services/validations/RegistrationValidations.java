@@ -10,7 +10,7 @@ public class RegistrationValidations {
 	
 	public static boolean failedValidation;
 	
-	public static UserErrModel validadateRegistration(UserModel register)
+	public static UserErrModel validadateRegistration(UserModel user)
 	{
 		failedValidation = false;
 		
@@ -20,72 +20,75 @@ public class RegistrationValidations {
 		try{
 			
 			/**First Name Validations*/
-			if(register.getFirstname() != null){
-				if(register.getFirstname().trim().isEmpty()){
+			if(user.getFirstname() != null){
+				if(user.getFirstname().trim().isEmpty()){
 					err.setFnameerr("First Name is required.");
 					failedValidation = true;
-				}else if(!register.getFirstname().matches("^[a-zA-Z ]*")){
+				}else if(!user.getFirstname().matches("^[a-zA-Z ]*")){
 					err.setFnameerr("Invalid Input");
 					failedValidation = true;
 				}
 			}
 			
 			/**Middle Name Validations*/
-			if(!register.getMiddlename().matches("^[a-zA-Z ]*")){
+			if(!user.getMiddlename().matches("^[a-zA-Z ]*")){
 				err.setMnamerrr("Invalid Input");
 				failedValidation = true;
 			}
 			
 			/**Last Name Validations*/
-			if(register.getLastname() != null){
-				if(register.getLastname().trim().isEmpty()){
+			if(user.getLastname() != null){
+				if(user.getLastname().trim().isEmpty()){
 					err.setLnameerr("Last Name is required.");
 					failedValidation = true;
-				}else if(!register.getLastname().matches("^[a-zA-Z ]*")){
+				}else if(!user.getLastname().matches("^[a-zA-Z ]*")){
 					err.setLnameerr("Invalid Input");
 					failedValidation = true;
 				}
 			}
 			
 			/**Email Validations*/
-			if(register.getUsername() != null){
-				if(register.getUsername().trim().isEmpty()){
+			if(user.getUsername() != null){
+				if(user.getUsername().trim().isEmpty()){
 					err.setUnameerr("Email is required.");
 					failedValidation = true;
-				}else if(!register.getUsername().matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")){
+				}else if(!user.getUsername().matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")){
 					err.setUnameerr("Email Format is invalid.");
 					failedValidation = true;
-				}else if(serv.checkUserExist(register.getUsername())){
+				}else if(serv.checkUserExist(user.getUsername())){
 					err.setUnameerr("Email already exists.");
 					failedValidation = true;
 				}
 			}
 		
 			/**Password Validations*/
-			if(register.getPassword() != null){
-				if(register.getPassword().trim().isEmpty()){
+			if(user.getPassword() != null){
+				if(user.getPassword().trim().isEmpty()){
 					err.setPassworderr("Password is required.");
 					failedValidation = true;
-				}else if(register.getPassword().length() < 8 || register.getPassword().length() > 20){
+				}else if(user.getPassword().length() < 8 || user.getPassword().length() > 20){
 					err.setPassworderr("Password must be 8-20 characters ");
 					failedValidation = true;
-				}else if(!register.getPassword().matches("^.*(?=.*[0-9])(?=.*[!@#$%^&+=]).*$")){
+				}else if(!user.getPassword().matches("^.*(?=.*[0-9])(?=.*[!@#$%^&+=]).*$")){
 					err.setPassworderr("Password must consists of alphanumeric and special character.");
 					failedValidation = true;
 				}
 			}
 			
 			/**Birthdate Validations*/
-			if(register.getBirthdate() != null){
-				if(register.getBirthdate().trim().isEmpty()){
+			if(user.getBirthdate() != null){
+				if(user.getBirthdate().trim().isEmpty()){
 					err.setBdateerr("Birthdate is required.");
 					failedValidation = true;		
+				}else if(serv.validateAgeByBirthdate(user.getPassword())){
+					err.setBdateerr("User should not be less than 18 years old.");
+					failedValidation = true;
 				}
 			}
 			
 			/**Gender Validations*/
-			if(register.getGender() != null){
-				if(register.getGender().trim().isEmpty()){
+			if(user.getGender() != null){
+				if(user.getGender().trim().isEmpty()){
 					err.setGendererr("Gender is required.");
 					failedValidation = true;
 				}
