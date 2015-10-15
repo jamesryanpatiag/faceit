@@ -1,4 +1,4 @@
-package com.group3.faceit.profiles;
+package com.group3.faceit.services.profile;
 
 import java.sql.Connection;
 import java.sql.SQLException;

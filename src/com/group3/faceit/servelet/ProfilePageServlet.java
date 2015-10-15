@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JDialog;
 
-import com.group3.faceit.profiles.ProfilePageServices;
+import com.group3.faceit.services.profile.ProfilePageServices;
 import com.group3.faceit.services.newsfeed.NewsfeedServices;
 
 /**
  * Servlet implementation class ProfilePage
  */
 @WebServlet("/ProfilePage")
-public class ProfilePageServlett extends HttpServlet {
+public class ProfilePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final JDialog dialog = new JDialog();
 	RequestDispatcher rd = null;
@@ -27,7 +27,7 @@ public class ProfilePageServlett extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfilePageServlett() {
+    public ProfilePageServlet() {
         super();
         ProfilePageService = new ProfilePageServices();
         // TODO Auto-generated constructor stub
