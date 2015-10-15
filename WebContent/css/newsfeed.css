@@ -4,13 +4,14 @@
  /*NEWSFEED CSS*/ 
   	.comment-input{
 		border:none;
-		display:table-cell;
-		outline: none;
+		width: 100%;
+		outline:none;
+		overflow: hidden;
 	}
 	
 	.post-input{
 		border:none;
-		outline: none;
+		outline:none;
 		width: 100%;
 		overflow: hidden;
 	}

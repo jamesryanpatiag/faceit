@@ -45,7 +45,7 @@
 						
 				        <div class="panel-body">
 							<form action="Newsfeed" method="POST">
-			                	<textarea name="post" id="p<c:out value="${p.postid}"/>" class="post-input" readonly><c:out value="${p.description}"/></textarea>
+			                	<textarea name="post" id="p<c:out value="${p.postid}"/>" class="post-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${p.description}"/></textarea>
 			                	<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 								<input type="hidden" name="hidden" value="hupdatePost"/>
 								<input type="submit" id="p<c:out value="${p.postid}"/>btn" class="" style="display:none"/>
@@ -80,7 +80,7 @@
 										</form>
 					                	<form action="Newsfeed" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
-						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" readonly><c:out value="${c.description}"/></textarea>
+						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${c.description}"/></textarea>
 						                	<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 											<input type="hidden" name="hidden" value="hupdateComment"/>
 											<input type="submit" class="btn btn-success" style="display:none"/>

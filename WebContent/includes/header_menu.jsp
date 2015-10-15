@@ -19,10 +19,10 @@
     </form>
     <ul class="nav navbar-nav">
       <li>
-        <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+        <a href="Newsfeed"><i class="glyphicon glyphicon-home"></i> Home</a>
       </li>
       <li>
-        <a href="Profile" role="button" data-toggle="modal"><i class="glyphicon glyphicon-user"></i> ${userfullname}</a>
+        <a href="ProfilePage" role="button"><i class="glyphicon glyphicon-user"></i> ${userfullname}</a>
       </li>
       <!--  <li>
         <a href="#"><span class="badge">badge</span></a>
