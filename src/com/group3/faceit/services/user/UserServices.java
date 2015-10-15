@@ -5,8 +5,7 @@ import java.sql.SQLException;
 
 import com.group3.faceit.common.AbstractDAO;
 import com.group3.faceit.dao.UserDAO;
-import com.group3.faceit.model.login.LoginModel;
-import com.group3.faceit.model.registration.RegistrationModel;
+import com.group3.faceit.model.user.UserModel;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class UserServices extends AbstractDAO {
@@ -17,7 +16,7 @@ public class UserServices extends AbstractDAO {
 		userDao = new UserDAO();
 	}
 
-	public int loginAccount(LoginModel regData){
+	public int loginAccount(UserModel regData){
 		int userid = 0;
 		try {
 			Connection con = getConnection();
@@ -59,7 +58,7 @@ public class UserServices extends AbstractDAO {
 		return isValid;
 	}
 
-	public Boolean registerAccount(RegistrationModel regData) {
+	public Boolean registerAccount(UserModel regData) {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
@@ -73,22 +72,8 @@ public class UserServices extends AbstractDAO {
 		return isValid;
 	}
 	
-	public Boolean doAgeValidation(String date){
-		Boolean isValid = false;
-		try {
-			Connection con = getConnection();
-			isValid = userDao.checkUserExist(date,con);
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return isValid;
-	}
-	
-	public LoginModel getUserByUserId(int userid){
-		LoginModel loginModel = new LoginModel();
+	public UserModel getUserByUserId(int userid){
+		UserModel loginModel = new UserModel();
 		try {
 			Connection con = getConnection();
 			loginModel = userDao.getUserByUserId(userid, con);
@@ -99,8 +84,8 @@ public class UserServices extends AbstractDAO {
 		return loginModel;
 	}
 	
-	public RegistrationModel getUserProfileByUserId(int userid){
-		RegistrationModel regModel = new RegistrationModel();
+	public UserModel getUserProfileByUserId(int userid){
+		UserModel regModel = new UserModel();
 		try{
 			Connection con = getConnection();
 			regModel = userDao.getUserProfileByUserId(userid, con);

@@ -10,16 +10,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.group3.faceit.model.login.LoginModel;
 import com.group3.faceit.model.newsfeed.PostModel;
-import com.group3.faceit.model.registration.RegistrationModel;
+import com.group3.faceit.model.user.UserModel;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class UserDAO {
 	
 	private String strQry = "";
 	
-	public Boolean registerAccount(RegistrationModel regData, Connection con) throws SQLException{
+	public Boolean registerAccount(UserModel regData, Connection con) throws SQLException{
 		
 		Boolean isValid = false;
 		try{
@@ -55,13 +54,13 @@ public class UserDAO {
 		return isValid;
 	}
 	
-	public int loginAccount(LoginModel regData, Connection con) throws SQLException{
+	public int loginAccount(UserModel regData, Connection con) throws SQLException{
 		
 		int userid = 0;
 		try{
 			strQry = "SELECT id FROM users WHERE username= ? AND password = sha1(?)";
 			PreparedStatement stmt = con.prepareStatement(strQry);
-			stmt.setString(1, regData.getEmail());
+			stmt.setString(1, regData.getUsername());
 			stmt.setString(2, regData.getPassword());
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
@@ -116,14 +115,8 @@ public class UserDAO {
 		return doesExist;
 	}
 	
-	public Boolean doAgeValidation(String date, Connection con) {
-		boolean legalAge = false;
-		
-		return legalAge;
-	}
-	
-	public LoginModel getUserByUserId(int userid, Connection con){
-		LoginModel loginModel = new LoginModel();
+	public UserModel getUserByUserId(int userid, Connection con){
+		UserModel loginModel = new UserModel();
 		try{
 			strQry = "SELECT username, password FROM users WHERE id = ?";
 			
@@ -132,7 +125,7 @@ public class UserDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()){
-				loginModel.setEmail(rs.getString("username"));
+				loginModel.setUsername(rs.getString("username"));
 				loginModel.setPassword(rs.getString("password"));
 			}
 			
@@ -142,8 +135,8 @@ public class UserDAO {
 		return loginModel;
 	}
 	
-	public RegistrationModel getUserProfileByUserId(int userid, Connection con){
-		RegistrationModel regModel = new RegistrationModel();
+	public UserModel getUserProfileByUserId(int userid, Connection con){
+		UserModel regModel = new UserModel();
 		try{
 			strQry = "SELECT firstname, middlename, lastname, address, mobile FROM users_profile WHERE user_id = ?";
 			
