@@ -26,7 +26,7 @@ public class NewsFeedServlet extends HttpServlet {
 	private static final JDialog dialog = new JDialog();
 	RequestDispatcher rd = null;
 	NewsfeedServices newsfeedservice;	
-	public int sessionUserId = 1; //SESSION USER ID
+	public int sessionUserId; //SESSION USER ID
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,7 +48,6 @@ public class NewsFeedServlet extends HttpServlet {
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			// TODO Auto-generated method stub
 			request.setAttribute("Title", "News Feed");
-//			request.setAttribute("user", user);
 			request.setAttribute("posts", newsfeedservice.getPosts(sessionUserId));	//1 - //MUST BE SESSION.USERID
 			request.setAttribute("postdao", newsfeedservice);
 			request.getRequestDispatcher("/NewsFeed.jsp").forward(request, response);

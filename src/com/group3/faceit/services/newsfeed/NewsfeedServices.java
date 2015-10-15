@@ -92,6 +92,19 @@ public class NewsfeedServices extends AbstractDAO {
 		return count;
 	}
 	
+	public int checkLikePost(int postId, int sessionUserId) {
+		int count = 0;
+		try {
+			Connection con = getConnection();
+			count = newsfeed.checkLikePost(postId, sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	
 	//COMMENTS
 	public List<CommentModel> getComments(int postId) {
@@ -174,6 +187,19 @@ public class NewsfeedServices extends AbstractDAO {
 		try {
 			Connection con = getConnection();
 			count = newsfeed.countLikeComment(commentId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int checkLikeComment(int commentId, int sessionUserId) {
+		int count = 0;
+		try {
+			Connection con = getConnection();
+			count = newsfeed.checkLikeComment(commentId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

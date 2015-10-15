@@ -49,11 +49,14 @@ public class LoginServlet extends HttpServlet {
 			if(regServ.loginAccount(logData) != 0)
 			{
 				HttpSession session = req.getSession(true);
-				session.setAttribute("userid", regServ.loginAccount(logData));
+				int id = regServ.loginAccount(logData);
+				session.setAttribute("userid", id);
+				String fullname = regServ.getUserProfileByUserId(id).getFirstname() + " " + regServ.getUserProfileByUserId(id).getLastname();
+				session.setAttribute("userfullname", fullname);
 				resp.sendRedirect("Newsfeed");
 				
 			}else{
-				req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+				resp.sendRedirect("Login");
 			}
 		}
 	}

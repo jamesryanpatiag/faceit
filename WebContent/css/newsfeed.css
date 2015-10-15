@@ -5,6 +5,7 @@
   	.comment-input{
 		border:none;
 		display:table-cell;
+		outline: none;
 	}
 	
 	.post-input{
