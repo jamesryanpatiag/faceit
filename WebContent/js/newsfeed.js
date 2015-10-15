@@ -2,16 +2,14 @@
  * 
  */
 $( document ).ready(function() {
-	var posts = document.getElementsByClassName('.post-input');
-	console.log(posts);
-	$('.post-input').each(function () {
-		textAreaAdjust(this.id);
-		console.log(this.id);
-	});
-	$('.comment-input').each(function () {
-		textAreaAdjust(this.id);
-		console.log(this.id);
-	});
+	$(function() {
+        $('textarea').each(function() {
+            $(this).height($(this).prop('scrollHeight'));
+        });
+        $('input[type=text]').each(function() {
+            $(this).height($(this).prop('scrollHeight'));
+        });
+    });
 });
 
 function enableCommentInput(textBoxId){
@@ -25,7 +23,9 @@ function enablePostInput(textBoxId){
 	document.getElementById(textBoxId).focus();
 }
 
-function textAreaAdjust(o) {
-    o.style.height = "1px";
-    o.style.height = (25+o.scrollHeight)+"px";
+function adjustHeight(o) {
+	console.log(o);
+	var height = document.getElementById(o).innerHTML.offsetHeight;
+	console.log(height);
+	document.getElementById(o).cols = height;
 }

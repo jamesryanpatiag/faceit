@@ -22,15 +22,15 @@
         <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
       </li>
       <li>
-        <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+        <a href="Profile" role="button" data-toggle="modal"><i class="glyphicon glyphicon-user"></i> ${userfullname}</a>
       </li>
-      <li>
+      <!--  <li>
         <a href="#"><span class="badge">badge</span></a>
-      </li>
+      </li>-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-menu-down"></i></a>
         <ul class="dropdown-menu">
           <li><a href="">More</a></li>
           <li><a href="">More</a></li>

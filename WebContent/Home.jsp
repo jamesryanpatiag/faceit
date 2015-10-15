@@ -3,7 +3,6 @@
 	#main{
 		background-image: url("images/social background.png");
 	}
-	
 	input,select{
 		margin-bottom:5px;
 	}
@@ -29,19 +28,19 @@
 		    	<div class="container-fluid">
 		    		<div class="row">
 		    			<div class="column col-sm-5 col-xs-5">
-		    				<input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control input-lg"/>
+		    				<input type="text" value="<c:out value="${firstname}"></c:out>" id="firstname" name="firstname" placeholder="First Name" class="form-control input-lg"/>
 		    				<label class="control-label" for="inputError1" id="error1"><c:out value="${fnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-2 col-xs-2">
-		    				<input type="text" id="middlename" name="middlename" placeholder="M" maxlength="1"  class="form-control input-lg"/>
+		    				<input type="text" value="<c:out value="${middlename}"></c:out>" id="middlename" name="middlename" placeholder="M" maxlength="1"  class="form-control input-lg"/>
 		    				<label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-5 col-xs-5">
-		    				<input type="text" id="lastname" name="lastname" placeholder="Last Name"  class="form-control input-lg"/>
+		    				<input type="text" value="<c:out value="${lastname}"></c:out>" id="lastname" name="lastname" placeholder="Last Name"  class="form-control input-lg"/>
 		    				<label class="control-label" for="inputError1" id="error3"><c:out value="${lnameerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
-		    				<input type="text" id="email" name="email" placeholder="Email" class="form-control input-lg" />
+		    				<input type="text" value="<c:out value="${email}"></c:out>" id="email" name="email" placeholder="Email" class="form-control input-lg" />
 		    				<label class="control-label" for="inputError1" id="error4"><c:out value="${emailerr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
@@ -54,15 +53,15 @@
 		    			</div>
 		    			<div class="column col-sm-12 col-xs-12">
 		    				<div class="form-group">
-		    					<input class="form-control input-lg" type="text" readonly="" id="birthdate" name="birthdate" placeholder="Click to choose birthdate.">
+		    					<input class="form-control input-lg" value="<c:out value="${birthdate}"></c:out>" type="text" readonly="" id="birthdate" name="birthdate" placeholder="Click to choose birthdate.">
 		    				</div>
 		    				<label class="control-label" for="inputError1" id="error6"><c:out value="${birtherr}"></c:out></label>
 		    			</div>
 		    			<div class="column col-sm-3 col-xs-3" >
 		    				<select aria-label="Gender" name="gender" id="gender"  class="form-control input-sm">
 								<option value="" >Gender</option>
-								<option value="1">Male</option>
-								<option value="2">Female</option>
+								<option value="1" <c:if test="${gender == 1}">selected="selected"</c:if> >Male</option>
+								<option value="2" <c:if test="${gender == 2}">selected="selected"</c:if>>Female</option>
 							</select>
 							<label class="control-label" for="inputError1" id="error7"><c:out value="${generr}"></c:out></label>
 		    			</div>
@@ -91,7 +90,7 @@
 	})
 	
 	function ShowErrorMessages(){
-		for(i = 1; i <= 6; i++){
+		for(i = 1; i <= 7; i++){
 			var err = $("#error" + i);
 			err.css("display","none");
 			err.parent("div").removeClass("has-error");

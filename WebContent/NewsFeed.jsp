@@ -5,9 +5,7 @@
 			<%@ include file="includes/side_menu.jsp" %>
 			<div class="column col-sm-10 col-xs-11" id="main">
 				<%@ include file="includes/header_menu.jsp" %>
-				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff">
-				
-				<div style="width:70%">
+				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff"><div>
 				<form action="Newsfeed" method="POST">
 					 <textarea name="post" placeholder="What's on your mind?" class="form-control"></textarea>
 					<input type="hidden" name="hidden" value="hpost"/>
@@ -17,7 +15,7 @@
 				
 				<br><br><br>
 				
-				<div style="width:70%">
+				<div>
 					<c:forEach items="${posts}" var="p">
 					<div class="panel panel-primary">
 					
@@ -56,7 +54,15 @@
 		                	<form action="Newsfeed" method="POST">
 								<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 								<input type="hidden" name="hidden" value="hlikePost"/>
-								<input type="submit" class="btn btn-primary" value="Like"/>
+								<c:choose>
+								    <c:when test= "${postdao.checkLikePost(p.postid, userid) == 0}">
+								        <c:set var="likestr" value="Like" />
+								    </c:when>
+								    <c:otherwise>
+								        <c:set var="likestr" value="Unike" />
+								    </c:otherwise>
+								</c:choose>
+								<input type="submit" class="btn btn-primary" value="<c:out value="${likestr}"/>"/>
 								<a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikePost(p.postid)}"/></a>
 								<a href="#" class="glyphicon glyphicon-comment"><c:out value="${postdao.countComments(p.postid)}"/></a>
 							</form>
@@ -74,7 +80,7 @@
 										</form>
 					                	<form action="Newsfeed" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
-						                	<input name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" value="<c:out value="${c.description}"/>" readonly/>
+						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" readonly><c:out value="${c.description}"/></textarea>
 						                	<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 											<input type="hidden" name="hidden" value="hupdateComment"/>
 											<input type="submit" class="btn btn-success" style="display:none"/>
@@ -82,7 +88,15 @@
 					                	<form action="Newsfeed" method="POST">
 											<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 											<input type="hidden" name="hidden" value="hlikeComment"/>
-											<input type="submit" class="btn btn-link" value="Like"/>&nbsp;
+											<c:choose>
+											    <c:when test= "${postdao.checkLikeComment(c.commentid, userid) == 0}">
+											        <c:set var="likestr" value="Like" />
+											    </c:when>
+											    <c:otherwise>
+											        <c:set var="likestr" value="Unike" />
+											    </c:otherwise>
+											</c:choose>
+											<input type="submit" class="btn btn-link" value="<c:out value="${likestr}"/>"/>&nbsp;
 											<a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikeComment(c.commentid)}"/></a>&nbsp;&nbsp;
 											<font size=1><c:out value="${c.datecreated}"/></font>
 										</form>	
@@ -99,7 +113,8 @@
 								<input type="submit" class="btn btn-success" style="display:none"/>
 							</form> 
 						</div>
-					 </div>        
+					 </div> 
+					 <br>       
 					 </c:forEach>
 				</div>
 				

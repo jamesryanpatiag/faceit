@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
 import com.group3.faceit.dao.*;
-import com.group3.faceit.model.registration.*;
+import com.group3.faceit.model.user.*;
 import com.group3.faceit.services.user.*;
 import com.group3.faceit.services.validations.*;
 
@@ -22,7 +23,7 @@ public class RegistrationServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		RegistrationModel regData = new RegistrationModel();
+		UserModel regData = new UserModel();
 		regData.setFirstname(req.getParameter("firstname").toString());
 		regData.setMiddlename(req.getParameter("middlename").toString());
 		regData.setLastname(req.getParameter("lastname").toString());
@@ -31,26 +32,27 @@ public class RegistrationServlet extends HttpServlet{
 		regData.setBirthdate(req.getParameter("birthdate"));
 		regData.setGender(req.getParameter("gender"));
 		
-		RegistrationErrModel err = RegistrationValidations.validadateRegistration(regData);
+		UserErrModel err = RegistrationValidations.validadateRegistration(regData);
 				
 		if(RegistrationValidations.failedValidation)
 		{
-			req.setAttribute("fnameerr", err.getFnameerror());
-			req.setAttribute("mnameerr", err.getMnameerror());
-			req.setAttribute("lnameerr", err.getLnameerror());
-			req.setAttribute("emailerr", err.getUsernameerror());
-			req.setAttribute("passerr", err.getPassworderror());
-			req.setAttribute("birtherr", err.getBirthdateerror());
-			req.setAttribute("generr", err.getGendererror());
-			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
+			//RETURN VAL
+			req.setAttribute("firstname", req.getParameter("firstname").toString());
+			req.setAttribute("middlename", req.getParameter("middlename").toString());
+			req.setAttribute("lastname", req.getParameter("lastname").toString());
+			req.setAttribute("email", req.getParameter("email").toString());
+			req.setAttribute("birthdate", req.getParameter("birthdate").toString());
+			req.setAttribute("gender", req.getParameter("gender").toString());
 			
-			System.out.println(err.getFnameerror());
-			System.out.println(err.getMnameerror());
-			System.out.println(err.getLnameerror());
-			System.out.println(err.getUsernameerror());
-			System.out.println(err.getPassworderror());
-			System.out.println(err.getBirthdateerror());
-			System.out.println(err.getGendererror());
+			//ERROR MESSAGES
+			req.setAttribute("fnameerr", err.getFnameerr());
+			req.setAttribute("mnameerr", err.getMnamerrr());
+			req.setAttribute("lnameerr", err.getLnameerr());
+			req.setAttribute("emailerr", err.getUnameerr());
+			req.setAttribute("passerr", err.getPassworderr());
+			req.setAttribute("birtherr", err.getBdateerr());
+			req.setAttribute("generr", err.getGendererr());
+			req.getRequestDispatcher("/Home.jsp").forward(req, resp);
 			
 		}else{
 			UserServices regServ = new UserServices();
@@ -58,7 +60,7 @@ public class RegistrationServlet extends HttpServlet{
 			{
 				req.getRequestDispatcher("/Redirect.jsp").forward(req, resp);
 			}else{
-				resp.sendRedirect("Registration");
+				req.getRequestDispatcher("/Register.jsp").forward(req, resp);
 			}
 		
 		}

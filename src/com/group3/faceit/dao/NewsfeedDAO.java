@@ -159,7 +159,7 @@ public class NewsfeedDAO {
 	}
 	
 	
-	private int checkLikePost(int postId, int userId, Connection conn){
+	public int checkLikePost(int postId, int userId, Connection conn){
 		int count = 0;	
 		query = "SELECT COUNT(*) FROM likes_posts WHERE post_id = ? AND user_id = ? AND status='ACTIVE'";
 		
@@ -366,7 +366,7 @@ public class NewsfeedDAO {
 		}
 		
 		
-		private int checkLikeComment(int commentId, int userId, Connection conn){
+		public int checkLikeComment(int commentId, int userId, Connection conn){
 			int count = 0;	
 			query = "SELECT COUNT(*) FROM likes_comments WHERE comment_id = ? AND user_id = ? AND status='ACTIVE'";
 			

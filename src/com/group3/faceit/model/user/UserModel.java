@@ -1,6 +1,7 @@
-package com.group3.faceit.model.registration;
+package com.group3.faceit.model.user;
 
-public class RegistrationModel {
+public class UserModel {
+
 	private String firstname;
 	private String middlename;
 	private String lastname;
@@ -64,5 +65,6 @@ public class RegistrationModel {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
-	}	
+	}
+	
 }
