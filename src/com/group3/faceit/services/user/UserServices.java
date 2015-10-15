@@ -2,6 +2,9 @@ package com.group3.faceit.services.user;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.group3.faceit.common.AbstractDAO;
 import com.group3.faceit.dao.UserDAO;
@@ -96,11 +99,53 @@ public class UserServices extends AbstractDAO {
 		return regModel;
 	}
 	
-	public Boolean validateAgeByBirthdate(String password){
+	public Boolean validateAgeByBirthdate(String birthdate){
 		Boolean isValid = false;
 		try{
 			Connection con = getConnection();
-			isValid = userDao.validateAgeByBirthdate(password, con);
+			isValid = userDao.validateAgeByBirthdate(changeStringDateFormat(birthdate), con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return isValid;
+	}
+	
+	public static String changeStringDateFormat(String strDate){
+		String result = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat truesdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date convertedCurrentDate;
+		
+		try {
+		   convertedCurrentDate = sdf.parse(strDate);
+		   result = truesdf.format(convertedCurrentDate );
+		} catch (ParseException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		}
+		  
+		return result;
+	}
+	
+	public Boolean validateBirthdateIfEqualsToCurrentDate(String birthdate){
+		Boolean isValid = false;
+		try{
+			Connection con = getConnection();
+			isValid = userDao.validateBirthdateIfEqualsToCurrentDate(changeStringDateFormat(birthdate), con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return isValid;
+	}
+	
+	public Boolean validateBirthdateIfGreaterToCurrentDate(String birthdate){
+		Boolean isValid = false;
+		try{
+			Connection con = getConnection();
+			isValid = userDao.validateBirthdateIfEqualsToCurrentDate(changeStringDateFormat(birthdate), con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();

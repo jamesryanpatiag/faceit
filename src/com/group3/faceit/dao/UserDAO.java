@@ -159,19 +159,19 @@ public class UserDAO {
 		return regModel;
 	} 
 	
-	public Boolean validateAgeByBirthdate(String password, Connection con) throws SQLException{
+	public Boolean validateAgeByBirthdate(String birthdate, Connection con) throws SQLException{
 		  Boolean isValid = false;
 		  
 		  try{
-		   strQry = "SELECT TIMESTAMPDIFF(YEAR, '1988-10-19', NOW()) >= 18;";
+		   strQry = "SELECT TIMESTAMPDIFF(YEAR, ?, NOW()) >= 18 `LegalAge`";
 		   PreparedStatement stmt = con.prepareStatement(strQry);
-		   stmt.setString(1,  password);
-		   
+		   stmt.setString(1,  birthdate);
+		   System.out.println(stmt);
 		   ResultSet rs = stmt.executeQuery();
 		   
 		   if(rs.next())
 		   {
-			   isValid = true;
+			  isValid = rs.getBoolean("LegalAge");
 		   }
 		  }catch(SQLException ex){
 		   System.out.println(ex.getMessage());
@@ -180,6 +180,47 @@ public class UserDAO {
 		  return isValid;
 	}
 	
+	public Boolean validateBirthdateIfEqualsToCurrentDate(String birthdate, Connection con) throws SQLException{
+		Boolean isValid = false;
+		  
+		  try{
+		   strQry = "SELECT DATEDIFF(NOW(), ?) = 0 `LegalAge`";
+		   PreparedStatement stmt = con.prepareStatement(strQry);
+		   stmt.setString(1,  birthdate);
+		   System.out.println(stmt);
+		   ResultSet rs = stmt.executeQuery();
+		   
+		   if(rs.next())
+		   {
+			   isValid = rs.getBoolean("LegalAge");
+		   }
+		  }catch(SQLException ex){
+		   System.out.println(ex.getMessage());
+		  }
+		  System.out.println("is valid? - " + isValid);
+		  return isValid;
+	}
+	
+	public Boolean validateBirthdateIfGreaterToCurrentDate(String birthdate, Connection con) throws SQLException{
+		Boolean isValid = false;
+		  
+		  try{
+		   strQry = "SELECT DATEDIFF(NOW(), ?) < 0 `LegalAge`";
+		   PreparedStatement stmt = con.prepareStatement(strQry);
+		   stmt.setString(1,  birthdate);
+		   System.out.println(stmt);
+		   ResultSet rs = stmt.executeQuery();
+		   
+		   if(rs.next())
+		   {
+			   isValid = rs.getBoolean("LegalAge");
+		   }
+		  }catch(SQLException ex){
+		   System.out.println(ex.getMessage());
+		  }
+		  System.out.println("is valid? - " + isValid);
+		  return isValid;
+	}
 	
 	public Boolean updateUserInformation(UserModel updateData, Connection con) throws SQLException{
 		
