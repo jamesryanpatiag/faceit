@@ -6,15 +6,20 @@
 			<div class="column col-sm-10 col-xs-11" id="main">
 				<%@ include file="includes/header_menu.jsp" %>
 				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff"><div>
+				
 				<form action="Newsfeed" method="POST" id="postNewsfeed">
-					 <textarea name="post" placeholder="What's on your mind?" class="form-control post-input"></textarea>
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				     <textarea name="post" placeholder="What's on your mind?" class="form-control post-input"></textarea>
 					<input type="hidden" name="hidden" value="hpost"/>
-					<input type="submit" class="btn btn-success pull-right" value="Post"/>
-				</form>
+				  </div>
+				  <div class="panel-footer"> 
+						 <input type="submit" class="btn btn-success" value="Post"/>			  
+				  </div>
 				</div>
+				</form>
 				
-				<br><br><br>
-				
+				</div>
 				<div>
 					<c:choose>
 					  	<c:when test= "${posts.isEmpty()}">

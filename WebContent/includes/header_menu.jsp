@@ -49,3 +49,14 @@
     
   	</nav>
 </div>
+<style type="text/css">
+	#main{
+		background-image: url("images/background2.png");
+		background-size: cover;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#menu").css("background-image",url("images/background2.png"));
+	})
+</script>
