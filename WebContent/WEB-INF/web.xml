@@ -4,31 +4,24 @@
   <welcome-file-list>
     <welcome-file>/Home.jsp</welcome-file>
   </welcome-file-list>
-  
   <error-page>
-    <!-- Missing login -->
     <error-code>401</error-code>
     <location>/Home.jsp</location>
-</error-page>
-<error-page>
-    <!-- Forbidden directory listing -->
+  </error-page>
+  <error-page>
     <error-code>403</error-code>
     <location>/Home.jsp</location>
-</error-page>
-<error-page>
-    <!-- Missing resource -->
+  </error-page>
+  <error-page>
     <error-code>404</error-code>
     <location>/Home.jsp</location>
-</error-page>
-<error-page>
-    <!-- Uncaught exception -->
+  </error-page>
+  <error-page>
     <error-code>500</error-code>
     <location>/Home.jsp</location>
-</error-page>
-<error-page>
-    <!-- Unsupported servlet method -->
+  </error-page>
+  <error-page>
     <error-code>503</error-code>
     <location>/Home.jsp</location>
-</error-page>
-  
+  </error-page>
 </web-app>
