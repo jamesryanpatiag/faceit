@@ -9,11 +9,11 @@
 				
 				<div class="jumbotron">
 				  <h2><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
-				  <h4>
+				  <h5>
 				  <p>Gender: <c:out value="${profile.gender}"/></p>
 				  <p>Birth date: <c:out value="${profile.birthdate}"/></p>
 				  <p>Address: <c:out value="${profile.address}"/></p>
-				  </h4>
+				  </h5>
 				  <c:choose>
 				  	<c:when test= "${connectiondao.checkIfConnected(sessionuserid, profileid)} == 0 || sessionuserid != profileid">
 				 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Add friend</a></p>

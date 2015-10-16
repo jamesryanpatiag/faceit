@@ -7,16 +7,16 @@
 				<%@ include file="includes/header_menu.jsp" %>
 				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff">
 				
-				<div class="panel panel-default">
 				<c:forEach items="${friends}" var="f">
-				
-					  <div class="panel-body">
-					  <a href="Profile/<c:out value="${f.id}"/>"><c:out value="${f.fullname}"/></a><br>
-					  <font size=2><c:out value="${f.address}"/></font>
+				<div class="row">
+					  <div class="col-xs-6 col-md-3">
+					    <a href="Profile?profile=<c:out value="${f.id}"/>" class="thumbnail">
+					    	<b><c:out value="${f.fullname}"/><br></b>
+					  		<font size=2><c:out value="${f.address}"/></font>
+					    </a>
 					  </div>
-				  
-				 </c:forEach>
 				</div>
+				</c:forEach>
 				
 				</div>
 			</div>        
