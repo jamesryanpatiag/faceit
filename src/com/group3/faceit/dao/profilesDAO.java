@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import com.group3.faceit.model.newsfeed.CommentModel;
 import com.group3.faceit.model.newsfeed.PostModel;
 
-public class ProfilesDAO {
+public class profilesDAO {
 	public static PreparedStatement pst;
 	public static CallableStatement cst;
 	public static ResultSet rs;

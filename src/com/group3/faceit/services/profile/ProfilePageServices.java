@@ -13,11 +13,11 @@ import com.group3.faceit.model.user.UserModel;
 
 public class ProfilePageServices extends AbstractDAO {
 	
-	private ProfilesDAO profileDAO = null;
+	private profilesDAO profileDAO = null;
 	private UserDAO userDAO = null;
 
 	public ProfilePageServices() {
-		profileDAO = new ProfilesDAO();
+		profileDAO = new profilesDAO();
 		userDAO = new UserDAO();
 	}
 	
