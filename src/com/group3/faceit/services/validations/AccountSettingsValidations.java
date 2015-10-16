@@ -43,35 +43,33 @@ public class AccountSettingsValidations {
 					failedValidation = true;
 				}
 			}
-			
-			/**Email Validations*/
-			if(user.getUsername() != null){
-				if(user.getUsername().trim().isEmpty()){
-					err.setUnameerr("Email is required.");
-					failedValidation = true;
-				}else if(!user.getUsername().matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")){
-					err.setUnameerr("Email Format is invalid.");
-					failedValidation = true;
-				}else if(serv.checkUserExist(user.getUsername())){
-					err.setUnameerr("Email already exists.");
+				
+			/**Current Password Validations*/
+			if(!user.getPassword().equals("")){
+				if(serv.validateCurrentPasswordByUsername(user)){
+					if(!user.getNewpassword().equals("") && !user.getConfirmpassword().equals("")){
+						if(user.getNewpassword().equals(user.getConfirmpassword())){
+							if(user.getNewpassword().length() < 8 || user.getNewpassword().length() > 20){
+								err.setNewpasserr("Password must be 8-20 characters ");
+								failedValidation = true;
+							}else if(!user.getNewpassword().matches("^.*(?=.*[0-9])(?=.*[!@#$%^&+=]).*$")){
+								err.setNewpasserr("Password must consists of alphanumeric and special character.");
+								failedValidation = true;
+							}
+						}else if(user.getNewpassword() != user.getConfirmpassword()){
+							err.setNewpasserr("New and Confirm Password does not match.");
+							failedValidation = true;
+						}
+					}else{
+						err.setNewpasserr("New and Confirm should not be blank");
+						failedValidation = true;
+					}
+				}else{
+					err.setPassworderr("Invalid Password.");
 					failedValidation = true;
 				}
 			}
 		
-			/**Password Validations*/
-			/*if(user.getPassword() != null){
-				if(user.getPassword().trim().isEmpty()){
-					err.setPassworderr("Password is required.");
-					failedValidation = true;
-				}else if(user.getPassword().length() < 8 || user.getPassword().length() > 20){
-					err.setPassworderr("Password must be 8-20 characters ");
-					failedValidation = true;
-				}else if(!user.getPassword().matches("^.*(?=.*[0-9])(?=.*[!@#$%^&+=]).*$")){
-					err.setPassworderr("Password must consists of alphanumeric and special character.");
-					failedValidation = true;
-				}
-			}*/
-			
 			/**Birthdate Validations*/
 			if(user.getBirthdate() != null){
 				if(user.getBirthdate().trim().isEmpty()){
@@ -86,6 +84,13 @@ public class AccountSettingsValidations {
 				}
 			}
 			
+			/**Mobile Validations*/
+			if(!user.getPassword().equals("")){
+				if(!user.getMobile().matches("^.*(?=.*[0-9])(?=.*[+]).*$")){
+					err.setMobileerr("Password must consists of numbers and (+) plus sign only");
+					failedValidation = true;
+				}
+			}
 			/**Gender Validations*/
 			if(user.getGender() != null){
 				if(user.getGender().trim().isEmpty()){

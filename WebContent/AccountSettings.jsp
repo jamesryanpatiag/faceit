@@ -36,7 +36,7 @@
 							  </div>
 							  <div class="form-group">
 							    <label for="txtMiddlename" class="col-sm-2 control-label">Middle Name</label>
-							    <div class="col-sm-2 col-md-1"">
+							    <div class="col-sm-2 col-md-2"">
 							      <input type="text" class="form-control input-sm" id="txtMiddlename" name="txtMiddlename" placeholder="M" maxlength="1" value="<c:out value="${middlename}"></c:out>" />
 							    </div>
 							    <label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
@@ -118,14 +118,14 @@
 						    <label for="txtNewPassword" class="col-sm-2 control-label">New Password:</label>
 						    <div class="col-sm-7">
 						      <input type="password" class="form-control input-sm" id="txtNewPassword" name="txtNewPassword" placeholder="New Password">
-						      <label class="control-label" for="inputError1" id="error9"><c:out value="${passerr}"></c:out></label>
+						      <label class="control-label" for="inputError1" id="error9"><c:out value="${newpasserr}"></c:out></label>
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="txtConfirmPassword" class="col-sm-2 control-label">Confirm Password:</label>
 						    <div class="col-sm-7">
 						      <input type="password" class="form-control input-sm" id="txtConfirmPassword" name="txtConfirmPassword" placeholder="Confirm Password">
-						      <label class="control-label" for="inputError1" id="error10"><c:out value="${passerr}"></c:out></label>
+						      <label class="control-label" for="inputError1" id="error10"><c:out value="${conpasserr}"></c:out></label>
 						    </div>
 						  </div>
 					  </div>

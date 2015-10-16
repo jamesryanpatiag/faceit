@@ -11,6 +11,8 @@ public class UserErrModel {
 	private String gendererr;
 	private String addresserr;
 	private String mobileerr;
+	private String newpasserr;
+	private String conpasserr;
 	
 	public String getFnameerr() {
 		return fnameerr;
@@ -65,5 +67,17 @@ public class UserErrModel {
 	}
 	public void setMobileerr(String mobileerr) {
 		this.mobileerr = mobileerr;
+	}
+	public String getNewpasserr() {
+		return newpasserr;
+	}
+	public void setNewpasserr(String newpasserr) {
+		this.newpasserr = newpasserr;
+	}
+	public String getConpasserr() {
+		return conpasserr;
+	}
+	public void setConpasserr(String conpasserr) {
+		this.conpasserr = conpasserr;
 	}
 }

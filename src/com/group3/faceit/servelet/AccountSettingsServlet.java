@@ -70,6 +70,11 @@ public class AccountSettingsServlet extends HttpServlet {
 		upData.setAddress(req.getParameter("txtAddress").toString());
 		upData.setGender(req.getParameter("txtGender").toString());
 		upData.setMobile(req.getParameter("txtMobile").toString());
+		upData.setUsername(req.getParameter("txtEmail").toString());
+		upData.setPassword(req.getParameter("txtCurrentPassword").toString());
+		upData.setNewpassword(req.getParameter("txtNewPassword").toString());
+		upData.setConfirmpassword(req.getParameter("txtConfirmPassword").toString());
+		
 		
 		UserErrModel err = AccountSettingsValidations.validateAccountSettings(upData);
 		
@@ -81,6 +86,10 @@ public class AccountSettingsServlet extends HttpServlet {
 		req.setAttribute("gender", upData.getGender());
 		req.setAttribute("address", upData.getAddress());
 		req.setAttribute("mobile", upData.getMobile());
+		req.setAttribute("username", upData.getUsername());
+		req.setAttribute("password", upData.getPassword());
+		req.setAttribute("newpassword", upData.getNewpassword());
+		req.setAttribute("confirmpassword", upData.getConfirmpassword());
 		
 		if(AccountSettingsValidations.failedValidation)
 		{
@@ -91,8 +100,8 @@ public class AccountSettingsServlet extends HttpServlet {
 			req.setAttribute("adderr", err.getAddresserr());
 			req.setAttribute("generr", err.getGendererr());
 			req.setAttribute("moberr", err.getMobileerr());
-			
-
+			req.setAttribute("passerr", err.getPassworderr());
+			req.setAttribute("newpasserr", err.getNewpasserr());
 			
 			req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 			
@@ -102,7 +111,7 @@ public class AccountSettingsServlet extends HttpServlet {
 			if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null){
 				sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			}
-			if(regServ.updateUserInformation(upData, sessionUserId))
+			if(regServ.updateUserInformation(upData, sessionUserId) && regServ.updatePasswordByUserId(upData, sessionUserId))
 			{
 				req.setAttribute("isSuccess", true);
 				req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);

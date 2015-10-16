@@ -155,4 +155,32 @@ public class UserServices extends AbstractDAO {
 		}
 		return isValid;
 	}
+	
+	public Boolean updatePasswordByUserId(UserModel updateData, int id) {
+		Boolean isValid = false;
+		try {
+			Connection con = getConnection();
+			isValid = userDao.updatePasswordByUserId(updateData,id, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return isValid;
+	}
+	
+	public Boolean validateCurrentPasswordByUsername(UserModel userModel) {
+		Boolean isValid = false;
+		try {
+			Connection con = getConnection();
+			isValid = userDao.validateCurrentPasswordByUsername(userModel, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return isValid;
+	}
 }

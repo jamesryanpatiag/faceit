@@ -229,4 +229,44 @@ public class UserDAO {
 		}
 		return isValid;
 	}
+	
+	public Boolean validateCurrentPasswordByUsername(UserModel userModel, Connection con) throws SQLException{
+		Boolean isValid = false;
+		System.out.println(userModel.getPassword());
+		try{
+			strQry = "SELECT SHA1(?) = password FROM users WHERE username = ?";
+			PreparedStatement stmt = con.prepareStatement(strQry);
+			stmt.setString(1, userModel.getPassword());
+			stmt.setString(2, userModel.getUsername());
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+			{
+				isValid = true;
+			}
+			
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		return isValid;
+	}
+	
+	public Boolean updatePasswordByUserId(UserModel updateData, int id, Connection con) throws SQLException{
+		Boolean isValid = false;
+		
+		try{
+			strQry = "UPDATE users SET password = SHA1(?) WHERE id = ?";
+			
+			PreparedStatement stmt = con.prepareStatement(strQry);
+			stmt.setString(1, updateData.getNewpassword());
+			stmt.setInt(2, id);
+			
+			stmt.executeUpdate();
+			isValid = true;
+			
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		return isValid;
+	}
 }

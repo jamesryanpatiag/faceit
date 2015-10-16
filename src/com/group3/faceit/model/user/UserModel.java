@@ -11,6 +11,8 @@ public class UserModel {
 	private String gender;
 	private String address;
 	private String mobile;
+	private String newpassword;
+	private String confirmpassword;
 	
 	public String getFirstname() {
 		return firstname;
@@ -65,6 +67,18 @@ public class UserModel {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public String getNewpassword() {
+		return newpassword;
+	}
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+	public String getConfirmpassword() {
+		return confirmpassword;
+	}
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
 	}
 	
 }
