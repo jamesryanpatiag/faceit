@@ -98,9 +98,13 @@ public class AccountSettingsServlet extends HttpServlet {
 			
 		}else{
 			UserServices regServ = new UserServices();
-			
-			if(regServ.updateUserInformation(upData))
+			HttpSession session = req.getSession();
+			if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null){
+				sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
+			}
+			if(regServ.updateUserInformation(upData, sessionUserId))
 			{
+				req.setAttribute("isSuccess", true);
 				req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 			}else{
 				req.getRequestDispatcher("/NewsFeed.jsp").forward(req, resp);

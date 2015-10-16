@@ -10,8 +10,14 @@
 			<%@ include file="includes/side_menu.jsp" %>
 			<div class="column col-sm-10 col-xs-11" id="main">
 				<%@ include file="includes/header_menu.jsp" %>
-				<div class="column col-sm-8 col-xs-8" style="padding-top:70px;background:#fff">
 				
+				<div class="column col-sm-8 col-xs-8" style="padding-top:70px;background:#fff">
+					<c:if test="${isSuccess == true}">
+					<div class="alert alert-success" role="alert">
+					  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					  Settings successfully updated. 
+					</div>
+					</c:if>
 					<form class="form-horizontal" action="AccountSettings" method="POST">						
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="panel panel-primary">
@@ -144,9 +150,11 @@
 		ShowErrorMessages();
 		
 		$("#txtBirthdate").datepicker({
+			dateFormat: 'yy-mm-dd',
 			changeMonth: true,
       		changeYear: true,
       		yearRange: "-100:+0",
+      		
 		});
 	})
 	

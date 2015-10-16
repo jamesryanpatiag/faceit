@@ -103,7 +103,7 @@ public class UserServices extends AbstractDAO {
 		Boolean isValid = false;
 		try{
 			Connection con = getConnection();
-			isValid = userDao.validateAgeByBirthdate(changeStringDateFormat(birthdate), con);
+			isValid = userDao.validateAgeByBirthdate(birthdate, con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -134,7 +134,7 @@ public class UserServices extends AbstractDAO {
 		Boolean isValid = false;
 		try{
 			Connection con = getConnection();
-			isValid = userDao.validateBirthdateIfEqualsOrGreaterToCurrentDate(changeStringDateFormat(birthdate), con);
+			isValid = userDao.validateBirthdateIfEqualsOrGreaterToCurrentDate(birthdate, con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -142,11 +142,11 @@ public class UserServices extends AbstractDAO {
 		return isValid;
 	}
 	
-	public Boolean updateUserInformation(UserModel updateData) {
+	public Boolean updateUserInformation(UserModel updateData, int userid) {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();
-			isValid = userDao.updateUserInformation(updateData, con);
+			isValid = userDao.updateUserInformation(updateData,userid, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

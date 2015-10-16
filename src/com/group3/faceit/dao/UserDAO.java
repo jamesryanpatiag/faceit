@@ -35,7 +35,7 @@ public class UserDAO {
 			}
 			
 			strQry = "INSERT INTO users_profile (user_id, firstname, middlename, lastname, email, birthdate, gender)"
-					+ " VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), ?)";
+					+ " VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?)";
 			PreparedStatement stmt2 = con.prepareStatement(strQry);
 			stmt2.setInt(1, userId);
 			stmt2.setString(2, regData.getFirstname());
@@ -163,7 +163,7 @@ public class UserDAO {
 		  Boolean isValid = false;
 		  
 		  try{
-		   strQry = "SELECT TIMESTAMPDIFF(YEAR, ?, NOW()) >= 18 `LegalAge`";
+		   strQry = "SELECT TIMESTAMPDIFF(YEAR,STR_TO_DATE(?, '%Y-%m-%d'), NOW()) >= 18 `LegalAge`";
 		   PreparedStatement stmt = con.prepareStatement(strQry);
 		   stmt.setString(1,  birthdate);
 		   System.out.println(stmt);
@@ -205,13 +205,13 @@ public class UserDAO {
 		  return isValid;
 	}
 
-	public Boolean updateUserInformation(UserModel updateData, Connection con) throws SQLException{
+	public Boolean updateUserInformation(UserModel updateData,int userid, Connection con) throws SQLException{
 		
 		Boolean isValid = false;
 		
 		try{
-			strQry = "UPDATE users SET firstname = ?, middlename = ?, lastname = ?, email = ?, birthdate = STR_TO_DATE(?, '%m/%d/%Y'), gender = ?"
-					+ "WHERE userid = ?";
+			strQry = "UPDATE users_profile SET firstname = ?, middlename = ?, lastname = ?, email = ?, birthdate = STR_TO_DATE(?, '%Y-%m-%d'), gender = ?"
+					+ " WHERE user_id = ?";
 			
 			PreparedStatement stmt = con.prepareStatement(strQry);
 			stmt.setString(1, updateData.getFirstname());
@@ -220,6 +220,7 @@ public class UserDAO {
 			stmt.setString(4, updateData.getUsername());
 			stmt.setString(5, updateData.getBirthdate());
 			stmt.setString(6, updateData.getGender());
+			stmt.setInt(7, userid);
 			stmt.executeUpdate();
 			isValid = true;
 			
