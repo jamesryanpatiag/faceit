@@ -18,27 +18,33 @@
 				<div>
 					<c:forEach items="${posts}" var="p">
 					<div class="panel panel-primary">
-					
 						<div class="panel-heading">
-							<div class="btn-group pull-right">
-								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <font size=1><span class="caret"></span></font>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li>
-								    	<form action="Newsfeed" method="POST">
-											&nbsp;&nbsp;<a  href="#" onclick="enablePostInput(document.getElementById('p<c:out value="${p.postid}"/>').id);return false;">Edit</a>
-										</form>
-								    </li>
-								    <li>
-								    	<form action="Newsfeed" method="POST">
-											<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
-											<input type="hidden" name="hidden" value="hdeletePost"/>
-											&nbsp;&nbsp;<input type="submit" class="btn btn-link" value="Delete"/>
-										</form>
-								    </li>
-								  </ul>
-							</div>
+						
+							<c:choose>
+							    <c:when test= "${sessionuserid == p.userid}">
+							    
+									<div class="btn-group pull-right">
+									  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									  <font size=1><span class="caret"></span></font>
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li>
+									    	<form action="Newsfeed" method="POST">
+												&nbsp;&nbsp;<a  href="#" onclick="enablePostInput(document.getElementById('p<c:out value="${p.postid}"/>').id);return false;">Edit</a>
+											</form>
+									    </li>
+									    <li>
+									    	<form action="Newsfeed" method="POST">
+												<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
+												<input type="hidden" name="hidden" value="hdeletePost"/>
+												&nbsp;&nbsp;<input type="submit" class="btn btn-link" value="Delete"/>
+											</form>
+									    </li>
+									  </ul>
+									</div>
+									
+								</c:when>
+							</c:choose>
 							<b><c:out value="${p.getFullname()}"/></b><br>
 							<font size=1><c:out value="${p.datecreated}"/></font>
 						</div>
@@ -72,12 +78,18 @@
 				                <ul class="list-group">
 				                
 				                	<li class="list-group-item">
-				                		<form action="Newsfeed" class="pull-right" method="POST">
-					            			<a href="#" class="btn btn-link" onclick="enableCommentInput(document.getElementById('c<c:out value="${c.commentid}"/>').id);return false;"><font size=1><span class="glyphicon glyphicon-pencil"></span></font></a>
-						            		<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
-											<input type="hidden" name="hidden" value="hdeleteComment"/>
-											<button type="submit" class="btn btn-link"><font size=1><span class="glyphicon glyphicon-trash" ></span></font></button>
-										</form>
+				                		
+				                		<c:choose>
+							    			<c:when test= "${sessionuserid == c.userid}">
+						                		<form action="Newsfeed" class="pull-right" method="POST">
+							            			<a href="#" class="btn btn-link" onclick="enableCommentInput(document.getElementById('c<c:out value="${c.commentid}"/>').id);return false;"><font size=1><span class="glyphicon glyphicon-pencil"></span></font></a>
+								            		<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
+													<input type="hidden" name="hidden" value="hdeleteComment"/>
+													<button type="submit" class="btn btn-link"><font size=1><span class="glyphicon glyphicon-trash" ></span></font></button>
+												</form>
+											</c:when>
+										</c:choose>
+										
 					                	<form action="Newsfeed" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
 						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${c.description}"/></textarea>
@@ -113,10 +125,10 @@
 								<input type="submit" class="btn btn-success" style="display:none"/>
 							</form> 
 						</div>
-					 </div> 
-					 <br>       
-					 </c:forEach>
-				</div>
+				 </div> 
+				 <br>       
+				 </c:forEach>
+			</div>
 				
 					
 				</div>

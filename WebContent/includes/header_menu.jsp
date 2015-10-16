@@ -9,14 +9,19 @@
         <a href="/" class="navbar-brand logo">FaceIT</a>
     	</div>
     	<nav class="collapse navbar-collapse" role="navigation">
+    	
       <form class="navbar-form navbar-left">
           <div class="input-group input-group-sm" style="max-width:360px;">
-          <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+          <input type="text" class="form-control" placeholder="Search" name="search" id="srch-term">
+		        <datalist id="years">
+
+			    </datalist>
           <div class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
           </div>
         </div>
     </form>
+    
     <ul class="nav navbar-nav">
       <li>
         <a href="Newsfeed"><i class="glyphicon glyphicon-home"></i> Home</a>
@@ -28,6 +33,7 @@
         <a href="#"><span class="badge">badge</span></a>
       </li>-->
     </ul>
+    
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-menu-down"></i></a>
@@ -40,5 +46,6 @@
         </ul>
       </li>
     </ul>
+    
   	</nav>
 </div>

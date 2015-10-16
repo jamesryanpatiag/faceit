@@ -6,6 +6,20 @@
 			<div class="column col-sm-10 col-xs-11" id="main">
 				<%@ include file="includes/header_menu.jsp" %>
 				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff">
+				
+				<div class="jumbotron">
+				  <h2><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
+				  <h4>
+				  <p>Gender: <c:out value="${profile.gender}"/></p>
+				  <p>Birth date: <c:out value="${profile.birthdate}"/></p>
+				  <p>Address: <c:out value="${profile.address}"/></p>
+				  </h4>
+				  <c:choose>
+				  	<c:when test= "${connectiondao.checkIfConnected(sessionuserid, profileid)} == 0 || sessionuserid != profileid">
+				 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Add friend</a></p>
+				 	</c:when>
+				  </c:choose>	
+				</div>
 
 
 				<form action="Profile" method="POST">
@@ -22,26 +36,32 @@
 					<div class="panel panel-primary">
 					
 						<div class="panel-heading">
-							<div class="btn-group pull-right">
-								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <font size=1><span class="caret"></span></font>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li>
-								    	<form action="Profile" method="POST">
-											&nbsp;&nbsp;<a  href="#" onclick="enablePostInput(document.getElementById('p<c:out value="${p.postid}"/>').id);return false;">Edit</a>
-										</form>
-								    </li>
-								    <li>
-								    	<form action="Profile" method="POST">
-											<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
-											<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
-											<input type="hidden" name="hidden" value="hdeletePost"/>
-											&nbsp;&nbsp;<input type="submit" class="btn btn-link" value="Delete"/>
-										</form>
-								    </li>
-								  </ul>
-							</div>
+						
+							<c:choose>
+							    <c:when test= "${sessionuserid == p.userid}">
+									<div class="btn-group pull-right">
+										  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										  <font size=1><span class="caret"></span></font>
+										  </button>
+										  <ul class="dropdown-menu">
+										    <li>
+										    	<form action="Profile" method="POST">
+													&nbsp;&nbsp;<a  href="#" onclick="enablePostInput(document.getElementById('p<c:out value="${p.postid}"/>').id);return false;">Edit</a>
+												</form>
+										    </li>
+										    <li>
+										    	<form action="Profile" method="POST">
+													<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
+													<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
+													<input type="hidden" name="hidden" value="hdeletePost"/>
+													&nbsp;&nbsp;<input type="submit" class="btn btn-link" value="Delete"/>
+												</form>
+										    </li>
+										  </ul>
+									</div>
+								</c:when>
+							</c:choose>		
+									
 							<b><c:out value="${p.getFullname()}"/></b><br>
 							<font size=1><c:out value="${p.datecreated}"/></font>
 						</div>
@@ -77,13 +97,18 @@
 				                <ul class="list-group">
 				                
 				                	<li class="list-group-item">
-				                		<form action="Profile" class="pull-right" method="POST">
-					            			<a href="#" class="btn btn-link" onclick="enableCommentInput(document.getElementById('c<c:out value="${c.commentid}"/>').id);return false;"><font size=1><span class="glyphicon glyphicon-pencil"></span></font></a>
-						            		<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
-						            		<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
-											<input type="hidden" name="hidden" value="hdeleteComment"/>
-											<button type="submit" class="btn btn-link"><font size=1><span class="glyphicon glyphicon-trash" ></span></font></button>
-										</form>
+				                		<c:choose>
+							    			<c:when test= "${sessionuserid == c.userid}">
+						                		<form action="Profile" class="pull-right" method="POST">
+							            			<a href="#" class="btn btn-link" onclick="enableCommentInput(document.getElementById('c<c:out value="${c.commentid}"/>').id);return false;"><font size=1><span class="glyphicon glyphicon-pencil"></span></font></a>
+								            		<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
+								            		<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
+													<input type="hidden" name="hidden" value="hdeleteComment"/>
+													<button type="submit" class="btn btn-link"><font size=1><span class="glyphicon glyphicon-trash" ></span></font></button>
+												</form>
+											</c:when>
+										</c:choose>	
+												
 					                	<form action="Profile" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
 						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${c.description}"/></textarea>

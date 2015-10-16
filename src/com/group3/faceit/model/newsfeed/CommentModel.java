@@ -6,11 +6,18 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class CommentModel {
+	private int userid;
 	private String fullname;
 	private String datecreated;
 	private String description;
 	private int commentid;
 	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public String getFullname() {
 		return fullname;
 	}

@@ -62,5 +62,28 @@ public class ConnectionsDAO {
 		}
 		return connect;
 	}
+	
+	
+	public int checkIfConnected(int sessionUserId, int userId, Connection conn){
+		int count = 0;	
+		query = "SELECT COUNT(*) FROM connections WHERE ((user_id_one = ? AND user_id_two = ?) OR (user_id_two = ? AND user_id_one = ?)) AND status='ACTIVE'";
+		
+		try {
+			pst = conn.prepareCall(query);
+			pst.setInt(1, sessionUserId);
+			pst.setInt(2, userId);
+			pst.setInt(3, userId);
+			pst.setInt(4, sessionUserId);
+			rs = pst.executeQuery();
+			while (rs.next()){
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}	
+	
 
 }

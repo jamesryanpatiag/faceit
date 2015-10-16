@@ -16,6 +16,7 @@ import java.awt.*;
 
 import com.group3.faceit.model.newsfeed.*;
 import com.group3.faceit.services.newsfeed.*;
+import com.group3.faceit.services.connection.*;
 
 /**
  * Servlet implementation class NewsFeed
@@ -26,6 +27,7 @@ public class NewsFeedServlet extends HttpServlet {
 	private static final JDialog dialog = new JDialog();
 	RequestDispatcher rd = null;
 	NewsfeedServices newsfeedservice;	
+	ConnectionsServices connService;
 	public int sessionUserId; //SESSION USER ID
        
     /**
@@ -34,6 +36,7 @@ public class NewsFeedServlet extends HttpServlet {
     public NewsFeedServlet() {
         super();
         newsfeedservice = new NewsfeedServices();
+        connService = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
 
@@ -48,8 +51,10 @@ public class NewsFeedServlet extends HttpServlet {
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			// TODO Auto-generated method stub
 			request.setAttribute("Title", "News Feed");
-			request.setAttribute("posts", newsfeedservice.getPosts(sessionUserId));	//1 - //MUST BE SESSION.USERID
+			request.setAttribute("posts", newsfeedservice.getPosts(sessionUserId));
+//			request.setAttribute("users", connService.getAllUsers(sessionUserId));
 			request.setAttribute("postdao", newsfeedservice);
+			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.getRequestDispatcher("/NewsFeed.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("/Home.jsp").forward(request, response);

@@ -9,14 +9,31 @@ import com.group3.faceit.common.AbstractDAO;
 import com.group3.faceit.dao.*;
 import com.group3.faceit.model.newsfeed.CommentModel;
 import com.group3.faceit.model.newsfeed.PostModel;
+import com.group3.faceit.model.user.UserModel;
 
 public class ProfilePageServices extends AbstractDAO {
 	
 	private profilesDAO ProfileDAO = null;
+	private UserDAO userDAO = null;
 
 	public ProfilePageServices() {
 		ProfileDAO = new profilesDAO();
+		userDAO = new UserDAO();
 	}
+	
+	public UserModel getUser(int sessionUserId) {
+		UserModel user = new UserModel();
+		try {
+			Connection con = getConnection();
+			user = userDAO.getUserProfileByUserId(sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
 	
 	public void savePost(String description, int sessionUserId) {
 		try {

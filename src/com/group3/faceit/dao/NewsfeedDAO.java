@@ -89,6 +89,7 @@ public class NewsfeedDAO {
 				modelpost.setDescription(rs.getString("description"));
 				modelpost.setFullname(rs.getString("fullname"));
 				modelpost.setPostid(rs.getInt("postid"));
+				modelpost.setUserid(rs.getInt("userid"));
 				posts.add(modelpost);
 			}
 		} catch (SQLException e) {
@@ -217,6 +218,7 @@ public class NewsfeedDAO {
 				modelcomment.setDescription(rs.getString("description"));
 				modelcomment.setFullname(rs.getString("fullname"));
 				modelcomment.setCommentid(rs.getInt("commentid"));
+				modelcomment.setUserid(rs.getInt("userid"));
 				comments.add(modelcomment);
 			}
 		} catch (SQLException e) {

@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import com.group3.faceit.services.profile.ProfilePageServices;
+import com.group3.faceit.services.connection.ConnectionsServices;
 import com.group3.faceit.services.newsfeed.NewsfeedServices;
 
 /**
@@ -24,6 +25,7 @@ public class ProfilePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final JDialog dialog = new JDialog();
 	ProfilePageServices profilePageService;
+	ConnectionsServices connServices;
 	public int sessionUserId; //SESSION USER ID
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,6 +33,7 @@ public class ProfilePageServlet extends HttpServlet {
     public ProfilePageServlet() {
         super();
         profilePageService = new ProfilePageServices();
+        connServices = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
 
@@ -41,14 +44,16 @@ public class ProfilePageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String profileid = request.getParameter("profile");
 		
-		System.out.println(session.getAttribute("userid").toString() + ":session");
 		if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null)
 		{
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			request.setAttribute("Title", "Profile");
 			request.setAttribute("posts", profilePageService.getPosts(Integer.parseInt(profileid)));
+			request.setAttribute("profile", profilePageService.getUser(Integer.parseInt(profileid)));
 			request.setAttribute("profileid", profileid);
+			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.setAttribute("postdao", profilePageService);
+			request.setAttribute("connectiondao", connServices);
 			request.getRequestDispatcher("/Profiles.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("/Home.jsp").forward(request, response);

@@ -87,6 +87,7 @@ public class profilesDAO {
 				modelpost.setDescription(rs.getString("description"));
 				modelpost.setFullname(rs.getString("fullname"));
 				modelpost.setPostid(rs.getInt("postid"));
+				modelpost.setUserid(rs.getInt("userid"));
 				posts.add(modelpost);
 			}
 		} catch (SQLException e) {
@@ -422,4 +423,6 @@ public class profilesDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

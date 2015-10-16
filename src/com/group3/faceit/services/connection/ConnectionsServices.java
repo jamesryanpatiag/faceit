@@ -41,5 +41,18 @@ public class ConnectionsServices extends AbstractDAO {
 		}
 		return connect;
 	}
+	
+	public int checkIfConnected(int sessionUserId, int userId) {
+		int count = 0;
+		try {
+			Connection con = getConnection();
+			count = connDAO.checkIfConnected(sessionUserId, userId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
 
 }

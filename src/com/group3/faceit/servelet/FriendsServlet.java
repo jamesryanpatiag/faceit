@@ -25,6 +25,7 @@ public class FriendsServlet extends HttpServlet {
      */
     public FriendsServlet() {
         super();
+        connServices = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
 
