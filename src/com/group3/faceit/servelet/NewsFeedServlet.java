@@ -54,6 +54,7 @@ public class NewsFeedServlet extends HttpServlet {
 			request.setAttribute("posts", newsfeedservice.getPosts(sessionUserId));
 //			request.setAttribute("users", connService.getAllUsers(sessionUserId));
 			request.setAttribute("postdao", newsfeedservice);
+			request.setAttribute("connectiondao", connService);
 			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.getRequestDispatcher("/NewsFeed.jsp").forward(request, response);
 		}else{

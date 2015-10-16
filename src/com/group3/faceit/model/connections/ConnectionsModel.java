@@ -1,10 +1,24 @@
 package com.group3.faceit.model.connections;
 
 public class ConnectionsModel {
-	private int id;
+	private int userid;
+	private String status;
 	private String fullname;
 	private String address;
+	private int id;
 	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getId() {
 		return id;
 	}

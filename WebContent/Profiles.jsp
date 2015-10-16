@@ -7,18 +7,28 @@
 				<%@ include file="includes/header_menu.jsp" %>
 				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff">
 				
+				
 				<div class="jumbotron">
-				  <h2><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
-				  <h5>
-				  <p>Gender: <c:out value="${profile.gender}"/></p>
-				  <p>Birth date: <c:out value="${profile.birthdate}"/></p>
-				  <p>Address: <c:out value="${profile.address}"/></p>
-				  </h5>
-				  <c:choose>
-				  	<c:when test= "${connectiondao.checkIfConnected(sessionuserid, profileid)} == 0 || sessionuserid != profileid">
-				 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Add friend</a></p>
-				 	</c:when>
-				  </c:choose>	
+						<img class="img-circle pull-left" src="https://s3.amazonaws.com/thisismyjam/i/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="400" height="500" alt="...">
+					  <h2><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
+					  <h5>
+					  <p>Gender: <c:out value="${profile.gender}"/></p>
+					  <p>Birth date: <c:out value="${profile.birthdate}"/></p>
+					  <p>Address: <c:out value="${profile.address}"/></p>
+					  </h5>
+					  
+					  <c:choose>
+					  	<c:when test= "${sessionuserid != profileid}">
+							 	<c:choose>
+								 	<c:when test= "${connectiondao.checkIfConnected(sessionuserid, profileid) != 0 && connectiondao.getConnectionStatus(sessionuserid, profileid) == 'PENDING'}">
+								 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Accept</a></p>
+								 	</c:when>
+								 	<c:otherwise>
+								 		<p><a class="btn btn-primary btn-lg" href="#" role="button">Add friend</a></p>
+								 	</c:otherwise>
+							 	</c:choose>
+						</c:when>
+					  </c:choose>	
 				</div>
 
 
@@ -32,6 +42,12 @@
 				<br><br><br>
 				
 				<div>
+					<c:choose>
+					  	<c:when test= "${posts.isEmpty()}">
+					  		No posts yet...
+					  	</c:when>
+				  	</c:choose>
+				
 					<c:forEach items="${posts}" var="p">
 					<div class="panel panel-primary">
 					
@@ -62,8 +78,14 @@
 								</c:when>
 							</c:choose>		
 									
-							<b><c:out value="${p.getFullname()}"/></b><br>
-							<font size=1><c:out value="${p.datecreated}"/></font>
+							<div class="media-left">
+							    <a href="#">
+							      <img class="img-rounded pull-left" src="https://s3.amazonaws.com/thisismyjam/i/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="45" height="40"  alt="...">
+							    </a>
+							    &nbsp;<b><c:out value="${p.getFullname()}"/></b><br>
+								&nbsp;<font size=1><c:out value="${p.datecreated}"/></font>
+							 </div>
+							 
 						</div>
 						
 				        <div class="panel-body">

@@ -25,7 +25,7 @@ public class ProfilePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final JDialog dialog = new JDialog();
 	ProfilePageServices profilePageService;
-	ConnectionsServices connServices;
+	ConnectionsServices connService;
 	public int sessionUserId; //SESSION USER ID
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,7 +33,7 @@ public class ProfilePageServlet extends HttpServlet {
     public ProfilePageServlet() {
         super();
         profilePageService = new ProfilePageServices();
-        connServices = new ConnectionsServices();
+        connService = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
 
@@ -53,7 +53,7 @@ public class ProfilePageServlet extends HttpServlet {
 			request.setAttribute("profileid", profileid);
 			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.setAttribute("postdao", profilePageService);
-			request.setAttribute("connectiondao", connServices);
+			request.setAttribute("connectiondao", connService);
 			request.getRequestDispatcher("/Profiles.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("/Home.jsp").forward(request, response);

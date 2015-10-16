@@ -17,7 +17,7 @@ import com.group3.faceit.services.connection.ConnectionsServices;
 @WebServlet("/Friends")
 public class FriendsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ConnectionsServices connServices;
+	ConnectionsServices connService;
 	public int sessionUserId;
        
     /**
@@ -25,7 +25,7 @@ public class FriendsServlet extends HttpServlet {
      */
     public FriendsServlet() {
         super();
-        connServices = new ConnectionsServices();
+        connService = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
 
@@ -40,7 +40,9 @@ public class FriendsServlet extends HttpServlet {
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			// TODO Auto-generated method stub
 			request.setAttribute("Title", "Friends");
-			request.setAttribute("friends", connServices.getFriends(sessionUserId));
+			request.setAttribute("connectiondao", connService);
+			request.setAttribute("friends", connService.getFriends(sessionUserId));
+			request.setAttribute("pendingfriends", connService.getPendingConnections(sessionUserId));
 			request.getRequestDispatcher("/Friends.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("/Home.jsp").forward(request, response);

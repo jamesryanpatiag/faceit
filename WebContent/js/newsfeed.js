@@ -9,6 +9,7 @@ window.globalid = 0;
         });
     });
 	
+	
 	document.body.onmousedown = function (e) {
 		 e = e || window.event;
 		 var elementId = (e.target || e.srcElement).id;
@@ -18,7 +19,55 @@ window.globalid = 0;
 			 document.getElementById(globalid).style.outline = "none";
 		 }
 	}
+	
+	$(".post-input").keypress(function(e) {
+	    var textVal = $(this).val();
+	    if(e.keyCode == 13 && e.shiftKey) {
+
+	    }
+	    else if (e.keyCode == 13) {
+	       e.preventDefault(); 
+	       this.form.submit();
+	    }
+	});
+	
+	$(".comment-input").keypress(function(e) {
+	    var textVal = $(this).val();
+	    if(e.keyCode == 13 && e.shiftKey) {
+
+	    }
+	    else if (e.keyCode == 13) {
+	       e.preventDefault(); 
+	       this.form.submit(); 
+	    }
+	});
+	
 });
+
+
+function likePost(){
+	var post = $("textarea[name=post]").val();
+	var postId = $("input[name=postId]").val();
+	var action = $("input[name=hidden]").val();
+	
+	$.ajax({
+      url: 'Newsfeed',
+      type: 'POST',
+      data: {
+    	post: post,
+        postId: postId,
+        hidden: action
+      },
+      dataType: "text",
+      success: function(result){
+    	  $('#likePost').html();
+      },
+      error: function(xhr,status,error){
+          alert("Error Saving Transaction");
+        }
+      });
+}
+
 
 function enableCommentInput(textBoxId){
 	window.globalid = textBoxId;
