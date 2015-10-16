@@ -232,7 +232,7 @@ public class UserDAO {
 	
 	public Boolean validateCurrentPasswordByUsername(UserModel userModel, Connection con) throws SQLException{
 		Boolean isValid = false;
-		System.out.println(userModel.getPassword());
+		System.out.println(userModel.getPassword() + " " + userModel.getUsername());
 		try{
 			strQry = "SELECT SHA1(?) = password FROM users WHERE username = ?";
 			PreparedStatement stmt = con.prepareStatement(strQry);

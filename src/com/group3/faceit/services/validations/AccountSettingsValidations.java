@@ -85,7 +85,7 @@ public class AccountSettingsValidations {
 			}
 			
 			/**Mobile Validations*/
-			if(!user.getPassword().equals("")){
+			if(user.getPassword().equals("")){
 				if(!user.getMobile().matches("^.*(?=.*[0-9])(?=.*[+]).*$")){
 					err.setMobileerr("Password must consists of numbers and (+) plus sign only");
 					failedValidation = true;

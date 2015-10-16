@@ -13,11 +13,11 @@ import com.group3.faceit.model.user.UserModel;
 
 public class ProfilePageServices extends AbstractDAO {
 	
-	private profilesDAO ProfileDAO = null;
+	private profilesDAO profileDAO = null;
 	private UserDAO userDAO = null;
 
 	public ProfilePageServices() {
-		ProfileDAO = new profilesDAO();
+		profileDAO = new profilesDAO();
 		userDAO = new UserDAO();
 	}
 	
@@ -38,7 +38,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void savePost(String description, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.savePost(description, sessionUserId, con);
+			profileDAO.savePost(description, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,7 +49,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void updatePost(int postId, int sessionUserId, String description) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.updatePost(postId, sessionUserId, description, con);
+			profileDAO.updatePost(postId, sessionUserId, description, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -60,7 +60,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void deletePost(int postId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.deletePost(postId, sessionUserId, con);
+			profileDAO.deletePost(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -73,7 +73,7 @@ public class ProfilePageServices extends AbstractDAO {
 		List<PostModel> posts = new ArrayList<PostModel>();
 		try {
 			Connection con = getConnection();
-			posts = ProfileDAO.getOwnPosts(sessionUserId, con);
+			posts = profileDAO.getOwnPosts(sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,7 +86,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void saveLikePost(int postId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.saveLikePost(postId, sessionUserId, con);
+			profileDAO.saveLikePost(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,7 +100,7 @@ public class ProfilePageServices extends AbstractDAO {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = ProfileDAO.countLikePost(postId, con);
+			count = profileDAO.countLikePost(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -113,7 +113,7 @@ public class ProfilePageServices extends AbstractDAO {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = ProfileDAO.checkLikePost(postId, sessionUserId, con);
+			count = profileDAO.checkLikePost(postId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -128,7 +128,7 @@ public class ProfilePageServices extends AbstractDAO {
 		List<CommentModel> comments = new ArrayList<CommentModel>();
 		try {
 			Connection con = getConnection();
-			comments = ProfileDAO.getComments(postId, con);
+			comments = profileDAO.getComments(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -141,7 +141,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void saveComment(int postId, int sessionUserId, String description) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.saveComment(postId, sessionUserId, description, con);
+			profileDAO.saveComment(postId, sessionUserId, description, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -152,7 +152,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void updateComment(int commentId, int sessionUserId, String description) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.updateComment(commentId, sessionUserId, description, con);
+			profileDAO.updateComment(commentId, sessionUserId, description, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -163,7 +163,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void deleteComment(int commentId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.deleteComment(commentId, sessionUserId, con);
+			profileDAO.deleteComment(commentId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -175,7 +175,7 @@ public class ProfilePageServices extends AbstractDAO {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = ProfileDAO.countComments(postId, con);
+			count = profileDAO.countComments(postId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -188,7 +188,7 @@ public class ProfilePageServices extends AbstractDAO {
 	public void saveLikeComment(int commentId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			ProfileDAO.saveLikeComment(commentId, sessionUserId, con);
+			profileDAO.saveLikeComment(commentId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -203,7 +203,7 @@ public class ProfilePageServices extends AbstractDAO {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = ProfileDAO.countLikeComment(commentId, con);
+			count = profileDAO.countLikeComment(commentId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -216,7 +216,7 @@ public class ProfilePageServices extends AbstractDAO {
 		int count = 0;
 		try {
 			Connection con = getConnection();
-			count = ProfileDAO.checkLikeComment(commentId, sessionUserId, con);
+			count = profileDAO.checkLikeComment(commentId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

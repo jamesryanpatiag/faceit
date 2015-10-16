@@ -5,18 +5,11 @@
 			<%@ include file="includes/side_menu.jsp" %>
 			<div class="column col-sm-10 col-xs-11" id="main">
 				<%@ include file="includes/header_menu.jsp" %>
-				<div class="column col-sm-9 col-xs-9" style="padding-top:70px;background:#fff">
-				
-				
-				<div class="jumbotron">
-						<img class="img-circle pull-left" src="https://s3.amazonaws.com/thisismyjam/i/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="400" height="500" alt="...">
-					  <h2><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
-					  <h5>
-					  <p>Gender: <c:out value="${profile.gender}"/></p>
-					  <p>Birth date: <c:out value="${profile.birthdate}"/></p>
-					  <p>Address: <c:out value="${profile.address}"/></p>
-					  </h5>
-					  
+				<div class="column col-sm-9 col-xs-9 " style="background-image:url('images/bg4.jpg');background-size: cover;height:300px;hidden;overflow: hidden;">
+					<div class="jumbotron">
+					<div class="container" style="padding-top:20px">
+						<img class="thumbnail pull-left" src="images/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="200" height="200" style="margin-right:20px">
+					  	<h2 style="color:#fff;padding-top:"><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>			
 					  <c:choose>
 					  	<c:when test= "${sessionuserid != profileid}">
 							 	<c:choose>
@@ -28,19 +21,25 @@
 								 	</c:otherwise>
 							 	</c:choose>
 						</c:when>
-					  </c:choose>	
+					  </c:choose>
+					</div>	
 				</div>
-
-
+				</div>
+				<div class="column col-sm-9 col-xs-9" style="padding-top:30px;background:#fff">
+				
 				<form action="Profile" method="POST">
-					 <textarea name="post" placeholder="What's on your mind?" class="form-control"></textarea>
-					 <input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
-					<input type="hidden" name="hidden" value="hpost"/>
-					<input type="submit" class="btn btn-success pull-right" value="Post"/>
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				    <textarea name="post" placeholder="What's on your mind?" class="form-control"></textarea>
+				  </div>
+				  <div class="panel-footer"> 
+						 <input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
+						<input type="hidden" name="hidden" value="hpost"/>
+						<input type="submit" class="btn btn-success" value="Post"/>			  
+				  </div>
+				</div>
 				</form>
-				
-				<br><br><br>
-				
+
 				<div>
 					<c:choose>
 					  	<c:when test= "${posts.isEmpty()}">
@@ -80,7 +79,7 @@
 									
 							<div class="media-left">
 							    <a href="#">
-							      <img class="img-rounded pull-left" src="https://s3.amazonaws.com/thisismyjam/i/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="45" height="40"  alt="...">
+							      <img class="img-rounded pull-left thumbnail" src="images/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="45" height="40"  alt="..." >
 							    </a>
 							    &nbsp;<b><c:out value="${p.getFullname()}"/></b><br>
 								&nbsp;<font size=1><c:out value="${p.datecreated}"/></font>
