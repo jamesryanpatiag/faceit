@@ -188,6 +188,7 @@ public class UserDAO {
 		   PreparedStatement stmt = con.prepareStatement(strQry);
 		   stmt.setString(1,  birthdate);
 		   System.out.println(stmt);
+		   System.out.println("Birthday " + birthdate);
 		   ResultSet rs = stmt.executeQuery();
 		   
 		   if(rs.next())
@@ -208,7 +209,23 @@ public class UserDAO {
 		
 		Boolean isValid = false;
 		
+		try{
+			strQry = "UPDATE users SET firstname = ?, middlename = ?, lastname = ?, email = ?, birthdate = STR_TO_DATE(?, '%m/%d/%Y'), gender = ?"
+					+ "WHERE userid = ?";
+			
+			PreparedStatement stmt = con.prepareStatement(strQry);
+			stmt.setString(1, updateData.getFirstname());
+			stmt.setString(2, updateData.getMiddlename());
+			stmt.setString(3, updateData.getLastname());
+			stmt.setString(4, updateData.getUsername());
+			stmt.setString(5, updateData.getBirthdate());
+			stmt.setString(6, updateData.getGender());
+			stmt.executeUpdate();
+			isValid = true;
+			
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
 		return isValid;
-		
 	}
 }

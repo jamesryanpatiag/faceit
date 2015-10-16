@@ -125,7 +125,8 @@ public class UserServices extends AbstractDAO {
 		   // TODO Auto-generated catch block
 		   e.printStackTrace();
 		}
-		  
+		System.out.println("String Date " + strDate);
+		System.out.println("Birthdate result " + result);
 		return result;
 	}
 	
@@ -141,7 +142,7 @@ public class UserServices extends AbstractDAO {
 		return isValid;
 	}
 	
-	public Boolean updateUserInformation(UserModel updateData){
+	public Boolean updateUserInformation(UserModel updateData) {
 		Boolean isValid = false;
 		try {
 			Connection con = getConnection();

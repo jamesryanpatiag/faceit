@@ -44,6 +44,8 @@ public class AccountSettingsServlet extends HttpServlet {
 			req.setAttribute("firstname", regModel.getFirstname());
 			req.setAttribute("middlename", regModel.getMiddlename());
 			req.setAttribute("lastname", regModel.getLastname());
+			req.setAttribute("birthdate", regModel.getBirthdate());
+			req.setAttribute("gender", regModel.getGender());
 			req.setAttribute("address", regModel.getAddress());
 			req.setAttribute("mobile", regModel.getMobile());
 			req.setAttribute("username", loginModel.getUsername());
@@ -59,28 +61,40 @@ public class AccountSettingsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		UserModel upData = new UserModel();
-		upData.setFirstname(req.getParameter("firstname").toString());
-		upData.setMiddlename(req.getParameter("middlename").toString());
-		upData.setLastname(req.getParameter("lastname").toString());
-		upData.setAddress(req.getParameter("address").toString());
-		upData.setBirthdate(req.getParameter("birthdate".toString()));
-		upData.setGender(req.getParameter("gender").toString());
-		upData.setMobile(req.getParameter("mobile").toString());
-		upData.setPassword(req.getParameter("password").toString());
+		upData.setFirstname(req.getParameter("txtFirstname").toString());
+		upData.setMiddlename(req.getParameter("txtMiddlename").toString());
+		upData.setLastname(req.getParameter("txtLastname").toString());
+		upData.setBirthdate(req.getParameter("txtBirthdate").toString());
+		upData.setAddress(req.getParameter("txtAddress").toString());
+		upData.setGender(req.getParameter("txtGender").toString());
+		upData.setMobile(req.getParameter("txtMobile").toString());
 		
-		UserErrModel err = RegistrationValidations.validadateRegistration(upData);
+		UserErrModel err = AccountSettingsValidations.validateAccountSettings(upData);
 		
-		if(RegistrationValidations.failedValidation)
+		req.setAttribute("Title", "Account Settings");
+		req.setAttribute("firstname", upData.getFirstname());
+		req.setAttribute("middlename", upData.getMiddlename());
+		req.setAttribute("lastname", upData.getLastname());
+		req.setAttribute("birthdate", upData.getBirthdate());
+		req.setAttribute("gender", upData.getGender());
+		req.setAttribute("address", upData.getAddress());
+		req.setAttribute("mobile", upData.getMobile());
+		
+		if(AccountSettingsValidations.failedValidation)
 		{
-			req.setAttribute("firstname", err.getFnameerr());
-			req.setAttribute("middlename", err.getLnameerr());
-			req.setAttribute("lastname", err.getLnameerr());
-			req.setAttribute("address", err.getAddresserr());
-			req.setAttribute("birthdate", err.getBdateerr());
-			req.setAttribute("gender", err.getGendererr());
-			req.setAttribute("mobile", err.getGendererr());
-			req.setAttribute("password", err.getPassworderr());
+			req.setAttribute("fnameerr", err.getFnameerr());
+			req.setAttribute("mnameerr", err.getMnamerrr());
+			req.setAttribute("lnameerr", err.getLnameerr());
+			req.setAttribute("birthderr", err.getBdateerr());
+			req.setAttribute("adderr", err.getAddresserr());
+			req.setAttribute("generr", err.getGendererr());
+			req.setAttribute("moberr", err.getMobileerr());
+			
+
+			
+			req.getRequestDispatcher("/AccountSettings.jsp").forward(req, resp);
 			
 		}else{
 			UserServices regServ = new UserServices();

@@ -22,31 +22,31 @@
 						  <div class="panel-body">
 						  	
 							  <div class="form-group">
-							    <label for="txtFirstname" class="col-sm-2 control-label">Firstname:</label>
+							    <label for="txtFirstname" class="col-sm-2 control-label">First Name:</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtFirstname" name="txtFirstname"  placeholder="Firstname" value="<c:out value="${firstname}"></c:out>" />
 							      <label class="control-label" for="inputError1" id="error1"><c:out value="${fnameerr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="txtMiddlename" class="col-sm-2 control-label">Middlename</label>
+							    <label for="txtMiddlename" class="col-sm-2 control-label">Middle Name</label>
 							    <div class="col-sm-2 col-md-1"">
 							      <input type="text" class="form-control input-sm" id="txtMiddlename" name="txtMiddlename" placeholder="M" maxlength="1" value="<c:out value="${middlename}"></c:out>" />
-							      <label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
 							    </div>
+							    <label class="control-label" for="inputError1" id="error2"><c:out value="${mnameerr}"></c:out></label>
 							  </div>
 							  <div class="form-group">
-							    <label for="txtLastname" class="col-sm-2 control-label">Lastname</label>
+							    <label for="txtLastname" class="col-sm-2 control-label">Last Name</label>
 							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtLastname" name="txtLastname" placeholder="Lastname" value="<c:out value="${lastname}"></c:out>" />
 							      <label class="control-label" for="inputError1" id="error3"><c:out value="${lnameerr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="txtBirthdate" class="col-sm-2 control-label">Birthdate</label>
+							    <label for="txtBirthdate" class="col-sm-2 control-label">Date of Birth</label>
 							    <div class="col-sm-7">
 							      <input class="form-control input-sm" value="<c:out value="${birthdate}"></c:out>" type="text" readonly="" id="txtBirthdate" name="txtBirthdate" placeholder="Click to choose birthdate.">
-							      <label class="control-label" for="inputError1" id="error4"><c:out value="${birtherr}"></c:out></label>
+							      <label class="control-label" for="inputError1" id="error4"><c:out value="${birthderr}"></c:out></label>
 							    </div>
 							  </div>
 							   <div class="form-group">
