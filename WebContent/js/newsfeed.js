@@ -7,9 +7,6 @@ window.globalid = 0;
         $('textarea').each(function() {
             $(this).height($(this).prop('scrollHeight'));
         });
-        $('input[type=text]').each(function() {
-            $(this).height($(this).prop('scrollHeight'));
-        });
     });
 	
 	document.body.onmousedown = function (e) {
