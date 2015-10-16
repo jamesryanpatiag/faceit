@@ -81,12 +81,9 @@ public class RegistrationValidations {
 			if(user.getBirthdate() != null){
 				if(user.getBirthdate().trim().isEmpty()){
 					err.setBdateerr("Birthdate is required.");
-					failedValidation = true;		
-				}else if(serv.validateBirthdateIfEqualsToCurrentDate(user.getBirthdate())){
-					err.setBdateerr("Birthdate is cannot be equal to the current date.");
 					failedValidation = true;
-				}else if(!serv.validateBirthdateIfEqualsToCurrentDate(user.getBirthdate())){
-					err.setBdateerr("Birthdate is cannot be greater than the current date.");
+				}else if(serv.validateBirthdateIfEqualsOrGreaterToCurrentDate(user.getBirthdate())){
+					err.setBdateerr("Birthdate is should not be equal or greater than the current date.");
 					failedValidation = true;
 				}else if(!serv.validateAgeByBirthdate(user.getBirthdate())){
 					err.setBdateerr("User should not be less than 18 years old.");

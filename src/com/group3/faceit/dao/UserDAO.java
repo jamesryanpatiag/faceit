@@ -180,11 +180,11 @@ public class UserDAO {
 		  return isValid;
 	}
 	
-	public Boolean validateBirthdateIfEqualsToCurrentDate(String birthdate, Connection con) throws SQLException{
+	public Boolean validateBirthdateIfEqualsOrGreaterToCurrentDate(String birthdate, Connection con) throws SQLException{
 		Boolean isValid = false;
 		  
 		  try{
-		   strQry = "SELECT DATEDIFF(NOW(), ?) = 0 `LegalAge`";
+		   strQry = "SELECT DATEDIFF(NOW(), ?) `LegalAge`";
 		   PreparedStatement stmt = con.prepareStatement(strQry);
 		   stmt.setString(1,  birthdate);
 		   System.out.println(stmt);
@@ -192,36 +192,18 @@ public class UserDAO {
 		   
 		   if(rs.next())
 		   {
-			   isValid = rs.getBoolean("LegalAge");
+			   int dateDiff = rs.getInt("LegalAge");
+			   if(dateDiff <= 0){
+				   isValid = true;   
+			   }
 		   }
 		  }catch(SQLException ex){
 		   System.out.println(ex.getMessage());
 		  }
-		  System.out.println("is valid? - " + isValid);
+		  System.out.println("is equal or greater? - " + isValid);
 		  return isValid;
 	}
-	
-	public Boolean validateBirthdateIfGreaterToCurrentDate(String birthdate, Connection con) throws SQLException{
-		Boolean isValid = false;
-		  
-		  try{
-		   strQry = "SELECT DATEDIFF(NOW(), ?) < 0 `LegalAge`";
-		   PreparedStatement stmt = con.prepareStatement(strQry);
-		   stmt.setString(1,  birthdate);
-		   System.out.println(stmt);
-		   ResultSet rs = stmt.executeQuery();
-		   
-		   if(rs.next())
-		   {
-			   isValid = rs.getBoolean("LegalAge");
-		   }
-		  }catch(SQLException ex){
-		   System.out.println(ex.getMessage());
-		  }
-		  System.out.println("is valid? - " + isValid);
-		  return isValid;
-	}
-	
+
 	public Boolean updateUserInformation(UserModel updateData, Connection con) throws SQLException{
 		
 		Boolean isValid = false;

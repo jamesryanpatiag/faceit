@@ -129,23 +129,11 @@ public class UserServices extends AbstractDAO {
 		return result;
 	}
 	
-	public Boolean validateBirthdateIfEqualsToCurrentDate(String birthdate){
+	public Boolean validateBirthdateIfEqualsOrGreaterToCurrentDate(String birthdate){
 		Boolean isValid = false;
 		try{
 			Connection con = getConnection();
-			isValid = userDao.validateBirthdateIfEqualsToCurrentDate(changeStringDateFormat(birthdate), con);
-			con.close();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return isValid;
-	}
-	
-	public Boolean validateBirthdateIfGreaterToCurrentDate(String birthdate){
-		Boolean isValid = false;
-		try{
-			Connection con = getConnection();
-			isValid = userDao.validateBirthdateIfEqualsToCurrentDate(changeStringDateFormat(birthdate), con);
+			isValid = userDao.validateBirthdateIfEqualsOrGreaterToCurrentDate(changeStringDateFormat(birthdate), con);
 			con.close();
 		}catch(SQLException e){
 			e.printStackTrace();
