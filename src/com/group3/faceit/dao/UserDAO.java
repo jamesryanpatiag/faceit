@@ -210,8 +210,8 @@ public class UserDAO {
 		Boolean isValid = false;
 		
 		try{
-			strQry = "UPDATE users_profile SET firstname = ?, middlename = ?, lastname = ?, email = ?, birthdate = STR_TO_DATE(?, '%Y-%m-%d'), gender = ?"
-					+ " WHERE user_id = ?";
+			strQry = "UPDATE users_profile SET firstname = ?, middlename = ?, lastname = ?, email = ?, birthdate = STR_TO_DATE(?, '%Y-%m-%d'), gender = ?,"
+					+ " mobile = ?, address = ? WHERE user_id = ?";
 			
 			PreparedStatement stmt = con.prepareStatement(strQry);
 			stmt.setString(1, updateData.getFirstname());
@@ -220,7 +220,9 @@ public class UserDAO {
 			stmt.setString(4, updateData.getUsername());
 			stmt.setString(5, updateData.getBirthdate());
 			stmt.setString(6, updateData.getGender());
-			stmt.setInt(7, userid);
+			stmt.setString(7, updateData.getMobile());
+			stmt.setString(8, updateData.getAddress());
+			stmt.setInt(9, userid);
 			stmt.executeUpdate();
 			isValid = true;
 			
@@ -232,7 +234,7 @@ public class UserDAO {
 	
 	public Boolean validateCurrentPasswordByUsername(UserModel userModel, Connection con) throws SQLException{
 		Boolean isValid = false;
-		System.out.println(userModel.getPassword() + " " + userModel.getUsername());
+		System.out.println("PASSWORD: " + userModel.getPassword() + " USERNAME: " + userModel.getUsername());
 		try{
 			strQry = "SELECT SHA1(?) = password FROM users WHERE username = ?";
 			PreparedStatement stmt = con.prepareStatement(strQry);

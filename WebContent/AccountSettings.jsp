@@ -79,13 +79,13 @@
 						   <div class="form-group">
 							    <label for="txtAddress" class="col-sm-2 control-label">Address:</label>
 							    <div class="col-sm-7">
-							      <input type="text" class="form-control input-sm" id="txtAddress" name="txtAddress"  placeholder="Address" value="<c:out value="${address}"></c:out>" />
+							    	<textarea id="txtAddress" name="txtAddress" class="form-control input-sm" placeholder="Address"><c:out value="${address}"></c:out></textarea>
 							      <label class="control-label" for="inputError1" id="error6"><c:out value="${adderr}"></c:out></label>
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="txtMobile" class="col-sm-2 control-label">Mobile</label>
-							    <div class="col-sm-7"">
+							    <div class="col-sm-7">
 							      <input type="text" class="form-control input-sm" id="txtMobile" name="txtMobile" placeholder="Mobile" value="<c:out value="${mobile}"></c:out>" />
 							      <label class="control-label" for="inputError1" id="error7"><c:out value="${moberr}"></c:out></label>
 							    </div>
