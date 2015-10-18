@@ -171,5 +171,4 @@
 		}
 	}
 </script>
-<script type="text/javascript" src="js/jquery-ui.js"></script>
 <%@ include file="includes/footer.jsp" %>

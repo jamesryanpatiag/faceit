@@ -1,6 +1,8 @@
 package com.group3.faceit.services.user;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -183,4 +185,17 @@ public class UserServices extends AbstractDAO {
 		}
 		return isValid;
 	}
+	
+	public List<UserModel> getAllUsers(){
+		List<UserModel> users = new ArrayList<UserModel>();
+		try{
+			Connection con = getConnection();
+			users = userDao.getAllUsers(con);
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return users;
+	}
+	
 }

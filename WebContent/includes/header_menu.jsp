@@ -54,4 +54,43 @@
 		background-image: url("images/background2.png");
 		background-size: cover;
 	}
+	.ui-autocomplete {
+	    max-height: 100px;
+	    overflow-y: auto;
+	  	overflow-x: hidden;
+	  	z-index:9999;
+  	}
+  
+	html .ui-autocomplete {
+		height: 100px;
+	}
 </style>
+  <script>
+  function GetAllUsers(){
+	  $.get('SearchServlet',function(result){
+		  var obj = $.parseJSON(result);
+		  var tags = [];
+		  for(i = 0; i < obj.length; i++){
+			  tags.push({
+				 label: obj[i].fullname,
+				 the_link: "Profile?profile=" + obj[i].user_id
+			  });
+		  }
+		  PopulateSearchBar(tags);
+	  });
+  }
+  
+  function PopulateSearchBar(availableTags){
+	$( "#srch-term" ).autocomplete({
+		source: availableTags,
+	    select: function (e, ui){
+	    location.href = ui.item.the_link;
+	    }
+	});	  
+  }
+  
+  $(function() {
+	GetAllUsers();
+  });
+  </script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>

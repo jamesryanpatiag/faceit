@@ -2,6 +2,7 @@ package com.group3.faceit.model.user;
 
 public class UserModel {
 
+	private int user_id;
 	private String firstname;
 	private String middlename;
 	private String lastname;
@@ -79,6 +80,12 @@ public class UserModel {
 	}
 	public void setConfirmpassword(String confirmpassword) {
 		this.confirmpassword = confirmpassword;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	
 }
