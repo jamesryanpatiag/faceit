@@ -76,7 +76,7 @@ public class NewsFeedServlet extends HttpServlet {
 		String comment = request.getParameter("comment");
 		
 		
-		//LOVELY try using SWITCH statement. 
+		
 		if (action.equals("hcomment")){
 			if (comment.equals("")){
 				

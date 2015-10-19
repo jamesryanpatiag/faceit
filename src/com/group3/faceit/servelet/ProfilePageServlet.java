@@ -75,8 +75,7 @@ public class ProfilePageServlet extends HttpServlet {
 		String comment = request.getParameter("comment");
 		String connectionId = request.getParameter("connectionId");
 		
-		
-		//LOVELY try using SWITCH statement. 
+	
 		if (action.equals("addFriend")){
 			connService.saveConnection(sessionUserId, Integer.parseInt(profileId));
 		}

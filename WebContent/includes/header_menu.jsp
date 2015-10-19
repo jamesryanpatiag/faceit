@@ -17,7 +17,8 @@
 
 			    </datalist>
           <div class="input-group-btn">
-            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          	<span class="btn btn-default"><i class="glyphicon glyphicon-search"></i></span>
+            
           </div>
         </div>
     </form>
