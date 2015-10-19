@@ -6,7 +6,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand logo">FaceIT</a>
+        <a href="Newsfeed" class="navbar-brand logo">FaceIT</a>
     	</div>
     	<nav class="collapse navbar-collapse" role="navigation">
     	
