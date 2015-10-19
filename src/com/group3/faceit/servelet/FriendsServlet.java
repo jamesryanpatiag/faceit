@@ -53,7 +53,26 @@ public class FriendsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getAttribute("hdnOperation"));
+		HttpSession session = request.getSession();
+		sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
+		
+		String action = request.getParameter("action");
+		String profileId = request.getParameter("profileId");
+		String connectionId = request.getParameter("connectionId");
+		
+		if (action.equals("addFriend")){
+			connService.saveConnection(sessionUserId, Integer.parseInt(profileId));
+		}
+		else if (action.equals("confirmFriend")){
+			connService.acceptConnection(Integer.parseInt(connectionId), sessionUserId);
+		}
+		else if (action.equals("unFriend")){
+			connService.deleteConnection(Integer.parseInt(connectionId), sessionUserId);
+		}
+		
+		response.sendRedirect("Friends");
+		
+		
 	}
 
 }

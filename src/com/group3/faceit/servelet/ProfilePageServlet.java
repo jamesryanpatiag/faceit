@@ -73,10 +73,20 @@ public class ProfilePageServlet extends HttpServlet {
 		String commentid = request.getParameter("commentId");
 		String post = request.getParameter("post");
 		String comment = request.getParameter("comment");
+		String connectionId = request.getParameter("connectionId");
 		
 		
 		//LOVELY try using SWITCH statement. 
-		if (action.equals("hcomment")){
+		if (action.equals("addFriend")){
+			connService.saveConnection(sessionUserId, Integer.parseInt(profileid));
+		}
+		else if (action.equals("confirmFriend")){
+			connService.acceptConnection(Integer.parseInt(connectionId), sessionUserId);
+		}
+		else if (action.equals("unFriend")){
+			connService.deleteConnection(Integer.parseInt(connectionId), sessionUserId);
+		}
+		else if (action.equals("hcomment")){
 			if (comment.equals("")){
 				
 			} else{

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.group3.faceit.common.StringRefractor;
 import com.group3.faceit.common.StringRefractor.*;
 
-import com.google.gson.*;
+//import com.google.gson.*;
 
 /**
  * Servlet implementation class SearchServlet

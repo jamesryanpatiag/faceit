@@ -14,11 +14,14 @@
 							<c:forEach items="${pendingfriends}" var="p">
 							<div class="row">
 								  <div class="col-xs-6 col-md-3">
-								  	
 								    <div class="thumbnail">
 								    	<b><a href="Profile?profile=<c:out value="${p.userid}"/>"><c:out value="${p.fullname}"/></a></b><br>
 								  		<font size=1 color="grey"><c:out value="${p.address}"/></font><br>
-								  		<a class="btn btn-primary" href="Friends?user=<c:out value="${sessionuserid}"/>&profile=<c:out value="${p.userid}"/>&action=accept">Confirm</a>
+								  		<form method="POST" action="Friends">
+									 		<p><input class="btn btn-primary" id="btnSubmit" name="btnSubmit" value="Confirm" type="submit"  /></p>
+									 		<input type="hidden" value="confirmFriend" name="action" />
+									 		<input type="hidden" value="<c:out value="${p.id}"/>" name="connectionId" />
+									  	</form>
 								    </div>
 								  </div>
 							</div>
@@ -39,7 +42,11 @@
 								    <div class="thumbnail">
 								    	<b><a href="Profile?profile=<c:out value="${f.userid}"/>"><c:out value="${f.fullname}"/></a></b><br>
 								  		<font size=1 color="grey"><c:out value="${f.address}"/></font><br>
-								  		<a class="btn btn-primary" href="Friends?user=<c:out value="${sessionuserid}"/>&profile=<c:out value="${f.userid}"/>&action=unfried">Unfriend</a>
+								  		<form method="POST" action="Friends">
+									 		<p><input class="btn btn-primary" id="btnSubmit" name="btnSubmit" value="Unfriend" type="submit"  /></p>
+									 		<input type="hidden" value="unFriend" name="action" />
+									 		<input type="hidden" value="<c:out value="${f.id}"/>" name="connectionId" />
+									  	</form>
 								    </div>
 								  </div>
 							</div>

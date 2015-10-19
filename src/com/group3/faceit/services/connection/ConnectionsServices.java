@@ -93,10 +93,21 @@ public class ConnectionsServices extends AbstractDAO {
 		}
 	}
 	
-	public void acceptConnection(int sessionUserId, int userId) {
+	public void acceptConnection(int connectionId, int sessionUserId) {
 		try {
 			Connection con = getConnection();
-			connDAO.acceptConnection(sessionUserId, userId, con);
+			connDAO.acceptConnection(connectionId, sessionUserId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteConnection(int connectionId, int sessionUserId) {
+		try {
+			Connection con = getConnection();
+			connDAO.deleteConnection(connectionId, sessionUserId, con);
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -116,6 +127,19 @@ public class ConnectionsServices extends AbstractDAO {
 			e.printStackTrace();
 		}
 		return status;
+	}
+	
+	public int getConnectionId(int sessionUserId, int userId) {
+		int id = 0;	
+		try {
+			Connection con = getConnection();
+			id = connDAO.getConnectionId(sessionUserId, userId, con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
 	}
 	
 

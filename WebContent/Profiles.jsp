@@ -10,22 +10,35 @@
 					<div class="container" style="padding-top:20px">
 						<img class="thumbnail pull-left" src="images/avtr_c1105b9ff651139650aa3914ee0a14a2_original.jpg" width="200" height="200" style="margin-right:20px">
 					  	<h2 style="color:#fff;padding-top:"><c:out value="${profile.firstname}"/> <c:out value="${profile.middlename}"/> <c:out value="${profile.lastname}"/></h2>
-					  	<form method="POST" action="Friends">
-					  		<c:choose>
-						  	<c:when test= "${sessionuserid != profileid}">
-								 	<c:choose>
-									 	<c:when test= "${connectiondao.checkIfConnected(sessionuserid, profileid) != 0 && connectiondao.getConnectionStatus(sessionuserid, profileid) == 'PENDING'}">
-									 		<p><input class="btn btn-primary btn-lg" id="btnSubmit" name="btnSubmit" value="Accept" type="submit" /></p>
-									 		<input type="hidden" value="acceptFriend" id="hdnOperation" name="hdnOperation" />
-									 	</c:when>
-									 	<c:otherwise>
-									 		<p><input class="btn btn-primary btn-lg" id="btnSubmit" name="btnSubmit" value="Add Friend" type="submit"  /></p>
-									 		<input type="hidden" value="addFriend" id="hdnOperation" name="hdnOperation" />
-									 	</c:otherwise>
-								 	</c:choose>
+					  	<c:choose>
+							<c:when test= "${profileid != sessionuserid && connectiondao.checkIfConnected(sessionuserid, profileid) == 0}">
+							  	<form method="POST" action="Profile">
+							 		<p><input class="btn btn-primary btn-lg" id="btnSubmit" name="btnSubmit" value="Add Friend" type="submit"  /></p>
+							 		<input type="hidden" value="addFriend" id="hdnOperation" name="hidden" />
+							 		<input type="hidden" value="<c:out value="${profileid}"/>" name="profile" />
+							  	</form>
 							</c:when>
-						  </c:choose>	
-					  	</form>
+							<c:when test= "${profileid != sessionuserid && connectiondao.getConnectionStatus(sessionuserid, profileid) == 'PENDING'}">
+							  	<form method="POST" action="Profile">
+							 		<p><input class="btn btn-primary btn-lg" id="btnSubmit" name="btnSubmit" value="Confirm" type="submit"  /></p>
+							 		<input type="hidden" value="confirmFriend" id="hdnOperation" name="hidden" />
+							 		<input type="hidden" value="<c:out value="${profileid}"/>" name="profile" />
+							 		<input type="hidden" value="<c:out value="${connectiondao.getConnectionId(sessionuserid, profileid)}"/>" name="connectionId" />
+							  	</form>
+							</c:when>
+							<c:when test= "${profileid != sessionuserid && connectiondao.getConnectionStatus(sessionuserid, profileid) == 'ACTIVE'}">
+							  	<form method="POST" action="Profile">
+							 		<p><input class="btn btn-primary btn-lg" id="btnSubmit" name="btnSubmit" value="Unfriend" type="submit"  /></p>
+							 		<input type="hidden" value="unFriend" id="hdnOperation" name="hidden" />
+							 		<input type="hidden" value="<c:out value="${profileid}"/>" name="profile" />
+							 		<input type="hidden" value="<c:out value="${connectiondao.getConnectionId(sessionuserid, profileid)}"/>" name="connectionId" />
+							  	</form>
+							</c:when>
+							<c:otherwise>
+							(Friend request sent)
+							</c:otherwise>
+						</c:choose>
+					  	
 					</div>	
 				</div>
 				</div>

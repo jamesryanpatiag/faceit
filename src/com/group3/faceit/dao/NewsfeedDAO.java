@@ -239,10 +239,7 @@ public class NewsfeedDAO {
 				pst.setString(4, "ACTIVE");
 				pst.executeUpdate();
 				
-				rs = pst.getGeneratedKeys();
-				int newid = 0;
-				if (rs.next())
-					newid = rs.getInt(1);
+				int newid = Statement.RETURN_GENERATED_KEYS;
 				
 				createHistory("{ message:'commented', user_id:" + sessionUserId + ", reference_id:" + newid + " }", sessionUserId, conn);
 				

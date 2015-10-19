@@ -94,7 +94,7 @@ public class ConnectionsDAO {
 	
 	public int checkIfConnected(int sessionUserId, int userId, Connection conn){
 		int count = 0;	
-		query = "SELECT COUNT(*) FROM connections WHERE ((user_id_one = ? AND user_id_two = ?) OR (user_id_two = ? AND user_id_one = ?)) AND status != 'INACTIVE'";
+		query = "SELECT COUNT(*) FROM connections WHERE ((user_id_one = ? AND user_id_two = ?) OR (user_id_one = ? AND user_id_two = ?)) AND status != 'INACTIVE'";
 		
 		try {
 			pst = conn.prepareCall(query);
@@ -115,12 +115,12 @@ public class ConnectionsDAO {
 	
 	public String getConnectionStatus(int sessionUserId, int userId, Connection conn){
 		String status = "";	
-		query = "SELECT status FROM connections WHERE user_id_one = ? AND user_id_two = ?";
+		query = "SELECT status FROM connections WHERE (user_id_two = ? AND user_id_one = ?) ORDER BY datecreated DESC LIMIT 1";
 		
 		try {
 			pst = conn.prepareCall(query);;
-			pst.setInt(1, userId);
-			pst.setInt(2, sessionUserId);
+			pst.setInt(1, sessionUserId);
+			pst.setInt(2, userId);
 			rs = pst.executeQuery();
 			while (rs.next()){
 				status = rs.getString(1);
@@ -129,8 +129,27 @@ public class ConnectionsDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(status);
 		return status;
+	}
+	
+	
+	public int getConnectionId(int sessionUserId, int userId, Connection conn){
+		int id = 0;	
+		query = "SELECT id FROM connections WHERE (user_id_two = ? AND user_id_one = ?) ORDER BY datecreated DESC LIMIT 1";
+		
+		try {
+			pst = conn.prepareCall(query);;
+			pst.setInt(1, sessionUserId);
+			pst.setInt(2, userId);
+			rs = pst.executeQuery();
+			while (rs.next()){
+				id = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
 	}
 	
 	
@@ -154,16 +173,6 @@ public class ConnectionsDAO {
 	
 	
 	public void saveConnection(int sessionUserId, int userId, Connection conn){
-		
-		if (checkIfConnected(sessionUserId, userId, conn)!=0){
-			if (getConnectionStatus(sessionUserId, userId, conn)=="ACTIVE"){
-				deleteConnection(sessionUserId, userId, conn);
-			}
-			else{
-				acceptConnection(sessionUserId, userId, conn);
-			}
-		}
-		else{
 			query = "INSERT INTO connections (user_id_one, user_id_two, status) VALUES (?,?,?)";
 			
 			try {
@@ -179,7 +188,6 @@ public class ConnectionsDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
 	}	
 	
 	
@@ -198,7 +206,7 @@ public class ConnectionsDAO {
 		}
 	}
 	
-	private void deleteConnection(int connectionId, int sessionUserId, Connection conn){
+	public void deleteConnection(int connectionId, int sessionUserId, Connection conn){
 		query = "UPDATE connections SET status = 'INACTIVE' WHERE id = ?";
 		
 		try {
