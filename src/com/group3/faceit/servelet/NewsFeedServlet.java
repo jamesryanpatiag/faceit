@@ -26,7 +26,7 @@ public class NewsFeedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final JDialog dialog = new JDialog();
 	RequestDispatcher rd = null;
-	NewsfeedServices newsfeedservice;	
+	NewsfeedServices newsfeedService;	
 	ConnectionsServices connService;
 	public int sessionUserId; //SESSION USER ID
        
@@ -35,7 +35,7 @@ public class NewsFeedServlet extends HttpServlet {
      */
     public NewsFeedServlet() {
         super();
-        newsfeedservice = new NewsfeedServices();
+        newsfeedService = new NewsfeedServices();
         connService = new ConnectionsServices();
         // TODO Auto-generated constructor stub
     }
@@ -51,9 +51,8 @@ public class NewsFeedServlet extends HttpServlet {
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			// TODO Auto-generated method stub
 			request.setAttribute("Title", "News Feed");
-			request.setAttribute("posts", newsfeedservice.getPosts(sessionUserId));
-//			request.setAttribute("users", connService.getAllUsers(sessionUserId));
-			request.setAttribute("postdao", newsfeedservice);
+			request.setAttribute("posts", newsfeedService.getPosts(sessionUserId));
+			request.setAttribute("postdao", newsfeedService);
 			request.setAttribute("connectiondao", connService);
 			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.getRequestDispatcher("/NewsFeed.jsp").forward(request, response);
@@ -71,8 +70,8 @@ public class NewsFeedServlet extends HttpServlet {
 		sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 		
 		String action = request.getParameter("hidden");
-		String postid = request.getParameter("postId");
-		String commentid = request.getParameter("commentId");
+		String postId = request.getParameter("postId");
+		String commentId = request.getParameter("commentId");
 		String post = request.getParameter("post");
 		String comment = request.getParameter("comment");
 		
@@ -82,7 +81,7 @@ public class NewsFeedServlet extends HttpServlet {
 			if (comment.equals("")){
 				
 			} else{
-				newsfeedservice.saveComment(Integer.parseInt(postid), sessionUserId, comment);
+				newsfeedService.saveComment(Integer.parseInt(postId), sessionUserId, comment);
 			}			
 		}
 		else if (action.equals("hupdateComment")){
@@ -90,28 +89,28 @@ public class NewsFeedServlet extends HttpServlet {
 			if (comment.equals("")){
 				
 			} else{
-				newsfeedservice.updateComment(Integer.parseInt(commentid), sessionUserId, comment);
+				newsfeedService.updateComment(Integer.parseInt(commentId), sessionUserId, comment);
 			}			
 		}
 		else if (action.equals("hupdatePost")){
 			if (post.equals("")){
 				
 			} else{
-				newsfeedservice.updatePost(Integer.parseInt(postid), sessionUserId, post);
+				newsfeedService.updatePost(Integer.parseInt(postId), sessionUserId, post);
 			}			
 		}
 		else if (action.equals("hlikePost")){
-			newsfeedservice.saveLikePost(Integer.parseInt(postid), sessionUserId);
+			newsfeedService.saveLikePost(Integer.parseInt(postId), sessionUserId);
 		}
 		else if (action.equals("hlikeComment")){
-			newsfeedservice.saveLikeComment(Integer.parseInt(commentid), sessionUserId);
+			newsfeedService.saveLikeComment(Integer.parseInt(commentId), sessionUserId);
 		}
 		else if (action.equals("hdeletePost")){
 			dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete post?");
 			switch(confirm){
 				case 0:
-					newsfeedservice.deletePost(Integer.parseInt(postid), sessionUserId);
+					newsfeedService.deletePost(Integer.parseInt(postId), sessionUserId);
 					break;
 			}
 		}
@@ -120,7 +119,7 @@ public class NewsFeedServlet extends HttpServlet {
 			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete comment?");
 			switch(confirm){
 				case 0:
-					newsfeedservice.deleteComment(Integer.parseInt(commentid), sessionUserId);
+					newsfeedService.deleteComment(Integer.parseInt(commentId), sessionUserId);
 					break;
 			}
 		}
@@ -128,7 +127,7 @@ public class NewsFeedServlet extends HttpServlet {
 			if (post.equals("")){
 				
 			} else{
-				newsfeedservice.savePost(post, sessionUserId);
+				newsfeedService.savePost(post, sessionUserId);
 			}
 		}
 		response.sendRedirect("Newsfeed");

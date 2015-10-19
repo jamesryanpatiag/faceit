@@ -41,15 +41,15 @@ public class ProfilePageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String profileid = request.getParameter("profile");
+		String profileId = request.getParameter("profile");
 		
 		if(session.getAttribute("userid").toString() != "" && session.getAttribute("userid") != null)
 		{
 			sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
 			request.setAttribute("Title", "Profile");
-			request.setAttribute("posts", profilePageService.getPosts(Integer.parseInt(profileid)));
-			request.setAttribute("profile", profilePageService.getUser(Integer.parseInt(profileid)));
-			request.setAttribute("profileid", profileid);
+			request.setAttribute("posts", profilePageService.getPosts(Integer.parseInt(profileId)));
+			request.setAttribute("profile", profilePageService.getUser(Integer.parseInt(profileId)));
+			request.setAttribute("profileid", profileId);
 			request.setAttribute("sessionuserid", session.getAttribute("userid"));
 			request.setAttribute("postdao", profilePageService);
 			request.setAttribute("connectiondao", connService);
@@ -66,11 +66,11 @@ public class ProfilePageServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		sessionUserId = Integer.parseInt(session.getAttribute("userid").toString());
-		String profileid = request.getParameter("profile");
+		String profileId = request.getParameter("profile");
 		
 		String action = request.getParameter("hidden");
-		String postid = request.getParameter("postId");
-		String commentid = request.getParameter("commentId");
+		String postId = request.getParameter("postId");
+		String commentId = request.getParameter("commentId");
 		String post = request.getParameter("post");
 		String comment = request.getParameter("comment");
 		String connectionId = request.getParameter("connectionId");
@@ -78,7 +78,7 @@ public class ProfilePageServlet extends HttpServlet {
 		
 		//LOVELY try using SWITCH statement. 
 		if (action.equals("addFriend")){
-			connService.saveConnection(sessionUserId, Integer.parseInt(profileid));
+			connService.saveConnection(sessionUserId, Integer.parseInt(profileId));
 		}
 		else if (action.equals("confirmFriend")){
 			connService.acceptConnection(Integer.parseInt(connectionId), sessionUserId);
@@ -90,7 +90,7 @@ public class ProfilePageServlet extends HttpServlet {
 			if (comment.equals("")){
 				
 			} else{
-				profilePageService.saveComment(Integer.parseInt(postid), sessionUserId, comment);
+				profilePageService.saveComment(Integer.parseInt(postId), sessionUserId, comment);
 			}			
 		}
 		else if (action.equals("hupdateComment")){
@@ -98,28 +98,28 @@ public class ProfilePageServlet extends HttpServlet {
 			if (comment.equals("")){
 				
 			} else{
-				profilePageService.updateComment(Integer.parseInt(commentid), sessionUserId, comment);
+				profilePageService.updateComment(Integer.parseInt(commentId), sessionUserId, comment);
 			}			
 		}
 		else if (action.equals("hupdatePost")){
 			if (post.equals("")){
 				
 			} else{
-				profilePageService.updatePost(Integer.parseInt(postid), sessionUserId, post);
+				profilePageService.updatePost(Integer.parseInt(postId), sessionUserId, post);
 			}			
 		}
 		else if (action.equals("hlikePost")){
-			profilePageService.saveLikePost(Integer.parseInt(postid), sessionUserId);
+			profilePageService.saveLikePost(Integer.parseInt(postId), sessionUserId);
 		}
 		else if (action.equals("hlikeComment")){
-			profilePageService.saveLikeComment(Integer.parseInt(commentid), sessionUserId);
+			profilePageService.saveLikeComment(Integer.parseInt(commentId), sessionUserId);
 		}
 		else if (action.equals("hdeletePost")){
 			dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete post?");
 			switch(confirm){
 				case 0:
-					profilePageService.deletePost(Integer.parseInt(postid), sessionUserId);
+					profilePageService.deletePost(Integer.parseInt(postId), sessionUserId);
 					break;
 			}
 		}
@@ -128,7 +128,7 @@ public class ProfilePageServlet extends HttpServlet {
 			int confirm = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to delete comment?");
 			switch(confirm){
 				case 0:
-					profilePageService.deleteComment(Integer.parseInt(commentid), sessionUserId);
+					profilePageService.deleteComment(Integer.parseInt(commentId), sessionUserId);
 					break;
 			}
 		}
@@ -139,7 +139,7 @@ public class ProfilePageServlet extends HttpServlet {
 				profilePageService.savePost(post, sessionUserId);
 			}
 		}
-		response.sendRedirect("Profile?profile="+profileid);
+		response.sendRedirect("Profile?profile="+profileId);
 	}
 
 }
