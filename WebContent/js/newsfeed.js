@@ -45,29 +45,6 @@ window.globalid = 0;
 });
 
 
-function likePost(){
-	var post = $("textarea[name=post]").val();
-	var postId = $("input[name=postId]").val();
-	var action = $("input[name=hidden]").val();
-	
-	$.ajax({
-      url: 'Newsfeed',
-      type: 'POST',
-      data: {
-    	post: post,
-        postId: postId,
-        hidden: action
-      },
-      dataType: "text",
-      success: function(result){
-    	  $('#likePost').html();
-      },
-      error: function(xhr,status,error){
-          alert("Error Saving Transaction");
-        }
-      });
-}
-
 
 function enableCommentInput(textBoxId){
 	window.globalid = textBoxId;

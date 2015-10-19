@@ -216,6 +216,7 @@ public class profilesDAO {
 				modelcomment.setDescription(rs.getString("description"));
 				modelcomment.setFullname(rs.getString("fullname"));
 				modelcomment.setCommentid(rs.getInt("commentid"));
+				modelcomment.setUserid(rs.getInt("userid"));
 				comments.add(modelcomment);
 			}
 		} catch (SQLException e) {

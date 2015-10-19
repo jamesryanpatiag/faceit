@@ -47,7 +47,7 @@
 				<form action="Profile" method="POST">
 				<div class="panel panel-default">
 				  <div class="panel-body">
-				    <textarea name="post" placeholder="What's on your mind?" class="form-control"></textarea>
+				    <textarea name="post" placeholder="What's on your mind?" class="form-control post-input"></textarea>
 				  </div>
 				  <div class="panel-footer"> 
 						 <input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
@@ -106,7 +106,7 @@
 						
 				        <div class="panel-body">
 							<form action="Profile" method="POST">
-			                	<textarea name="post" id="p<c:out value="${p.postid}"/>" class="post-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${p.description}"/></textarea>
+			                	<textarea name="post" id="p<c:out value="${p.postid}"/>" class="post-input" readonly><c:out value="${p.description}"/></textarea>
 			                	<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
 			                	<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 								<input type="hidden" name="hidden" value="hupdatePost"/>
@@ -149,7 +149,7 @@
 												
 					                	<form action="Profile" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
-						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${c.description}"/></textarea>
+						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" readonly><c:out value="${c.description}"/></textarea>
 						                	<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 						                	<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
 											<input type="hidden" name="hidden" value="hupdateComment"/>
@@ -178,7 +178,7 @@
 				        
 				        <div class="panel-footer">
 							<form action="Profile" method="POST">
-								<input type="text" name="comment" class="form-control" placeholder="Add comment"/>
+								<input type="text" name="comment" class="form-control comment-input" placeholder="Add comment"/>
 								<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 								<input type="hidden" name="profile" value="<c:out value="${profileid}"/>"/>
 								<input type="hidden" name="hidden" value="hcomment"/>

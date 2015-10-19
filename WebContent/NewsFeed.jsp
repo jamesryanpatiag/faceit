@@ -110,7 +110,7 @@
 										
 					                	<form action="Newsfeed" method="POST">	
 					                		<b><c:out value="${c.getFullname()}"/></b>				                		
-						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" onkeydown="if(event.keyCode == 13) submit()" readonly><c:out value="${c.description}"/></textarea>
+						                	<textarea name="comment" id="c<c:out value="${c.commentid}"/>" class="comment-input" readonly><c:out value="${c.description}"/></textarea>
 						                	<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
 											<input type="hidden" name="hidden" value="hupdateComment"/>
 											<input type="submit" class="btn btn-success" style="display:none"/>
@@ -137,7 +137,7 @@
 				        
 				        <div class="panel-footer">
 							<form action="Newsfeed" method="POST">
-								<input type="text" name="comment" class="form-control" placeholder="Add comment"/>
+								<input type="text" name="comment" class="form-control comment-input" placeholder="Add comment"/>
 								<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
 								<input type="hidden" name="hidden" value="hcomment"/>
 								<input type="submit" class="btn btn-success" style="display:none"/>
