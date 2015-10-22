@@ -34,8 +34,11 @@
 							 		<input type="hidden" value="<c:out value="${connectiondao.getConnectionId(sessionuserid, profileid)}"/>" name="connectionId" />
 							  	</form>
 							</c:when>
+							<c:when test= "${profileid == sessionuserid}">
+							  	
+							</c:when>
 							<c:otherwise>
-							(Friend request sent)
+								(Friend request sent)
 							</c:otherwise>
 						</c:choose>
 					  	

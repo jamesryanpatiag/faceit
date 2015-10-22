@@ -75,21 +75,19 @@
 								<input type="submit" id="p<c:out value="${p.postid}"/>btn" class="" style="display:none"/>
 			                </form>
 			                <br>	 	
-		                	<form action="Newsfeed" method="POST" id="likePost">
-								<input type="hidden" name="postId" value="<c:out value="${p.postid}"/>"/>
-								<input type="hidden" name="hidden" value="hlikePost"/>
+		                	
 								<c:choose>
 								    <c:when test= "${postdao.checkLikePost(p.postid, userid) == 0}">
 								        <c:set var="likestr" value="Like" />
 								    </c:when>
 								    <c:otherwise>
-								        <c:set var="likestr" value="Unike" />
+								        <c:set var="likestr" value="Unlike" />
 								    </c:otherwise>
 								</c:choose>
-								<input type="submit" class="btn btn-primary" value="<c:out value="${likestr}"/>"/>
+								<button id="likePost<c:out value="${p.postid}"/>" type="submit" class="btn btn-primary" value="" onclick="return likePost(<c:out value="${p.postid}"/>, this)"><c:out value="${likestr}"/></button>
 								<a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikePost(p.postid)}"/></a>
 								<a href="#" class="glyphicon glyphicon-comment"><c:out value="${postdao.countComments(p.postid)}"/></a>
-							</form>
+
 				        </div>
 				        
 				        <c:forEach items="${postdao.getComments(p.postid)}" var="c">
@@ -115,9 +113,7 @@
 											<input type="hidden" name="hidden" value="hupdateComment"/>
 											<input type="submit" class="btn btn-success" style="display:none"/>
 						                </form>	
-					                	<form action="Newsfeed" method="POST">
-											<input type="hidden" name="commentId" value="<c:out value="${c.commentid}"/>"/>
-											<input type="hidden" name="hidden" value="hlikeComment"/>
+
 											<c:choose>
 											    <c:when test= "${postdao.checkLikeComment(c.commentid, userid) == 0}">
 											        <c:set var="likestr" value="Like" />
@@ -126,10 +122,10 @@
 											        <c:set var="likestr" value="Unike" />
 											    </c:otherwise>
 											</c:choose>
-											<input type="submit" class="btn btn-link" value="<c:out value="${likestr}"/>"/>&nbsp;
+											<button id="likeComment<c:out value="${c.commentid}"/>" type="submit" class="btn btn-link" value="" onclick="return likeComment(<c:out value="${c.commentid}"/>, this)"><c:out value="${likestr}"/></button>&nbsp;
 											<a href="#" class="glyphicon glyphicon-thumbs-up"><c:out value="${postdao.countLikeComment(c.commentid)}"/></a>&nbsp;&nbsp;
 											<font size=1><c:out value="${c.datecreated}"/></font>
-										</form>	
+
 									</li>
 									
 								</ul>  

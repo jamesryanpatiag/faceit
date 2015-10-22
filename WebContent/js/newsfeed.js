@@ -65,3 +65,61 @@ function enablePostInput(textBoxId){
 	element[0].setSelectionRange(strlen, strlen);
 	element[0].style.outline = "1px solid rgba(81, 203, 238, 1)";
 }
+
+function likePost(postId, button){
+	var buttonId = button.id;
+	var buttonText = document.getElementById(buttonId).innerHTML;
+
+	$.ajax({
+	      url: 'Newsfeed',
+	      type: 'POST',
+	      data: {
+	        postId: postId,
+	        hidden: "hlikePost"
+	      },
+	      dataType: "text",
+	      success: function(){
+	    	  var newButtonText = "";
+	    	  if (buttonText == "Like"){
+	    		  newButtonText = "Unlike";
+	    	  } else {
+	    		  newButtonText = "Like";
+	    	  }
+	    	  
+	    	  document.getElementById(buttonId).innerText = newButtonText;
+	    	  
+	      },
+	      error: function(xhr,status,error){
+	        alert("Error Saving Transaction");
+	      }
+	    });
+}
+
+function likeComment(commentId, button){
+	var buttonId = button.id;
+	var buttonText = document.getElementById(buttonId).innerHTML;
+
+	$.ajax({
+	      url: 'Newsfeed',
+	      type: 'POST',
+	      data: {
+	    	commentId: commentId,
+	        hidden: "hlikeComment"
+	      },
+	      dataType: "text",
+	      success: function(){
+	    	  var newButtonText = "";
+	    	  if (buttonText == "Like"){
+	    		  newButtonText = "Unlike";
+	    	  } else {
+	    		  newButtonText = "Like";
+	    	  }
+	    	  
+	    	  document.getElementById(buttonId).innerText = newButtonText;
+	    	  
+	      },
+	      error: function(xhr,status,error){
+	        alert("Error Saving Transaction");
+	      }
+	    });
+}
